@@ -113,6 +113,8 @@ function LandingPage() {
     settings.whatsapp,
     'Ola, Josy Leao Solare! Quero viver uma experiencia premium de bronzeamento e autoestima.',
   );
+  const procedureModels = (services.length >= 6 ? services : fallbackServices).slice(0, 6);
+  const galleryModels = (gallery.length >= 6 ? gallery : fallbackGallery).slice(0, 6);
 
   async function handleAppointment(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -147,158 +149,171 @@ function LandingPage() {
   }
 
   return (
-    <div className="site-shell">
-      <header className="topbar">
-        <a href="/" className="brand-name" aria-label={settings.business_name}>
-          {settings.business_name}
+    <div className="solare-page">
+      <div className="solare-particles" aria-hidden="true" />
+      <header className="lux-nav">
+        <a href="/" className="lux-nav-logo" aria-label={settings.business_name}>
+          Josy Leao Solare
         </a>
-        <nav className="desktop-nav">
-          <a href="#catalogo">Catalogo</a>
-          <a href="#beneficios">Bronze</a>
-          <a href="#galeria">Galeria</a>
-          <a href="#agendamento">WhatsApp</a>
+        <nav className="lux-nav-links">
+          <a href="#story">Historia</a>
+          <a href="#procedimentos">Procedimentos</a>
+          <a href="#gallery">Galeria</a>
+          <a href="#agendamento">Agenda</a>
+          <a href="/admin/login">Admin</a>
         </nav>
-        <a className="insta-link" href={settings.instagram} target="_blank" rel="noreferrer" aria-label="Instagram">
-          <Camera size={20} />
-        </a>
-        <button className="menu-button" type="button" aria-label="Abrir menu" onClick={() => setIsMenuOpen((value) => !value)}>
+        <a className="lux-nav-cta" href="#agendamento">Agendar</a>
+        <button className="lux-menu-button" type="button" aria-label="Abrir menu" onClick={() => setIsMenuOpen((value) => !value)}>
           {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
         </button>
         {isMenuOpen && (
-          <div className="mobile-menu">
-            {['catalogo', 'beneficios', 'galeria', 'agendamento'].map((item) => (
-              <a key={item} href={`#${item}`} onClick={() => setIsMenuOpen(false)}>
-                {item}
-              </a>
+          <div className="lux-mobile-menu">
+            {[
+              ['story', 'Historia'],
+              ['procedimentos', 'Procedimentos'],
+              ['gallery', 'Galeria'],
+              ['agendamento', 'Agenda'],
+            ].map(([href, label]) => (
+              <a key={href} href={`#${href}`} onClick={() => setIsMenuOpen(false)}>{label}</a>
             ))}
+            <a href="/admin/login">Solare Studio OS</a>
           </div>
         )}
       </header>
 
       <main>
-        <section id="hero" className="hero-frame refined-hero">
-          <div className="hero-media" aria-hidden="true">
+        <section id="hero" className="lux-hero">
+          <div className="lux-hero-logo-bg" aria-hidden="true">
             <img src={settings.logo_url || fallbackSettings.logo_url || ''} alt="" />
           </div>
-          <div className="hero-text zara-hero">
-            <img className="hero-logo-mark" src={settings.logo_url || fallbackSettings.logo_url || ''} alt={settings.business_name} />
-            <span>Centro de Bronzeamento e Estetica - Belem/PA</span>
-            <h1>Sua pele, sua luz, sua melhor versao.</h1>
-            <p>
-              Cada detalhe do bronze e pensado para realcar sua beleza com naturalidade, seguranca e sofisticacao.
-            </p>
-            <div>
-              <a className="gold-button soft" href="#agendamento">
-                Agendar experiencia
-              </a>
-              <a className="outline-button soft" href="#galeria">
-                Ver resultados
-              </a>
+          <div className="lux-hero-content">
+            <span className="lux-hero-badge">Centro de Bronzeamento e Estetica</span>
+            <h1>
+              Sua pele, sua luz, <em>sua melhor versao.</em>
+            </h1>
+            <div className="lux-hero-line" />
+            <p>Bronzeamento premium em Belem do Para com cuidado, marquinha e uma experiencia feminina de autoestima.</p>
+            <div className="lux-hero-actions">
+              <a className="lux-btn-primary" href="#agendamento">Agendar no WhatsApp</a>
+              <a className="lux-btn-secondary" href="#gallery">Ver resultados</a>
             </div>
           </div>
-          <div className="scroll-indicator" aria-hidden="true">
+          <div className="lux-hero-scroll" aria-hidden="true">
             <span>Scroll</span>
             <i />
           </div>
         </section>
 
-        <div className="ticker" aria-hidden="true">
-          <div className="ticker-track">
+        <div className="lux-ticker" aria-hidden="true">
+          <div className="lux-ticker-track">
             {Array.from({ length: 2 }).map((_, index) => (
-              <div className="ticker-group" key={index}>
-                <span>Marquinha personalizada</span>
-                <b />
-                <span>Pele iluminada</span>
-                <b />
-                <span>Atendimento feminino</span>
-                <b />
-                <span>Resultado natural</span>
-                <b />
+              <div className="lux-ticker-item" key={index}>
+                <span>✦</span> Bronzeamento Premium <span>✦</span> Estetica <span>✦</span> Autoestima <span>✦</span> Beleza <span>✦</span> Luxo <span>✦</span> Josy Leao Solare
               </div>
             ))}
           </div>
         </div>
 
-        <section id="catalogo" className="catalog-section refined-section runway-section">
-          <p className="section-kicker">Catalogo de procedimentos</p>
-          <h2>
-            Mais que bronzeamento: <em>uma experiencia de autoestima.</em>
-          </h2>
-          <div className="product-grid soft-grid runway-grid">
-            {services.map((service) => (
-              <article className="product-card soft-card" key={service.id}>
-                <div className="product-image">
-                  <img src={service.image_url || fallbackSettings.hero_image_url || ''} alt={service.name} loading="lazy" />
-                </div>
-                <div className="product-info">
+        <section id="story" className="lux-story">
+          <div className="lux-story-grid">
+            <div className="lux-story-text">
+              <p className="lux-eyebrow">Storytelling</p>
+              <h2>Cada detalhe pensado para <em>realcar sua beleza.</em></h2>
+              <p>Na Josy Leao Solare, o bronzeamento nao e apenas um procedimento. E um ritual de cuidado, confianca, elegancia e autoestima para mulheres que desejam se sentir mais luminosas.</p>
+              <p>Cada detalhe do bronze e pensado para realcar sua beleza com naturalidade, seguranca e sofisticacao.</p>
+              <strong>Mais que bronzeamento: uma experiencia de autoestima.</strong>
+              <div className="lux-stats">
+                <span><b>01</b> Atendimento personalizado</span>
+                <span><b>02</b> Resultado natural</span>
+                <span><b>03</b> Ambiente feminino</span>
+                <span><b>04</b> Experiencia premium</span>
+              </div>
+            </div>
+            <div className="lux-story-image">
+              <img src="/brand/resultado-real-02.jpg" alt="Resultado premium Josy Leao Solare" />
+              <i />
+            </div>
+          </div>
+        </section>
+
+        <section id="procedimentos" className="lux-procedures">
+          <div className="lux-section-head">
+            <p className="lux-eyebrow">Procedimentos</p>
+            <h2>Seis experiencias para <em>pele, corpo e presenca.</em></h2>
+          </div>
+          <div className="lux-procedure-grid">
+            {procedureModels.map((service, index) => (
+              <article className="lux-procedure-card" key={service.id}>
+                <img src={service.image_url || fallbackSettings.hero_image_url || ''} alt={service.name} loading="lazy" />
+                <div>
+                  <span>{String(index + 1).padStart(2, '0')}</span>
                   <h3>{service.name}</h3>
                   <p>{service.description}</p>
-                  <span>{money(service.price)} - {service.duration || 'Tempo sob consulta'}</span>
+                  <small>{money(service.price)} - {service.duration || 'Tempo sob consulta'}</small>
                 </div>
               </article>
             ))}
           </div>
         </section>
 
-        <section id="beneficios" className="benefits-band">
-          <p className="section-kicker">Destaques do bronze</p>
-          <h2>
-            Cuidado feminino com <em>acabamento natural.</em>
-          </h2>
-          <div className="benefit-grid">
+        <section id="beneficios" className="lux-benefits">
+          <div className="lux-section-head">
+            <p className="lux-eyebrow">Destaques do bronze</p>
+            <h2>Cuidado feminino com <em>acabamento natural.</em></h2>
+          </div>
+          <div className="lux-benefit-grid">
             {benefits.map((benefit) => (
-              <span key={benefit}>{benefit}</span>
+              <article key={benefit}>
+                <span>✦</span>
+                <h3>{benefit}</h3>
+                <p>Um detalhe pensado para transformar atendimento em experiencia e resultado em desejo.</p>
+              </article>
             ))}
           </div>
         </section>
 
-        <section id="galeria" className="catalog-section refined-section gallery-runway">
-          <p className="section-kicker">Galeria de resultados</p>
-          <h2>
-            Bronze, marquinha e beleza <em>em fotos reais.</em>
-          </h2>
-          <div className="editorial-gallery immersive-gallery">
-            {gallery.map((item) => (
+        <section id="gallery" className="lux-gallery">
+          <div className="lux-section-head">
+            <p className="lux-eyebrow">Galeria premium</p>
+            <h2>Resultados reais com <em>estetica editorial.</em></h2>
+          </div>
+          <div className="lux-gallery-grid">
+            {galleryModels.map((item) => (
               <article key={item.id}>
                 <img src={item.image_url} alt={item.title} loading="lazy" />
-                <div>
-                  <span>{item.category}</span>
-                  <h3>{item.title}</h3>
-                </div>
+                <div><span>{item.category}</span><b>{item.title}</b></div>
               </article>
             ))}
           </div>
         </section>
 
-        <section className="about-band refined-about">
-          <p className="section-kicker">Storytelling</p>
-          <h2>
-            Uma experiencia delicada para <em>realcar a sua presenca.</em>
-          </h2>
-          <p>
-            A Josy Leao Solare vende transformacao, autoestima, bronze perfeito, marquinha e cuidado com o corpo em um
-            ambiente pensado para a mulher se sentir acolhida, segura e poderosa.
-          </p>
-          <div className="testimonial-row">
+        <section className="lux-testimonials">
+          <div className="lux-section-head">
+            <p className="lux-eyebrow">Provas reais</p>
+            <h2>Clientes que viveram <em>o momento Solare.</em></h2>
+          </div>
+          <div className="lux-testi-grid">
             {testimonials.map((item) => (
               <blockquote key={item.id}>
-                "{item.text}"
+                <span>“</span>
+                <p>{item.text}</p>
                 <cite>{item.client_name}</cite>
               </blockquote>
             ))}
           </div>
         </section>
 
-        <section id="agendamento" className="booking-band refined-booking">
-          <p className="section-kicker">Agenda de bronzeamento</p>
-          <h2>
-            Escolha seu <em>ritual.</em>
-          </h2>
-          <form className="booking-form soft-form" onSubmit={handleAppointment}>
+        <section id="agendamento" className="lux-booking">
+          <div className="lux-booking-bg" aria-hidden="true">Solare</div>
+          <div className="lux-section-head">
+            <p className="lux-eyebrow">Agenda de bronzeamento</p>
+            <h2>Reserve seu <em>ritual.</em></h2>
+          </div>
+          <form className="lux-booking-form" onSubmit={handleAppointment}>
             <input required value={form.client_name} onChange={(event) => setForm({ ...form, client_name: event.target.value })} placeholder="Nome" />
             <input required value={form.phone} onChange={(event) => setForm({ ...form, phone: event.target.value })} placeholder="WhatsApp" />
             <select value={form.service_id} onChange={(event) => setForm({ ...form, service_id: event.target.value })}>
-              {services.map((service) => (
+              {procedureModels.map((service) => (
                 <option key={service.id} value={service.id}>{service.name}</option>
               ))}
             </select>
@@ -308,34 +323,27 @@ function LandingPage() {
               {periods.map((period) => <option key={period}>{period}</option>)}
             </select>
             <textarea value={form.notes} onChange={(event) => setForm({ ...form, notes: event.target.value })} placeholder="Observacoes" />
-            <button className="gold-button soft" type="submit">Gerar mensagem inteligente</button>
+            <button type="submit">Gerar mensagem inteligente</button>
           </form>
         </section>
 
-        <section id="sobre" className="location-band">
-          <p className="section-kicker">Localizacao</p>
+        <section className="lux-location">
+          <p className="lux-eyebrow">Localizacao</p>
           <h2>{settings.address}</h2>
-          <a className="outline-button soft" href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(settings.address)}`} target="_blank" rel="noreferrer">
-            Abrir mapa
-          </a>
+          <a className="lux-btn-secondary" href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(settings.address)}`} target="_blank" rel="noreferrer">Abrir mapa</a>
         </section>
       </main>
 
-      <footer className="footer refined-footer">
+      <footer className="lux-footer">
         <div>
-          <h3>{settings.business_name}</h3>
+          <h3>Josy Leao Solare</h3>
           <p>Centro de Bronzeamento e Estetica em Belem/PA.</p>
         </div>
-        <div>
-          <h4>Gestao</h4>
+        <nav>
+          <a href={settings.instagram} target="_blank" rel="noreferrer"><Camera size={16} /> Instagram</a>
+          <a href={quickMessage} target="_blank" rel="noreferrer"><MessageCircle size={16} /> WhatsApp</a>
           <a href="/admin/login">Solare Studio OS</a>
-          <a href="#agendamento">Agenda</a>
-        </div>
-        <div>
-          <h4>Contato</h4>
-          <a href={quickMessage} target="_blank" rel="noreferrer">WhatsApp</a>
-          <a href={settings.instagram} target="_blank" rel="noreferrer">@josyleaosolare</a>
-        </div>
+        </nav>
       </footer>
 
       <a className="float-whatsapp" href={quickMessage} target="_blank" rel="noreferrer" aria-label="WhatsApp">
