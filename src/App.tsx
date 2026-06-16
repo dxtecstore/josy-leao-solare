@@ -115,6 +115,7 @@ function LandingPage() {
   );
   const procedureModels = (services.length >= 6 ? services : fallbackServices).slice(0, 6);
   const galleryModels = (gallery.length >= 6 ? gallery : fallbackGallery).slice(0, 6);
+  const marqueeWords = ['Bronzeamento Premium', ...benefits.slice(0, 4), 'Josy Leao Solare'];
 
   async function handleAppointment(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -149,29 +150,28 @@ function LandingPage() {
   }
 
   return (
-    <div className="solare-page">
-      <div className="solare-particles" aria-hidden="true" />
-      <header className="lux-nav">
-        <a href="/" className="lux-nav-logo" aria-label={settings.business_name}>
-          Josy Leao Solare
+    <div className="preview-page">
+      <header className="preview-header">
+        <a href="#topo" className="preview-brand" aria-label={settings.business_name}>
+          <img src={settings.logo_url || fallbackSettings.logo_url || ''} alt="" />
+          <span>Josy Leao <em>Solare</em></span>
         </a>
-        <nav className="lux-nav-links">
-          <a href="#story">Historia</a>
-          <a href="#procedimentos">Procedimentos</a>
-          <a href="#gallery">Galeria</a>
-          <a href="#agendamento">Agenda</a>
+        <nav className="preview-nav">
+          <a href="#servicos">Catalogo</a>
+          <a href="#storytelling">Bronze</a>
+          <a href="#galeria">Galeria</a>
           <a href="/admin/login">Admin</a>
         </nav>
-        <a className="lux-nav-cta" href="#agendamento">Agendar</a>
-        <button className="lux-menu-button" type="button" aria-label="Abrir menu" onClick={() => setIsMenuOpen((value) => !value)}>
+        <a className="preview-nav-cta" href="#agendamento">WhatsApp</a>
+        <button className="preview-menu-button" type="button" aria-label="Abrir menu" onClick={() => setIsMenuOpen((value) => !value)}>
           {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
         </button>
         {isMenuOpen && (
-          <div className="lux-mobile-menu">
+          <div className="preview-mobile-menu">
             {[
-              ['story', 'Historia'],
-              ['procedimentos', 'Procedimentos'],
-              ['gallery', 'Galeria'],
+              ['servicos', 'Catalogo'],
+              ['storytelling', 'Bronze'],
+              ['galeria', 'Galeria'],
               ['agendamento', 'Agenda'],
             ].map(([href, label]) => (
               <a key={href} href={`#${href}`} onClick={() => setIsMenuOpen(false)}>{label}</a>
@@ -182,120 +182,88 @@ function LandingPage() {
       </header>
 
       <main>
-        <section id="hero" className="lux-hero">
-          <div className="lux-hero-logo-bg" aria-hidden="true">
-            <img src={settings.logo_url || fallbackSettings.logo_url || ''} alt="" />
-          </div>
-          <div className="lux-hero-content">
-            <span className="lux-hero-badge">Centro de Bronzeamento e Estetica</span>
-            <h1>
-              Sua pele, sua luz, <em>sua melhor versao.</em>
-            </h1>
-            <div className="lux-hero-line" />
-            <p>Bronzeamento premium em Belem do Para com cuidado, marquinha e uma experiencia feminina de autoestima.</p>
-            <div className="lux-hero-actions">
-              <a className="lux-btn-primary" href="#agendamento">Agendar no WhatsApp</a>
-              <a className="lux-btn-secondary" href="#gallery">Ver resultados</a>
+        <section id="topo" className="preview-hero">
+          <div className="preview-hero-glow" aria-hidden="true" />
+          <img className="preview-watermark" src={settings.logo_url || fallbackSettings.logo_url || ''} alt="" aria-hidden="true" />
+          <div className="preview-vignette" aria-hidden="true" />
+          <div className="preview-hero-content">
+            <span>Belem do Para</span>
+            <h1>Sua pele, sua luz,<br /><em>sua melhor versao.</em></h1>
+            <p>Bronzeamento artificial e estetica premium em Belem do Para.</p>
+            <div className="preview-actions">
+              <a className="preview-primary" href="#agendamento">Agendar no WhatsApp</a>
+              <a className="preview-secondary" href="#storytelling">Conhecer experiencia</a>
             </div>
           </div>
-          <div className="lux-hero-scroll" aria-hidden="true">
-            <span>Scroll</span>
+          <div className="preview-scroll" aria-hidden="true">
+            <span>Role</span>
             <i />
           </div>
         </section>
 
-        <div className="lux-ticker" aria-hidden="true">
-          <div className="lux-ticker-track">
+        <div className="preview-marquee" aria-hidden="true">
+          <div className="preview-marquee-track">
             {Array.from({ length: 2 }).map((_, index) => (
-              <div className="lux-ticker-item" key={index}>
-                <span>✦</span> Bronzeamento Premium <span>✦</span> Estetica <span>✦</span> Autoestima <span>✦</span> Beleza <span>✦</span> Luxo <span>✦</span> Josy Leao Solare
+              <div className="preview-marquee-group" key={index}>
+                {marqueeWords.map((word) => (
+                  <span key={`${word}-${index}`}>{word}<b>✦</b></span>
+                ))}
               </div>
             ))}
           </div>
         </div>
 
-        <section id="story" className="lux-story">
-          <div className="lux-story-grid">
-            <div className="lux-story-text">
-              <p className="lux-eyebrow">Storytelling</p>
-              <h2>Cada detalhe pensado para <em>realcar sua beleza.</em></h2>
-              <p>Na Josy Leao Solare, o bronzeamento nao e apenas um procedimento. E um ritual de cuidado, confianca, elegancia e autoestima para mulheres que desejam se sentir mais luminosas.</p>
-              <p>Cada detalhe do bronze e pensado para realcar sua beleza com naturalidade, seguranca e sofisticacao.</p>
-              <strong>Mais que bronzeamento: uma experiencia de autoestima.</strong>
-              <div className="lux-stats">
-                <span><b>01</b> Atendimento personalizado</span>
-                <span><b>02</b> Resultado natural</span>
-                <span><b>03</b> Ambiente feminino</span>
-                <span><b>04</b> Experiencia premium</span>
-              </div>
-            </div>
-            <div className="lux-story-image">
-              <img src="/brand/resultado-real-02.jpg" alt="Resultado premium Josy Leao Solare" />
-              <i />
-            </div>
+        <section id="storytelling" className="preview-story">
+          <div>
+            <span> A experiencia </span>
+            <h2>Mais do que bronze.<br /><em>Uma experiencia.</em></h2>
+            <i />
+            <p>Cada detalhe foi pensado para realcar sua beleza com naturalidade, seguranca e sofisticacao.</p>
           </div>
         </section>
 
-        <section id="procedimentos" className="lux-procedures">
-          <div className="lux-section-head">
-            <p className="lux-eyebrow">Procedimentos</p>
-            <h2>Seis experiencias para <em>pele, corpo e presenca.</em></h2>
+        <section id="servicos" className="preview-services">
+          <div className="preview-section-head">
+            <span>Catalogo</span>
+            <h2>Nossos <em>servicos</em></h2>
           </div>
-          <div className="lux-procedure-grid">
+          <div className="preview-service-grid">
             {procedureModels.map((service, index) => (
-              <article className="lux-procedure-card" key={service.id}>
-                <img src={service.image_url || fallbackSettings.hero_image_url || ''} alt={service.name} loading="lazy" />
-                <div>
-                  <span>{String(index + 1).padStart(2, '0')}</span>
-                  <h3>{service.name}</h3>
-                  <p>{service.description}</p>
-                  <small>{money(service.price)} - {service.duration || 'Tempo sob consulta'}</small>
-                </div>
+              <article className="preview-service-card" key={service.id}>
+                <Sparkles size={32} strokeWidth={1.25} />
+                <h3>{service.name}</h3>
+                <p>{service.description}</p>
+                <small>{String(index + 1).padStart(2, '0')} / {money(service.price)}</small>
+                <i />
               </article>
             ))}
           </div>
         </section>
 
-        <section id="beneficios" className="lux-benefits">
-          <div className="lux-section-head">
-            <p className="lux-eyebrow">Destaques do bronze</p>
-            <h2>Cuidado feminino com <em>acabamento natural.</em></h2>
+        <section id="galeria" className="preview-gallery">
+          <div className="preview-section-head">
+            <span>Galeria</span>
+            <h2>Um olhar sobre o <em>estudio</em></h2>
           </div>
-          <div className="lux-benefit-grid">
-            {benefits.map((benefit) => (
-              <article key={benefit}>
-                <span>✦</span>
-                <h3>{benefit}</h3>
-                <p>Um detalhe pensado para transformar atendimento em experiencia e resultado em desejo.</p>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section id="gallery" className="lux-gallery">
-          <div className="lux-section-head">
-            <p className="lux-eyebrow">Galeria premium</p>
-            <h2>Resultados reais com <em>estetica editorial.</em></h2>
-          </div>
-          <div className="lux-gallery-grid">
-            {galleryModels.map((item) => (
-              <article key={item.id}>
+          <div className="preview-gallery-grid">
+            {galleryModels.map((item, index) => (
+              <article key={item.id} className={index === 0 ? 'featured' : index === 3 ? 'wide' : ''}>
                 <img src={item.image_url} alt={item.title} loading="lazy" />
-                <div><span>{item.category}</span><b>{item.title}</b></div>
+                <div><b>{item.title}</b><span>{item.category}</span></div>
               </article>
             ))}
           </div>
         </section>
 
-        <section className="lux-testimonials">
-          <div className="lux-section-head">
-            <p className="lux-eyebrow">Provas reais</p>
-            <h2>Clientes que viveram <em>o momento Solare.</em></h2>
+        <section className="preview-testimonials">
+          <div className="preview-section-head">
+            <span>Provas reais</span>
+            <h2>O que dizem sobre <em>a experiencia.</em></h2>
           </div>
-          <div className="lux-testi-grid">
+          <div className="preview-testimonial-grid">
             {testimonials.map((item) => (
               <blockquote key={item.id}>
-                <span>“</span>
+                <b>“</b>
                 <p>{item.text}</p>
                 <cite>{item.client_name}</cite>
               </blockquote>
@@ -303,13 +271,13 @@ function LandingPage() {
           </div>
         </section>
 
-        <section id="agendamento" className="lux-booking">
-          <div className="lux-booking-bg" aria-hidden="true">Solare</div>
-          <div className="lux-section-head">
-            <p className="lux-eyebrow">Agenda de bronzeamento</p>
-            <h2>Reserve seu <em>ritual.</em></h2>
+        <section id="agendamento" className="preview-booking">
+          <div className="preview-booking-bg" aria-hidden="true" />
+          <div className="preview-section-head">
+            <span>Agenda</span>
+            <h2>Pronta para revelar<br /><em>sua melhor versao?</em></h2>
           </div>
-          <form className="lux-booking-form" onSubmit={handleAppointment}>
+          <form className="preview-booking-form" onSubmit={handleAppointment}>
             <input required value={form.client_name} onChange={(event) => setForm({ ...form, client_name: event.target.value })} placeholder="Nome" />
             <input required value={form.phone} onChange={(event) => setForm({ ...form, phone: event.target.value })} placeholder="WhatsApp" />
             <select value={form.service_id} onChange={(event) => setForm({ ...form, service_id: event.target.value })}>
@@ -323,27 +291,29 @@ function LandingPage() {
               {periods.map((period) => <option key={period}>{period}</option>)}
             </select>
             <textarea value={form.notes} onChange={(event) => setForm({ ...form, notes: event.target.value })} placeholder="Observacoes" />
-            <button type="submit">Gerar mensagem inteligente</button>
+            <button type="submit">Agendar agora no WhatsApp</button>
           </form>
         </section>
 
-        <section className="lux-location">
-          <p className="lux-eyebrow">Localizacao</p>
+        <section className="preview-location">
+          <span>Localizacao</span>
           <h2>{settings.address}</h2>
-          <a className="lux-btn-secondary" href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(settings.address)}`} target="_blank" rel="noreferrer">Abrir mapa</a>
+          <a className="preview-secondary" href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(settings.address)}`} target="_blank" rel="noreferrer">Abrir mapa</a>
         </section>
       </main>
 
-      <footer className="lux-footer">
+      <footer className="preview-footer">
         <div>
-          <h3>Josy Leao Solare</h3>
-          <p>Centro de Bronzeamento e Estetica em Belem/PA.</p>
+          <img src={settings.logo_url || fallbackSettings.logo_url || ''} alt="" />
+          <h3>Josy Leao <em>Solare</em></h3>
         </div>
         <nav>
-          <a href={settings.instagram} target="_blank" rel="noreferrer"><Camera size={16} /> Instagram</a>
-          <a href={quickMessage} target="_blank" rel="noreferrer"><MessageCircle size={16} /> WhatsApp</a>
-          <a href="/admin/login">Solare Studio OS</a>
+          <a href={settings.instagram} target="_blank" rel="noreferrer" aria-label="Instagram"><Camera size={20} /></a>
+          <a href={quickMessage} target="_blank" rel="noreferrer" aria-label="WhatsApp"><MessageCircle size={20} /></a>
         </nav>
+        <p>{settings.address}</p>
+        <i />
+        <small>© {new Date().getFullYear()} Josy Leao Solare. Todos os direitos reservados.</small>
       </footer>
 
       <a className="float-whatsapp" href={quickMessage} target="_blank" rel="noreferrer" aria-label="WhatsApp">
