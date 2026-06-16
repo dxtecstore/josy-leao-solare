@@ -279,10 +279,7 @@ textarea {
 }
 
 .ticker {
-  display: flex;
-  gap: 2.6rem;
-  align-items: center;
-  justify-content: center;
+  position: relative;
   height: 3rem;
   overflow: hidden;
   border-block: 1px solid rgba(255, 255, 255, 0.07);
@@ -293,11 +290,36 @@ textarea {
   text-transform: uppercase;
 }
 
+.ticker-track {
+  display: flex;
+  width: max-content;
+  height: 100%;
+  animation: ticker-scroll 24s linear infinite;
+}
+
+.ticker-group {
+  display: flex;
+  gap: 2.6rem;
+  align-items: center;
+  padding-right: 2.6rem;
+}
+
 .ticker b {
+  flex: 0 0 auto;
   width: 0.25rem;
   height: 0.25rem;
   background: #d4af37;
   transform: rotate(45deg);
+}
+
+@keyframes ticker-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 .catalog-section {

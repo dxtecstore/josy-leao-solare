@@ -203,13 +203,20 @@ function LandingPage() {
         </section>
 
         <div className="ticker" aria-hidden="true">
-          <span>Marquinha personalizada</span>
-          <b />
-          <span>Pele iluminada</span>
-          <b />
-          <span>Atendimento feminino</span>
-          <b />
-          <span>Resultado natural</span>
+          <div className="ticker-track">
+            {Array.from({ length: 2 }).map((_, index) => (
+              <div className="ticker-group" key={index}>
+                <span>Marquinha personalizada</span>
+                <b />
+                <span>Pele iluminada</span>
+                <b />
+                <span>Atendimento feminino</span>
+                <b />
+                <span>Resultado natural</span>
+                <b />
+              </div>
+            ))}
+          </div>
         </div>
 
         <section id="catalogo" className="catalog-section refined-section runway-section">
