@@ -13,11 +13,11 @@ import {
   Phone,
   Sparkles,
   Star,
-  SunMedium,
   X,
 } from 'lucide-react';
 
-const whatsappNumber = '5591999999999';
+const whatsappNumber = '5591986302070';
+const instagramUrl = 'https://www.instagram.com/josyleaosolare/';
 
 const navItems = [
   { label: 'Marca', href: '#marca' },
@@ -39,12 +39,36 @@ const services = [
 ];
 
 const gallery = [
-  'Bronze glow',
-  'Marquinha',
-  'Estetica facial',
-  'Studio premium',
-  'Pele iluminada',
-  'Resultado real',
+  {
+    title: 'Resultado real',
+    tag: 'Bronze no estúdio',
+    image: '/brand/resultado-real-01.jpg',
+  },
+  {
+    title: 'Marquinha personalizada',
+    tag: 'Pele dourada',
+    image: '/brand/resultado-real-02.jpg',
+  },
+  {
+    title: 'Glow Solare',
+    tag: 'Presença premium',
+    image: '/brand/glow-01.jpg',
+  },
+  {
+    title: 'Banho de lua',
+    tag: 'Cuidado com a pele',
+    image: '/brand/banho-lua-01.jpg',
+  },
+  {
+    title: 'Bronze com fita',
+    tag: 'Design de biquíni',
+    image: '/brand/marquinha-01.jpg',
+  },
+  {
+    title: 'Verão o ano inteiro',
+    tag: 'Autoestima renovada',
+    image: '/brand/verao-01.jpg',
+  },
 ];
 
 function buildWhatsAppUrl(message: string) {
@@ -94,8 +118,8 @@ function App() {
       <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-black/80 backdrop-blur-xl">
         <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 sm:px-8">
           <a href="#hero" className="group flex items-center gap-3" aria-label="Josy Leao Solare">
-            <span className="grid h-11 w-11 place-items-center border border-gold/50 bg-gold/10 text-gold shadow-gold">
-              <SunMedium size={22} />
+            <span className="grid h-12 w-12 place-items-center overflow-hidden border border-gold/50 bg-gold/10 shadow-gold">
+              <img className="h-full w-full object-cover" src="/brand/josy-logo.jpg" alt="" />
             </span>
             <span className="leading-tight">
               <span className="block font-serif text-xl text-white">Josy Leao Solare</span>
@@ -171,14 +195,13 @@ function App() {
               </div>
             </div>
 
-            <div className="hero-visual" aria-label="Visual premium abstrato em dourado">
+            <div className="hero-visual" aria-label="Resultado real Josy Leao Solare">
               <div className="hero-frame">
-                <div className="sun-mark">
-                  <SunMedium size={96} />
-                </div>
+                <img className="hero-photo" src="/brand/glow-01.jpg" alt="Resultado real de bronzeamento Josy Leao Solare" />
+                <div className="hero-photo-glow" aria-hidden="true" />
                 <div className="absolute bottom-8 left-8 right-8">
-                  <p className="text-sm uppercase tracking-[0.3em] text-champagne/80">Solare glow</p>
-                  <p className="mt-3 font-serif text-4xl text-white">Beleza que ilumina presenca.</p>
+                  <p className="text-sm uppercase tracking-[0.3em] text-champagne/80">Resultado real</p>
+                  <p className="mt-3 font-serif text-4xl text-white">Glow de estúdio, pele de presença.</p>
                 </div>
               </div>
             </div>
@@ -191,9 +214,16 @@ function App() {
               <p className="eyebrow">Storytelling da marca</p>
               <h2 className="section-title">Um novo capitulo para quem busca pele iluminada, autocuidado e presenca.</h2>
             </div>
-            <p className="section-copy">
-              A Josy Leao Solare nasce com uma proposta refinada: unir bronzeamento, estetica e experiencia sensorial em um ambiente de cuidado, elegancia e resultado. Cada detalhe prepara a cliente para se sentir confiante antes, durante e depois do atendimento.
-            </p>
+            <div className="space-y-8">
+              <p className="section-copy">
+                A Josy Leao Solare nasce com uma proposta refinada: unir bronzeamento, estetica e experiencia sensorial em um ambiente de cuidado, elegancia e resultado. Cada detalhe prepara a cliente para se sentir confiante antes, durante e depois do atendimento.
+              </p>
+              <div className="proof-strip">
+                <span>12.7K seguidores</span>
+                <span>Resultados reais</span>
+                <span>Bronze, estética e autoestima</span>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -245,13 +275,14 @@ function App() {
           <div className="mx-auto max-w-7xl px-5 sm:px-8">
             <div className="mb-12">
               <p className="eyebrow">Resultados reais</p>
-              <h2 className="section-title max-w-3xl">Galeria preparada para receber fotos reais de clientes e bastidores.</h2>
+              <h2 className="section-title max-w-3xl">Provas reais do bronze, da marquinha e da experiencia Solare.</h2>
             </div>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {gallery.map((item, index) => (
-                <div key={item} className="gallery-tile">
-                  <span>Foto {index + 1}</span>
-                  <strong>{item}</strong>
+              {gallery.map((item) => (
+                <div key={item.title} className="gallery-tile">
+                  <img src={item.image} alt={`${item.title} Josy Leao Solare`} loading="lazy" />
+                  <span>{item.tag}</span>
+                  <strong>{item.title}</strong>
                 </div>
               ))}
             </div>
@@ -345,7 +376,7 @@ function App() {
         <div className="mx-auto flex max-w-7xl flex-col gap-6 px-5 text-sm text-white/60 sm:px-8 lg:flex-row lg:items-center lg:justify-between">
           <p className="font-serif text-2xl text-white">Josy Leao Solare</p>
           <p>Centro de Bronzeamento e Estetica - Belem/PA</p>
-          <a className="inline-flex items-center gap-2 text-gold" href="https://www.instagram.com/" target="_blank" rel="noreferrer">
+          <a className="inline-flex items-center gap-2 text-gold" href={instagramUrl} target="_blank" rel="noreferrer">
             <Camera size={18} />
             Instagram
           </a>
