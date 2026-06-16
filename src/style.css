@@ -154,8 +154,8 @@ textarea {
   inset: 0;
   z-index: 1;
   background:
-    radial-gradient(circle at 50% 38%, rgba(212, 175, 55, 0.08), transparent 26rem),
-    linear-gradient(180deg, rgba(0, 0, 0, 0.82) 0%, rgba(0, 0, 0, 0.64) 40%, rgba(0, 0, 0, 0.88) 100%);
+    radial-gradient(circle at 50% 38%, rgba(212, 175, 55, 0.18), transparent 28rem),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.78) 0%, rgba(0, 0, 0, 0.58) 40%, rgba(0, 0, 0, 0.84) 100%);
 }
 
 .lux-hero-logo-bg {
@@ -164,7 +164,9 @@ textarea {
   z-index: 0;
   display: grid;
   place-items: center;
-  background: #000000;
+  background:
+    radial-gradient(circle at 50% 18%, rgba(212, 175, 55, 0.16), transparent 28rem),
+    #000000;
   pointer-events: none;
 }
 
@@ -172,8 +174,12 @@ textarea {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  opacity: 0.09;
-  filter: blur(3px) saturate(1.04) contrast(1.05);
+  opacity: 0.17;
+  filter:
+    blur(2.5px)
+    saturate(1.18)
+    contrast(1.12)
+    drop-shadow(0 0 42px rgba(212, 175, 55, 0.34));
   transform: scale(1.62);
 }
 
