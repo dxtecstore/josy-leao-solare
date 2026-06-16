@@ -180,9 +180,9 @@ function LandingPage() {
           <div className="hero-media" aria-hidden="true">
             <img src={settings.hero_image_url || fallbackSettings.hero_image_url || ''} alt="" />
           </div>
-          <div className="hero-text">
-            <img src={settings.logo_url || fallbackSettings.logo_url || ''} alt={settings.business_name} />
-            <span>{settings.business_name}</span>
+          <div className="hero-text zara-hero">
+            <img className="hero-logo-mark" src={settings.logo_url || fallbackSettings.logo_url || ''} alt={settings.business_name} />
+            <span>Centro de Bronzeamento e Estetica - Belem/PA</span>
             <h1>Sua pele, sua luz, sua melhor versao.</h1>
             <p>
               Cada detalhe do bronze e pensado para realcar sua beleza com naturalidade, seguranca e sofisticacao.
@@ -212,12 +212,12 @@ function LandingPage() {
           <span>Resultado natural</span>
         </div>
 
-        <section id="catalogo" className="catalog-section refined-section">
+        <section id="catalogo" className="catalog-section refined-section runway-section">
           <p className="section-kicker">Catalogo de procedimentos</p>
           <h2>
             Mais que bronzeamento: <em>uma experiencia de autoestima.</em>
           </h2>
-          <div className="product-grid soft-grid">
+          <div className="product-grid soft-grid runway-grid">
             {services.map((service) => (
               <article className="product-card soft-card" key={service.id}>
                 <div className="product-image">
@@ -245,12 +245,12 @@ function LandingPage() {
           </div>
         </section>
 
-        <section id="galeria" className="catalog-section refined-section">
+        <section id="galeria" className="catalog-section refined-section gallery-runway">
           <p className="section-kicker">Galeria de resultados</p>
           <h2>
             Bronze, marquinha e beleza <em>em fotos reais.</em>
           </h2>
-          <div className="editorial-gallery">
+          <div className="editorial-gallery immersive-gallery">
             {gallery.map((item) => (
               <article key={item.id}>
                 <img src={item.image_url} alt={item.title} loading="lazy" />
