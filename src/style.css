@@ -31,8 +31,8 @@ textarea {
 .site-shell {
   min-height: 100vh;
   background:
-    linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.012) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.012) 1px, transparent 1px),
     #000000;
   background-size: 10rem 10rem;
 }
@@ -132,7 +132,7 @@ textarea {
   height: 100%;
   object-fit: cover;
   object-position: center;
-  opacity: 0.2;
+  opacity: 0.18;
   filter: grayscale(0.08) saturate(1.05) contrast(1.1);
   transform: scale(1.06);
 }
@@ -142,8 +142,8 @@ textarea {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 50% 44%, rgba(212, 175, 55, 0.12), transparent 18rem),
-    linear-gradient(90deg, #000000 0%, rgba(0, 0, 0, 0.72) 36%, rgba(0, 0, 0, 0.72) 64%, #000000 100%),
+    radial-gradient(circle at 50% 44%, rgba(247, 231, 180, 0.08), transparent 20rem),
+    linear-gradient(90deg, #000000 0%, rgba(0, 0, 0, 0.78) 36%, rgba(0, 0, 0, 0.78) 64%, #000000 100%),
     linear-gradient(180deg, rgba(0, 0, 0, 0.78) 0%, rgba(0, 0, 0, 0.46) 46%, #000000 100%);
 }
 
@@ -221,6 +221,12 @@ textarea {
   letter-spacing: 0.24em;
   text-decoration: none;
   text-transform: uppercase;
+}
+
+.gold-button.soft,
+.outline-button.soft {
+  border-color: rgba(212, 175, 55, 0.58);
+  box-shadow: 0 0 28px rgba(212, 175, 55, 0.12);
 }
 
 .gold-button {
@@ -310,8 +316,18 @@ em {
 }
 
 .product-card {
-  background: #101010;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(247, 231, 180, 0.08);
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.28);
+}
+
+.soft-grid {
+  gap: 1.65rem;
+}
+
+.soft-card {
+  border-radius: 999px 999px 0 0;
+  overflow: hidden;
 }
 
 .product-image {
@@ -368,6 +384,443 @@ em {
   text-align: center;
   background: #080808;
   border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.refined-section,
+.refined-booking,
+.refined-about {
+  background:
+    radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.06), transparent 32rem),
+    #000000;
+}
+
+.benefits-band {
+  padding: 6.5rem 5.5vw;
+  text-align: center;
+  background: #070707;
+  border-block: 1px solid rgba(247, 231, 180, 0.07);
+}
+
+.benefits-band h2 {
+  margin: 1rem auto 0;
+  max-width: 62rem;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(3.5rem, 6.2vw, 6.6rem);
+  font-weight: 500;
+  line-height: 0.95;
+}
+
+.benefit-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  max-width: 68rem;
+  margin: 4rem auto 0;
+  background: rgba(212, 175, 55, 0.18);
+}
+
+.benefit-grid span {
+  min-height: 8rem;
+  display: grid;
+  place-items: center;
+  background: #050505;
+  color: rgba(255, 255, 255, 0.72);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 2rem;
+}
+
+.editorial-gallery {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.2rem;
+  max-width: 82rem;
+  margin: 4rem auto 0;
+}
+
+.editorial-gallery article {
+  position: relative;
+  min-height: 28rem;
+  overflow: hidden;
+  background: #0b0b0b;
+}
+
+.editorial-gallery img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.editorial-gallery article::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 45%, rgba(0, 0, 0, 0.86));
+}
+
+.editorial-gallery article div {
+  position: absolute;
+  inset: auto 1.2rem 1.2rem;
+  z-index: 2;
+}
+
+.editorial-gallery span {
+  color: #d4af37;
+  font-size: 0.62rem;
+  font-weight: 900;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.editorial-gallery h3 {
+  margin-top: 0.5rem;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 2rem;
+}
+
+.testimonial-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  max-width: 72rem;
+  margin: 3rem auto 0;
+}
+
+.testimonial-row blockquote {
+  border-top: 1px solid rgba(212, 175, 55, 0.32);
+  padding-top: 1.4rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.7rem;
+}
+
+.testimonial-row cite {
+  display: block;
+  margin-top: 1rem;
+  color: #d4af37;
+  font-family: Inter, sans-serif;
+  font-size: 0.72rem;
+  font-style: normal;
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.soft-form {
+  border: 1px solid rgba(247, 231, 180, 0.08);
+  background: rgba(255, 255, 255, 0.025);
+  padding: 1.2rem;
+}
+
+.refined-footer {
+  background: #050505;
+}
+
+.admin-login,
+.admin-loading {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  background:
+    radial-gradient(circle at 50% 18%, rgba(212, 175, 55, 0.1), transparent 26rem),
+    #000000;
+  color: #ffffff;
+}
+
+.admin-login form {
+  width: min(31rem, 100%);
+  border: 1px solid rgba(247, 231, 180, 0.1);
+  background: rgba(255, 255, 255, 0.035);
+  padding: 2rem;
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.5);
+}
+
+.admin-login svg,
+.admin-login p {
+  color: #d4af37;
+}
+
+.admin-login h1 {
+  margin: 1rem 0 1.5rem;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 3rem;
+  line-height: 0.95;
+}
+
+.admin-login small,
+.admin-login strong {
+  display: block;
+  margin-bottom: 1rem;
+  color: #f7e7b4;
+}
+
+.admin-login input,
+.os-form input,
+.os-form select,
+.os-form textarea,
+.campaign-box textarea {
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #050505;
+  padding: 0.9rem;
+  color: #ffffff;
+  outline: none;
+}
+
+.admin-login input {
+  margin-bottom: 0.85rem;
+}
+
+.studio-os {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 18rem 1fr;
+  background: #050505;
+  color: #ffffff;
+}
+
+.studio-sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  border-right: 1px solid rgba(247, 231, 180, 0.08);
+  background: #000000;
+  padding: 1.2rem;
+}
+
+.studio-sidebar p {
+  color: #d4af37;
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.studio-sidebar h1 {
+  margin: 0.4rem 0 1.4rem;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 2rem;
+}
+
+.studio-sidebar button,
+.studio-header a,
+.os-form button,
+.loyalty-grid button,
+.service-admin-list button,
+.admin-gallery button,
+.testimonial-admin-list button,
+.file-field {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  border: 1px solid transparent;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.68);
+  padding: 0.8rem;
+  text-align: left;
+}
+
+.file-field {
+  position: relative;
+  justify-content: center;
+  border-color: rgba(212, 175, 55, 0.16);
+  background: rgba(212, 175, 55, 0.055);
+  color: #f7e7b4;
+  cursor: pointer;
+}
+
+.file-field input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.studio-sidebar button.active,
+.studio-sidebar button:hover {
+  border-color: rgba(212, 175, 55, 0.24);
+  background: rgba(212, 175, 55, 0.08);
+  color: #f7e7b4;
+}
+
+.studio-main {
+  padding: 1.5rem;
+}
+
+.studio-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.studio-header p {
+  color: #d4af37;
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.studio-header h2 {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 3.2rem;
+}
+
+.os-grid,
+.module-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.module-grid {
+  grid-template-columns: 0.8fr 1.2fr;
+}
+
+.metric,
+.os-panel,
+.os-form,
+.client-list article,
+.service-admin-list article,
+.loyalty-grid article,
+.campaign-box,
+.calendar-board article {
+  border: 1px solid rgba(247, 231, 180, 0.08);
+  background:
+    linear-gradient(145deg, rgba(212, 175, 55, 0.045), transparent 45%),
+    rgba(255, 255, 255, 0.035);
+  padding: 1rem;
+}
+
+.metric svg {
+  color: #d4af37;
+}
+
+.metric span {
+  display: block;
+  margin-top: 1.5rem;
+  color: rgba(255, 255, 255, 0.48);
+}
+
+.metric strong {
+  display: block;
+  margin-top: 0.4rem;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 2.3rem;
+}
+
+.wide {
+  grid-column: 1 / -1;
+}
+
+.os-table {
+  display: grid;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.os-table > div,
+.service-admin-list article {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr auto;
+  gap: 0.8rem;
+  align-items: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0.8rem 0;
+}
+
+.os-table select {
+  background: #000000;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 0.5rem;
+}
+
+.calendar-board,
+.client-list,
+.service-admin-list,
+.admin-gallery,
+.loyalty-grid,
+.testimonial-admin-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.calendar-board {
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+.os-form {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.os-form h3,
+.campaign-box h3 {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 2.2rem;
+}
+
+.admin-gallery {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.admin-gallery article {
+  position: relative;
+  overflow: hidden;
+  min-height: 14rem;
+}
+
+.admin-gallery img {
+  width: 100%;
+  height: 14rem;
+  object-fit: cover;
+}
+
+.testimonial-admin-list article {
+  display: grid;
+  grid-template-columns: 4.5rem 1fr auto;
+  gap: 1rem;
+  align-items: center;
+  border: 1px solid rgba(247, 231, 180, 0.08);
+  background: rgba(255, 255, 255, 0.035);
+  padding: 1rem;
+}
+
+.testimonial-admin-list img {
+  width: 4.5rem;
+  height: 4.5rem;
+  object-fit: cover;
+}
+
+.testimonial-admin-list h3 {
+  color: #f7e7b4;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.45rem;
+}
+
+.testimonial-admin-list p {
+  margin-top: 0.25rem;
+  color: rgba(255, 255, 255, 0.52);
+  line-height: 1.55;
+}
+
+.loyalty-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.campaign-box textarea {
+  min-height: 8rem;
+  margin-top: 1rem;
+}
+
+.settings-form {
+  max-width: 48rem;
 }
 
 .about-band p:not(.section-kicker) {
@@ -542,11 +995,37 @@ em {
   }
 
   .product-grid,
-  .booking-form {
+  .booking-form,
+  .benefit-grid,
+  .editorial-gallery,
+  .testimonial-row {
     grid-template-columns: 1fr;
   }
 
   .footer {
     padding: 3rem 1.25rem;
+  }
+
+  .studio-os {
+    grid-template-columns: 1fr;
+  }
+
+  .studio-sidebar {
+    position: static;
+    height: auto;
+  }
+
+  .os-grid,
+  .module-grid,
+  .loyalty-grid,
+  .admin-gallery,
+  .calendar-board,
+  .testimonial-admin-list article {
+    grid-template-columns: 1fr;
+  }
+
+  .os-table > div,
+  .service-admin-list article {
+    grid-template-columns: 1fr;
   }
 }

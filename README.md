@@ -1,6 +1,8 @@
 # Josy Leao Solare
 
-Landing page premium para `Josy Leao Solare | Centro de Bronzeamento e Estetica`.
+Vitrine premium e plataforma de gestao para `Josy Leao Solare | Centro de Bronzeamento e Estetica`.
+
+Nome interno do sistema: `Solare Studio OS`.
 
 ## Stack
 
@@ -16,6 +18,12 @@ Landing page premium para `Josy Leao Solare | Centro de Bronzeamento e Estetica`
 npm install
 npm run dev
 ```
+
+Rotas principais:
+
+- `/` - landing page comercial
+- `/admin/login` - login do Studio OS
+- `/admin/dashboard` - plataforma de gestao
 
 ## Build
 
@@ -39,13 +47,47 @@ VITE_SUPABASE_URL=
 VITE_SUPABASE_ANON_KEY=
 ```
 
+## Supabase
+
+A migration inicial esta em:
+
+```bash
+supabase/migrations/001_solarestudio_schema.sql
+```
+
+Ela cria:
+
+- `services`
+- `gallery`
+- `appointments`
+- `testimonials`
+- `settings`
+- `clients`
+- `time_blocks`
+- bucket publico `josy-media`
+
+Depois de criar o projeto Supabase `josy-leao-solare`, aplique a migration e crie um usuario no Supabase Auth para acessar o admin.
+
+## Solare Studio OS
+
+Modulos incluidos:
+
+- Dashboard com agendamentos do dia, clientes da semana, receita estimada e servico mais procurado
+- Agenda inteligente com bloqueio de horarios e status de atendimento
+- CRM de clientes com historico, ultimo procedimento e observacoes
+- Galeria antes e depois com upload por categoria
+- Catalogo de servicos com preco, tempo medio e imagem
+- Programa fidelidade com controle de sessoes e bonus
+- Campanhas WhatsApp com lista exportavel e mensagens prontas
+- Depoimentos e provas reais
+- Configuracoes do site com logo, hero, Instagram, WhatsApp e endereco
+
 ## Personalizacao futura
 
-- Trocar o numero em `src/App.tsx` na constante `whatsappNumber`.
-- Substituir placeholders da galeria por fotos reais.
-- Inserir logo oficial no topo e favicon quando enviados pela cliente.
+- Substituir placeholders por fotos reais no admin.
+- Atualizar logo e hero pelo Studio OS.
 - Atualizar Instagram e imagens da fachada/localizacao.
 
 ## Escopo desta versao
 
-Esta primeira entrega contem somente a landing page comercial premium. Nao inclui painel admin.
+Esta entrega contem a landing page premium e a primeira versao funcional do Solare Studio OS.
