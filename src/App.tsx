@@ -118,12 +118,12 @@ function App() {
       <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-black/80 backdrop-blur-xl">
         <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 sm:px-8">
           <a href="#hero" className="group flex items-center gap-3" aria-label="Josy Leao Solare">
-            <span className="grid h-12 w-12 place-items-center overflow-hidden border border-gold/50 bg-gold/10 shadow-gold">
-              <img className="h-full w-full object-cover" src="/brand/josy-logo.jpg" alt="" />
+            <span className="brand-mark">
+              <img src="/brand/josy-logo-official-small.webp" alt="" />
             </span>
             <span className="leading-tight">
               <span className="block font-serif text-xl text-white">Josy Leao Solare</span>
-              <span className="block text-xs uppercase tracking-[0.28em] text-champagne/80">Bronze & estetica</span>
+              <span className="block text-xs uppercase tracking-[0.28em] text-champagne/80">Bronzeamento artificial</span>
             </span>
           </a>
 
@@ -170,6 +170,7 @@ function App() {
 
           <div className="mx-auto grid w-full max-w-7xl gap-12 px-5 py-16 sm:px-8 lg:grid-cols-[1.08fr_0.92fr] lg:items-center">
             <div className="max-w-3xl">
+              <img className="hero-logo" src="/brand/josy-logo-official.webp" alt="Josy Leao Solare Centro de Bronzeamento Artificial" />
               <div className="mb-6 inline-flex items-center gap-3 border border-gold/35 bg-white/[0.03] px-4 py-2 text-xs uppercase tracking-[0.24em] text-champagne">
                 <Sparkles size={16} />
                 Reinauguracao premium em Belem
@@ -374,7 +375,7 @@ function App() {
 
       <footer className="border-t border-white/10 bg-black py-10">
         <div className="mx-auto flex max-w-7xl flex-col gap-6 px-5 text-sm text-white/60 sm:px-8 lg:flex-row lg:items-center lg:justify-between">
-          <p className="font-serif text-2xl text-white">Josy Leao Solare</p>
+          <img className="footer-logo" src="/brand/josy-logo-official-small.webp" alt="Josy Leao Solare" />
           <p>Centro de Bronzeamento e Estetica - Belem/PA</p>
           <a className="inline-flex items-center gap-2 text-gold" href={instagramUrl} target="_blank" rel="noreferrer">
             <Camera size={18} />
