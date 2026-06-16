@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 :root {
-  color: #ffffff;
   background: #000000;
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #ffffff;
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -18,10 +18,7 @@ html {
 
 body {
   margin: 0;
-  background:
-    radial-gradient(circle at 20% 10%, rgba(212, 175, 55, 0.16), transparent 28rem),
-    radial-gradient(circle at 90% 0%, rgba(247, 231, 180, 0.1), transparent 22rem),
-    #000000;
+  background: #000000;
 }
 
 button,
@@ -31,288 +28,430 @@ textarea {
   font: inherit;
 }
 
-@layer components {
-  .nav-link {
-    @apply text-xs font-semibold uppercase tracking-[0.22em] text-white/70 transition hover:text-gold;
-  }
-
-  .premium-button {
-    @apply inline-flex items-center gap-3 border border-gold bg-gold px-6 py-4 text-sm font-bold uppercase tracking-[0.16em] text-black shadow-gold transition hover:bg-champagne;
-  }
-
-  .secondary-button {
-    @apply inline-flex items-center gap-3 border border-white/15 bg-white/[0.04] px-6 py-4 text-sm font-bold uppercase tracking-[0.16em] text-white transition hover:border-gold/70 hover:text-champagne;
-  }
-
-  .section-band {
-    @apply border-y border-white/10 bg-onyx/80 py-24 sm:py-32;
-  }
-
-  .eyebrow {
-    @apply mb-4 text-xs font-bold uppercase tracking-[0.28em] text-gold;
-  }
-
-  .section-title {
-    @apply font-serif text-4xl leading-tight text-white sm:text-5xl;
-  }
-
-  .section-copy {
-    @apply text-lg leading-8 text-white/70;
-  }
-
-  .service-card {
-    @apply min-h-64 border border-white/10 bg-white/[0.035] p-6 transition duration-300 hover:-translate-y-1 hover:border-gold/50 hover:bg-gold/[0.07];
-  }
-
-  .service-card h3 {
-    @apply mt-8 font-serif text-2xl leading-tight text-white;
-  }
-
-  .service-card p {
-    @apply mt-4 text-sm leading-6 text-white/60;
-  }
-
-  .metric-box {
-    @apply flex min-h-32 flex-col justify-between border border-gold/25 bg-black/35 p-5 text-sm font-semibold uppercase tracking-[0.14em] text-white/80;
-  }
-
-  .gallery-tile {
-    @apply relative flex aspect-[4/5] flex-col justify-end overflow-hidden border border-white/10 bg-[#080808] p-6;
-  }
-
-  .gallery-tile::before {
-    content: "";
-    @apply absolute inset-0 z-10 bg-[linear-gradient(180deg,transparent_18%,rgba(0,0,0,0.08)_46%,rgba(0,0,0,0.94)_100%),linear-gradient(135deg,rgba(212,175,55,0.22),transparent_44%)];
-  }
-
-  .gallery-tile img {
-    @apply absolute inset-0 h-full w-full object-cover transition duration-500;
-  }
-
-  .gallery-tile:hover img {
-    @apply scale-105;
-  }
-
-  .gallery-tile span,
-  .gallery-tile strong {
-    @apply relative z-10;
-  }
-
-  .gallery-tile span {
-    @apply text-xs uppercase tracking-[0.25em] text-gold;
-  }
-
-  .gallery-tile strong {
-    @apply mt-3 font-serif text-3xl text-white;
-  }
-
-  .proof-strip {
-    @apply grid gap-3 sm:grid-cols-3;
-  }
-
-  .proof-strip span {
-    @apply border border-gold/25 bg-black/40 px-4 py-3 text-xs font-bold uppercase tracking-[0.16em] text-champagne/85;
-  }
-
-  .brand-mark {
-    @apply grid h-12 w-12 shrink-0 place-items-center overflow-hidden border border-gold/45 bg-black shadow-gold;
-  }
-
-  .brand-mark img {
-    @apply h-full w-full object-cover;
-  }
-
-  .hero-logo {
-    @apply mb-8 w-full max-w-lg object-contain;
-    filter: drop-shadow(0 0 24px rgba(212, 175, 55, 0.22));
-  }
-
-  .footer-logo {
-    @apply h-16 w-auto object-contain;
-    filter: drop-shadow(0 0 18px rgba(212, 175, 55, 0.18));
-  }
-
-  .booking-form {
-    @apply border border-gold/30 bg-white/[0.04] p-5 shadow-gold sm:p-8;
-  }
-
-  .booking-form label {
-    @apply mb-5 block text-xs font-bold uppercase tracking-[0.2em] text-champagne/90;
-  }
-
-  .booking-form input,
-  .booking-form select,
-  .booking-form textarea {
-    @apply mt-3 w-full border border-white/10 bg-black px-4 py-4 text-base text-white outline-none transition placeholder:text-white/30 focus:border-gold;
-  }
-
-  .booking-form textarea {
-    @apply min-h-32 resize-y;
-  }
+.site-shell {
+  min-height: 100vh;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    #000000;
+  background-size: 10rem 10rem;
 }
 
-.luxury-orbit {
+.topbar {
   position: fixed;
-  inset: -20% -10% auto auto;
-  z-index: 0;
-  width: 48rem;
-  height: 48rem;
-  pointer-events: none;
-  border: 1px solid rgba(212, 175, 55, 0.16);
-  border-radius: 999px;
-  transform: rotate(-18deg);
+  inset: 0 0 auto;
+  z-index: 50;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  min-height: 4.4rem;
+  padding: 0 2.5rem;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.88), rgba(0, 0, 0, 0.54));
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px);
 }
 
-.gold-particles {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background-image:
-    radial-gradient(circle, rgba(247, 231, 180, 0.82) 0 1px, transparent 1.5px),
-    radial-gradient(circle, rgba(212, 175, 55, 0.44) 0 1px, transparent 1.5px);
-  background-position:
-    0 0,
-    38px 44px;
-  background-size:
-    140px 150px,
-    190px 210px;
-  opacity: 0.22;
-  animation: shimmer 9s ease-in-out infinite alternate;
+.brand-name {
+  color: #d4af37;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
 }
 
-.gold-wave {
+.desktop-nav {
+  display: flex;
+  gap: 2.8rem;
+}
+
+.desktop-nav a,
+.mobile-menu a {
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: color 220ms ease;
+}
+
+.desktop-nav a:hover,
+.mobile-menu a:hover {
+  color: #d4af37;
+}
+
+.insta-link {
+  justify-self: end;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.menu-button {
+  display: none;
+  justify-self: end;
+  width: 2.8rem;
+  height: 2.8rem;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: transparent;
+  color: #ffffff;
+}
+
+.mobile-menu {
   position: absolute;
-  left: -8%;
-  right: -8%;
-  height: 16rem;
-  pointer-events: none;
-  border: solid rgba(212, 175, 55, 0.28);
-  border-width: 1px 0 0;
-  filter: drop-shadow(0 0 18px rgba(212, 175, 55, 0.35));
-  transform: rotate(-7deg);
+  inset: 4.4rem 0 auto;
+  display: grid;
+  gap: 1px;
+  background: #000000;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.wave-one {
-  top: 20%;
-  border-radius: 50% 42% 0 0;
-}
-
-.wave-two {
-  top: 28%;
-  border-color: rgba(247, 231, 180, 0.18);
-  transform: rotate(-11deg);
-}
-
-.hero-visual {
-  position: relative;
-  min-height: 35rem;
+.mobile-menu a {
+  padding: 1.1rem 1.5rem;
+  background: rgba(255, 255, 255, 0.035);
 }
 
 .hero-frame {
   position: relative;
-  min-height: 35rem;
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
   overflow: hidden;
-  border: 1px solid rgba(212, 175, 55, 0.32);
+  padding: 7rem 1.5rem 5rem;
+}
+
+.hero-media {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.hero-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0.2;
+  filter: grayscale(0.08) saturate(1.05) contrast(1.1);
+  transform: scale(1.06);
+}
+
+.hero-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
   background:
-    linear-gradient(160deg, rgba(247, 231, 180, 0.18), transparent 28%),
-    radial-gradient(circle at 48% 40%, rgba(212, 175, 55, 0.24), transparent 16rem),
-    linear-gradient(180deg, #111111, #000000 72%);
-  box-shadow: 0 0 42px rgba(212, 175, 55, 0.22);
+    radial-gradient(circle at 50% 44%, rgba(212, 175, 55, 0.12), transparent 18rem),
+    linear-gradient(90deg, #000000 0%, rgba(0, 0, 0, 0.72) 36%, rgba(0, 0, 0, 0.72) 64%, #000000 100%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.78) 0%, rgba(0, 0, 0, 0.46) 46%, #000000 100%);
 }
 
 .hero-frame::before {
   content: "";
   position: absolute;
-  inset: 8%;
-  border: 1px solid rgba(247, 231, 180, 0.2);
-}
-
-.hero-frame::after {
-  content: "";
-  position: absolute;
   inset: 0;
   background:
-    linear-gradient(115deg, transparent 20%, rgba(247, 231, 180, 0.18) 49%, transparent 54%),
-    repeating-linear-gradient(90deg, transparent 0 3rem, rgba(212, 175, 55, 0.04) 3rem 3.05rem);
+    radial-gradient(circle at 18% 28%, rgba(212, 175, 55, 0.11), transparent 22rem),
+    radial-gradient(circle at 77% 38%, rgba(247, 231, 180, 0.06), transparent 24rem),
+    linear-gradient(90deg, transparent 0 49.92%, rgba(212, 175, 55, 0.08) 50%, transparent 50.08%),
+    transparent;
 }
 
-.hero-photo {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: saturate(1.08) contrast(1.04);
-}
-
-.hero-photo-glow {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  background:
-    linear-gradient(180deg, rgba(0, 0, 0, 0.04), rgba(0, 0, 0, 0.92)),
-    radial-gradient(circle at 55% 25%, rgba(247, 231, 180, 0.16), transparent 12rem),
-    linear-gradient(135deg, rgba(212, 175, 55, 0.22), transparent 34%);
-}
-
-.hero-frame > .absolute {
-  z-index: 3;
-}
-
-.sun-mark {
-  position: absolute;
-  left: 50%;
-  top: 36%;
+.hero-text {
+  position: relative;
   z-index: 2;
   display: grid;
-  width: 14rem;
-  height: 14rem;
-  place-items: center;
-  color: #d4af37;
-  border: 1px solid rgba(212, 175, 55, 0.45);
-  border-radius: 999px;
-  transform: translate(-50%, -50%);
-  box-shadow:
-    inset 0 0 34px rgba(212, 175, 55, 0.18),
-    0 0 58px rgba(212, 175, 55, 0.26);
-}
-
-.reinauguracao-panel {
-  display: grid;
-  gap: 2.5rem;
-  border: 1px solid rgba(212, 175, 55, 0.28);
-  background:
-    linear-gradient(135deg, rgba(212, 175, 55, 0.16), transparent 36%),
-    #080808;
-  padding: clamp(1.5rem, 5vw, 4rem);
-}
-
-.map-placeholder {
-  display: grid;
-  min-height: 20rem;
-  place-items: center;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background:
-    linear-gradient(135deg, rgba(212, 175, 55, 0.16), transparent),
-    repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 1px, transparent 1px 22px),
-    #080808;
-  color: #d4af37;
+  justify-items: center;
+  width: min(58rem, 100%);
   text-align: center;
 }
 
-.map-placeholder span {
-  display: block;
-  max-width: 16rem;
-  color: rgba(255, 255, 255, 0.62);
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
+.hero-text img {
+  width: min(20rem, 76vw);
+  margin-bottom: 2.2rem;
+  filter: drop-shadow(0 0 28px rgba(212, 175, 55, 0.16));
+}
+
+.hero-text span,
+.section-kicker {
+  color: #d4af37;
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.48em;
   text-transform: uppercase;
 }
 
-.floating-whatsapp {
+.hero-text h1 {
+  margin: 1.35rem 0 0;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(5rem, 9.4vw, 9.2rem);
+  font-weight: 500;
+  line-height: 0.9;
+  letter-spacing: 0;
+}
+
+.hero-text p {
+  max-width: 42rem;
+  margin: 1.6rem 0 0;
+  color: rgba(255, 255, 255, 0.48);
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+.hero-text div,
+.about-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2.2rem;
+}
+
+.gold-button,
+.outline-button {
+  display: inline-flex;
+  min-width: 11.5rem;
+  min-height: 3.25rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #d4af37;
+  padding: 0.85rem 1.4rem;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.24em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.gold-button {
+  background: #d4af37;
+  color: #000000;
+}
+
+.outline-button {
+  background: transparent;
+  color: #d4af37;
+}
+
+.scroll-indicator {
+  position: absolute;
+  left: 50%;
+  bottom: 2.4rem;
+  display: grid;
+  gap: 0.8rem;
+  justify-items: center;
+  transform: translateX(-50%);
+}
+
+.scroll-indicator span {
+  color: rgba(255, 255, 255, 0.18);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+}
+
+.scroll-indicator i {
+  width: 1px;
+  height: 2.6rem;
+  background: linear-gradient(#d4af37, transparent);
+}
+
+.ticker {
+  display: flex;
+  gap: 2.6rem;
+  align-items: center;
+  justify-content: center;
+  height: 3rem;
+  overflow: hidden;
+  border-block: 1px solid rgba(255, 255, 255, 0.07);
+  color: rgba(255, 255, 255, 0.22);
+  font-size: 0.62rem;
+  font-weight: 900;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+}
+
+.ticker b {
+  width: 0.25rem;
+  height: 0.25rem;
+  background: #d4af37;
+  transform: rotate(45deg);
+}
+
+.catalog-section {
+  padding: 6.5rem 5.5vw 8rem;
+  text-align: center;
+}
+
+.catalog-section h2,
+.about-band h2,
+.booking-band h2,
+.location-band h2 {
+  margin: 1rem 0 0;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(3.5rem, 6.2vw, 6.6rem);
+  font-weight: 500;
+  line-height: 0.95;
+}
+
+em {
+  color: #d4af37;
+  font-style: italic;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.35rem;
+  margin: 4rem auto 0;
+  max-width: 82rem;
+  text-align: left;
+}
+
+.product-card {
+  background: #101010;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.product-image {
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background: #151515;
+}
+
+.product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(1.02) contrast(1.03);
+  transition: transform 500ms ease;
+}
+
+.product-card:hover img {
+  transform: scale(1.05);
+}
+
+.product-info {
+  min-height: 9rem;
+  padding: 1rem;
+  background: #0b0b0b;
+}
+
+.product-info h3 {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.75rem;
+  line-height: 1;
+}
+
+.product-info p {
+  margin-top: 0.7rem;
+  color: rgba(255, 255, 255, 0.42);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.product-info span {
+  display: inline-block;
+  margin-top: 0.9rem;
+  color: rgba(212, 175, 55, 0.76);
+  font-size: 0.62rem;
+  font-weight: 900;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.about-band,
+.booking-band,
+.location-band {
+  padding: 6.5rem 1.5rem;
+  text-align: center;
+  background: #080808;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.about-band p:not(.section-kicker) {
+  max-width: 42rem;
+  margin: 2rem auto 0;
+  color: rgba(255, 255, 255, 0.48);
+  line-height: 1.8;
+}
+
+.booking-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  width: min(46rem, 100%);
+  margin: 3rem auto 0;
+}
+
+.booking-form input,
+.booking-form select,
+.booking-form textarea {
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #000000;
+  padding: 1rem;
+  color: #ffffff;
+  outline: none;
+}
+
+.booking-form textarea,
+.booking-form button {
+  grid-column: 1 / -1;
+}
+
+.booking-form textarea {
+  min-height: 7rem;
+  resize: vertical;
+}
+
+.location-band {
+  background: #000000;
+}
+
+.location-band h2 {
+  max-width: 52rem;
+  margin-inline: auto;
+  font-size: clamp(2.6rem, 5vw, 5rem);
+}
+
+.location-band a {
+  margin-top: 2rem;
+}
+
+.footer {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  gap: 3rem;
+  padding: 4rem 5.5vw;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.42);
+}
+
+.footer h3 {
+  color: #d4af37;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.6rem;
+  text-transform: uppercase;
+}
+
+.footer h4 {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.7rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+}
+
+.footer a,
+.footer p {
+  display: block;
+  margin-top: 0.8rem;
+  color: rgba(255, 255, 255, 0.42);
+  text-decoration: none;
+}
+
+.float-whatsapp {
   position: fixed;
   right: 1.25rem;
   bottom: 1.25rem;
@@ -321,39 +460,93 @@ textarea {
   width: 4rem;
   height: 4rem;
   place-items: center;
-  border: 1px solid rgba(247, 231, 180, 0.55);
   background: #d4af37;
   color: #000000;
-  box-shadow: 0 0 34px rgba(212, 175, 55, 0.42);
-  transition:
-    transform 200ms ease,
-    background 200ms ease;
+  box-shadow: 0 0 32px rgba(212, 175, 55, 0.42);
 }
 
-.floating-whatsapp:hover {
-  background: #f7e7b4;
-  transform: translateY(-3px);
-}
-
-@keyframes shimmer {
-  from {
-    opacity: 0.14;
-    transform: translateY(0);
+@media (max-width: 980px) {
+  .topbar {
+    grid-template-columns: 1fr auto auto;
+    padding: 0 1.25rem;
   }
-  to {
-    opacity: 0.28;
-    transform: translateY(-12px);
+
+  .desktop-nav,
+  .insta-link {
+    display: none;
+  }
+
+  .menu-button {
+    display: grid;
+  }
+
+  .brand-name {
+    font-size: 0.92rem;
+  }
+
+  .product-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .footer {
+    grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 640px) {
-  .hero-visual,
   .hero-frame {
-    min-height: 28rem;
+    min-height: 100svh;
+    padding: 5.5rem 1.25rem 4rem;
   }
 
-  .sun-mark {
-    width: 11rem;
-    height: 11rem;
+  .hero-text img {
+    width: min(17rem, 86vw);
+    margin-bottom: 1.7rem;
+  }
+
+  .hero-text span,
+  .section-kicker {
+    font-size: 0.58rem;
+    letter-spacing: 0.36em;
+  }
+
+  .hero-text h1 {
+    font-size: clamp(4.2rem, 20vw, 5.6rem);
+  }
+
+  .hero-text p {
+    font-size: 0.98rem;
+  }
+
+  .hero-text div,
+  .about-actions {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .gold-button,
+  .outline-button {
+    width: 100%;
+  }
+
+  .ticker {
+    justify-content: flex-start;
+    padding-inline: 1rem;
+  }
+
+  .catalog-section,
+  .about-band,
+  .booking-band,
+  .location-band {
+    padding: 5rem 1.25rem;
+  }
+
+  .product-grid,
+  .booking-form {
+    grid-template-columns: 1fr;
+  }
+
+  .footer {
+    padding: 3rem 1.25rem;
   }
 }

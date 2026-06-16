@@ -1,30 +1,31 @@
 import type { FormEvent } from 'react';
 import { useMemo, useState } from 'react';
-import {
-  ArrowRight,
-  CalendarDays,
-  Camera,
-  ChevronRight,
-  Clock,
-  Gem,
-  MapPin,
-  Menu,
-  MessageCircle,
-  Phone,
-  Sparkles,
-  Star,
-  X,
-} from 'lucide-react';
+import { Camera, Menu, MessageCircle, X } from 'lucide-react';
 
 const whatsappNumber = '5591986302070';
 const instagramUrl = 'https://www.instagram.com/josyleaosolare/';
 
+const siteContent = {
+  brand: 'Josy Leao Solare',
+  logo: '/brand/josy-logo-official.webp',
+  heroBackground: '/brand/glow-01.jpg',
+  heroKicker: 'Josy Leao Solare',
+  heroTitle: 'Vista Solare.',
+  heroSubtitle: 'Bronzeamento premium, estetica e autoestima em cada detalhe.',
+  catalogTitle: 'Experiencias',
+  catalogEmphasis: 'Selecionadas.',
+  aboutTitle: 'Uma pele.',
+  aboutEmphasis: 'Uma presenca.',
+  aboutCopy:
+    'A Josy Leao Solare une bronzeamento artificial, estetica e uma experiencia de cuidado para quem deseja se sentir mais bonita, confiante e iluminada.',
+  address: 'Av. Alcindo Cacela, 1474 - Nazare - Belem/PA',
+};
+
 const navItems = [
-  { label: 'Marca', href: '#marca' },
-  { label: 'Reinauguracao', href: '#reinauguracao' },
-  { label: 'Servicos', href: '#servicos' },
-  { label: 'Resultados', href: '#resultados' },
-  { label: 'Agendar', href: '#agendamento' },
+  { label: 'Catalogo', href: '#catalogo' },
+  { label: 'Experiencia', href: '#experiencia' },
+  { label: 'Sobre', href: '#sobre' },
+  { label: 'WhatsApp', href: '#agendamento' },
 ];
 
 const services = [
@@ -38,35 +39,35 @@ const services = [
   'Procedimentos Premium',
 ];
 
-const gallery = [
-  {
-    title: 'Resultado real',
-    tag: 'Bronze no estúdio',
-    image: '/brand/resultado-real-01.jpg',
-  },
-  {
-    title: 'Marquinha personalizada',
-    tag: 'Pele dourada',
-    image: '/brand/resultado-real-02.jpg',
-  },
+const catalog = [
   {
     title: 'Glow Solare',
-    tag: 'Presença premium',
+    detail: 'Bronze iluminado com acabamento premium.',
     image: '/brand/glow-01.jpg',
   },
   {
-    title: 'Banho de lua',
-    tag: 'Cuidado com a pele',
+    title: 'Pele Dourada',
+    detail: 'Resultado real direto do estudio.',
+    image: '/brand/resultado-real-01.jpg',
+  },
+  {
+    title: 'Marquinha Premium',
+    detail: 'Design de bronze e contorno personalizado.',
+    image: '/brand/resultado-real-02.jpg',
+  },
+  {
+    title: 'Banho de Lua',
+    detail: 'Ritual de pele, brilho e cuidado.',
     image: '/brand/banho-lua-01.jpg',
   },
   {
-    title: 'Bronze com fita',
-    tag: 'Design de biquíni',
+    title: 'Bronze com Fita',
+    detail: 'Marquinha desenhada com precisao.',
     image: '/brand/marquinha-01.jpg',
   },
   {
-    title: 'Verão o ano inteiro',
-    tag: 'Autoestima renovada',
+    title: 'Verao Permanente',
+    detail: 'Autoestima elevada em cada detalhe.',
     image: '/brand/verao-01.jpg',
   },
 ];
@@ -111,280 +112,169 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen overflow-hidden bg-black text-white">
-      <div className="luxury-orbit" aria-hidden="true" />
-      <div className="gold-particles" aria-hidden="true" />
+    <div className="site-shell min-h-screen bg-black text-white">
+      <header className="topbar">
+        <a href="#hero" className="brand-name" aria-label="Josy Leao Solare">
+          Josy Leao Solare
+        </a>
 
-      <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-black/80 backdrop-blur-xl">
-        <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 sm:px-8">
-          <a href="#hero" className="group flex items-center gap-3" aria-label="Josy Leao Solare">
-            <span className="brand-mark">
-              <img src="/brand/josy-logo-official-small.webp" alt="" />
-            </span>
-            <span className="leading-tight">
-              <span className="block font-serif text-xl text-white">Josy Leao Solare</span>
-              <span className="block text-xs uppercase tracking-[0.28em] text-champagne/80">Bronzeamento artificial</span>
-            </span>
-          </a>
+        <nav className="desktop-nav">
+          {navItems.map((item) => (
+            <a key={item.href} href={item.href}>
+              {item.label}
+            </a>
+          ))}
+        </nav>
 
-          <nav className="hidden items-center gap-8 lg:flex">
+        <a className="insta-link" href={instagramUrl} target="_blank" rel="noreferrer" aria-label="Instagram">
+          <Camera size={20} />
+        </a>
+
+        <button className="menu-button" type="button" aria-label="Abrir menu" onClick={() => setIsMenuOpen((value) => !value)}>
+          {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
+        </button>
+
+        {isMenuOpen && (
+          <div className="mobile-menu">
             {navItems.map((item) => (
-              <a key={item.href} href={item.href} className="nav-link">
+              <a key={item.href} href={item.href} onClick={() => setIsMenuOpen(false)}>
                 {item.label}
               </a>
             ))}
-          </nav>
-
-          <a className="hidden items-center gap-2 border border-gold/50 bg-gold px-5 py-3 text-sm font-semibold text-black transition hover:bg-champagne lg:inline-flex" href={quickMessage} target="_blank" rel="noreferrer">
-            <MessageCircle size={18} />
-            WhatsApp
-          </a>
-
-          <button
-            className="grid h-11 w-11 place-items-center border border-white/15 text-white lg:hidden"
-            type="button"
-            aria-label="Abrir menu"
-            onClick={() => setIsMenuOpen((value) => !value)}
-          >
-            {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
-          </button>
-        </div>
-
-        {isMenuOpen && (
-          <div className="border-t border-white/10 bg-black px-5 py-5 lg:hidden">
-            <div className="flex flex-col gap-4">
-              {navItems.map((item) => (
-                <a key={item.href} href={item.href} className="text-sm uppercase tracking-[0.2em] text-white/80" onClick={() => setIsMenuOpen(false)}>
-                  {item.label}
-                </a>
-              ))}
-            </div>
           </div>
         )}
       </header>
 
       <main>
-        <section id="hero" className="relative isolate flex min-h-screen items-center pt-24">
-          <div className="gold-wave wave-one" aria-hidden="true" />
-          <div className="gold-wave wave-two" aria-hidden="true" />
-
-          <div className="mx-auto grid w-full max-w-7xl gap-12 px-5 py-16 sm:px-8 lg:grid-cols-[1.08fr_0.92fr] lg:items-center">
-            <div className="max-w-3xl">
-              <img className="hero-logo" src="/brand/josy-logo-official.webp" alt="Josy Leao Solare Centro de Bronzeamento Artificial" />
-              <div className="mb-6 inline-flex items-center gap-3 border border-gold/35 bg-white/[0.03] px-4 py-2 text-xs uppercase tracking-[0.24em] text-champagne">
-                <Sparkles size={16} />
-                Reinauguracao premium em Belem
-              </div>
-              <h1 className="font-serif text-6xl leading-[0.92] text-white sm:text-7xl lg:text-8xl">
-                Josy Leao Solare
-              </h1>
-              <p className="mt-5 text-xl uppercase tracking-[0.22em] text-gold sm:text-2xl">
-                Centro de Bronzeamento e Estetica
-              </p>
-              <p className="mt-7 max-w-2xl text-lg leading-8 text-white/75 sm:text-xl">
-                Sua nova experiencia em beleza, bronzeamento e autoestima.
-              </p>
-              <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-                <a className="premium-button" href="#agendamento">
-                  Agendar experiencia
-                  <ArrowRight size={18} />
-                </a>
-                <a className="secondary-button" href="#servicos">
-                  Ver servicos
-                  <ChevronRight size={18} />
-                </a>
-              </div>
-            </div>
-
-            <div className="hero-visual" aria-label="Resultado real Josy Leao Solare">
-              <div className="hero-frame">
-                <img className="hero-photo" src="/brand/glow-01.jpg" alt="Resultado real de bronzeamento Josy Leao Solare" />
-                <div className="hero-photo-glow" aria-hidden="true" />
-                <div className="absolute bottom-8 left-8 right-8">
-                  <p className="text-sm uppercase tracking-[0.3em] text-champagne/80">Resultado real</p>
-                  <p className="mt-3 font-serif text-4xl text-white">Glow de estúdio, pele de presença.</p>
-                </div>
-              </div>
-            </div>
+        <section id="hero" className="hero-frame">
+          <div className="hero-media" aria-hidden="true">
+            <img src={siteContent.heroBackground} alt="" />
           </div>
-        </section>
-
-        <section id="marca" className="section-band">
-          <div className="mx-auto grid max-w-7xl gap-10 px-5 sm:px-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
+          <div className="hero-text">
+            <img src={siteContent.logo} alt="Josy Leao Solare" />
+            <span>{siteContent.heroKicker}</span>
+            <h1>{siteContent.heroTitle}</h1>
+            <p>{siteContent.heroSubtitle}</p>
             <div>
-              <p className="eyebrow">Storytelling da marca</p>
-              <h2 className="section-title">Um novo capitulo para quem busca pele iluminada, autocuidado e presenca.</h2>
-            </div>
-            <div className="space-y-8">
-              <p className="section-copy">
-                A Josy Leao Solare nasce com uma proposta refinada: unir bronzeamento, estetica e experiencia sensorial em um ambiente de cuidado, elegancia e resultado. Cada detalhe prepara a cliente para se sentir confiante antes, durante e depois do atendimento.
-              </p>
-              <div className="proof-strip">
-                <span>12.7K seguidores</span>
-                <span>Resultados reais</span>
-                <span>Bronze, estética e autoestima</span>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section id="reinauguracao" className="relative py-24 sm:py-32">
-          <div className="mx-auto max-w-7xl px-5 sm:px-8">
-            <div className="reinauguracao-panel">
-              <div>
-                <p className="eyebrow">Reinauguracao</p>
-                <h2 className="section-title">Novo espaco, nova energia, o mesmo compromisso com beleza premium.</h2>
-              </div>
-              <div className="grid gap-5 sm:grid-cols-3">
-                {['Atendimento sofisticado', 'Protocolos selecionados', 'Experiencia comercial pronta'].map((item) => (
-                  <div key={item} className="metric-box">
-                    <Star className="text-gold" size={20} />
-                    <span>{item}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section id="servicos" className="section-band">
-          <div className="mx-auto max-w-7xl px-5 sm:px-8">
-            <div className="mb-12 flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
-              <div>
-                <p className="eyebrow">Servicos</p>
-                <h2 className="section-title max-w-3xl">Tratamentos para realcar bronze, contorno, pele e expressao.</h2>
-              </div>
-              <a className="secondary-button w-fit" href="#agendamento">
-                Consultar horarios
-                <CalendarDays size={18} />
+              <a className="gold-button" href="#catalogo">
+                Ver experiencias
+              </a>
+              <a className="outline-button" href={quickMessage} target="_blank" rel="noreferrer">
+                WhatsApp
               </a>
             </div>
+          </div>
 
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              {services.map((service) => (
-                <article key={service} className="service-card">
-                  <Gem size={24} className="text-gold" />
-                  <h3>{service}</h3>
-                  <p>Protocolo preparado para uma entrega elegante, segura e memoravel.</p>
-                </article>
-              ))}
-            </div>
+          <div className="scroll-indicator" aria-hidden="true">
+            <span>Scroll</span>
+            <i />
           </div>
         </section>
 
-        <section id="resultados" className="py-24 sm:py-32">
-          <div className="mx-auto max-w-7xl px-5 sm:px-8">
-            <div className="mb-12">
-              <p className="eyebrow">Resultados reais</p>
-              <h2 className="section-title max-w-3xl">Provas reais do bronze, da marquinha e da experiencia Solare.</h2>
-            </div>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {gallery.map((item) => (
-                <div key={item.title} className="gallery-tile">
+        <div className="ticker" aria-hidden="true">
+          <span>Josy Leao Solare</span>
+          <b />
+          <span>Bronzeamento Premium</span>
+          <b />
+          <span>Resultados Reais</span>
+          <b />
+          <span>Belem 2026</span>
+          <b />
+          <span>Luxo Dourado</span>
+        </div>
+
+        <section id="catalogo" className="catalog-section">
+          <p className="section-kicker">Catalogo</p>
+          <h2>
+            {siteContent.catalogTitle} <em>{siteContent.catalogEmphasis}</em>
+          </h2>
+
+          <div className="product-grid">
+            {catalog.map((item) => (
+              <article className="product-card" key={item.title}>
+                <div className="product-image">
                   <img src={item.image} alt={`${item.title} Josy Leao Solare`} loading="lazy" />
-                  <span>{item.tag}</span>
-                  <strong>{item.title}</strong>
                 </div>
+                <div className="product-info">
+                  <h3>{item.title}</h3>
+                  <p>{item.detail}</p>
+                  <span>Agendar pelo WhatsApp</span>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section id="experiencia" className="about-band">
+          <p className="section-kicker">Experiencia</p>
+          <h2>
+            {siteContent.aboutTitle} <em>{siteContent.aboutEmphasis}</em>
+          </h2>
+          <p>{siteContent.aboutCopy}</p>
+          <div className="about-actions">
+            <a className="gold-button" href={quickMessage} target="_blank" rel="noreferrer">
+              Falar no WhatsApp
+            </a>
+            <a className="outline-button" href={instagramUrl} target="_blank" rel="noreferrer">
+              Instagram
+            </a>
+          </div>
+        </section>
+
+        <section id="agendamento" className="booking-band">
+          <p className="section-kicker">Agendamento</p>
+          <h2>
+            Escolha seu <em>ritual.</em>
+          </h2>
+
+          <form className="booking-form" onSubmit={handleSubmit}>
+            <input value={form.name} onChange={(event) => setForm({ ...form, name: event.target.value })} placeholder="Nome" />
+            <select value={form.service} onChange={(event) => setForm({ ...form, service: event.target.value })}>
+              {services.map((service) => (
+                <option key={service}>{service}</option>
               ))}
-            </div>
-          </div>
+            </select>
+            <input type="date" value={form.date} onChange={(event) => setForm({ ...form, date: event.target.value })} />
+            <select value={form.period} onChange={(event) => setForm({ ...form, period: event.target.value })}>
+              <option>Manha</option>
+              <option>Tarde</option>
+              <option>Noite</option>
+            </select>
+            <textarea value={form.notes} onChange={(event) => setForm({ ...form, notes: event.target.value })} placeholder="Observacoes" />
+            <button className="gold-button" type="submit">
+              Gerar mensagem
+            </button>
+          </form>
         </section>
 
-        <section className="section-band">
-          <div className="mx-auto grid max-w-7xl gap-10 px-5 sm:px-8 lg:grid-cols-[1fr_1fr] lg:items-center">
-            <div>
-              <p className="eyebrow">Parceria</p>
-              <h2 className="section-title">Josy Leao Solare + Yasmin Manito</h2>
-            </div>
-            <p className="section-copy">
-              Uma colaboracao pensada para fortalecer posicionamento, imagem e desejo. A parceria conecta tecnica, presenca digital e uma narrativa premium para apresentar a reinauguracao com impacto comercial.
-            </p>
-          </div>
-        </section>
-
-        <section id="agendamento" className="py-24 sm:py-32">
-          <div className="mx-auto grid max-w-7xl gap-10 px-5 sm:px-8 lg:grid-cols-[0.88fr_1.12fr]">
-            <div>
-              <p className="eyebrow">Agendamento via WhatsApp</p>
-              <h2 className="section-title">Escolha o servico e envie sua mensagem pronta.</h2>
-              <p className="section-copy mt-6">
-                O formulario organiza o pedido e abre o WhatsApp com todas as informacoes para a equipe confirmar disponibilidade.
-              </p>
-              <div className="mt-8 space-y-4 text-white/75">
-                <p className="flex items-center gap-3"><Clock className="text-gold" size={20} /> Atendimento com horario confirmado pela equipe.</p>
-                <p className="flex items-center gap-3"><Phone className="text-gold" size={20} /> Botao flutuante sempre disponivel.</p>
-              </div>
-            </div>
-
-            <form className="booking-form" onSubmit={handleSubmit}>
-              <label>
-                Nome
-                <input value={form.name} onChange={(event) => setForm({ ...form, name: event.target.value })} placeholder="Seu nome" />
-              </label>
-              <label>
-                Servico
-                <select value={form.service} onChange={(event) => setForm({ ...form, service: event.target.value })}>
-                  {services.map((service) => (
-                    <option key={service}>{service}</option>
-                  ))}
-                </select>
-              </label>
-              <div className="grid gap-5 sm:grid-cols-2">
-                <label>
-                  Data desejada
-                  <input type="date" value={form.date} onChange={(event) => setForm({ ...form, date: event.target.value })} />
-                </label>
-                <label>
-                  Periodo
-                  <select value={form.period} onChange={(event) => setForm({ ...form, period: event.target.value })}>
-                    <option>Manha</option>
-                    <option>Tarde</option>
-                    <option>Noite</option>
-                  </select>
-                </label>
-              </div>
-              <label>
-                Observacoes
-                <textarea value={form.notes} onChange={(event) => setForm({ ...form, notes: event.target.value })} placeholder="Conte se deseja bronze, estetica ou uma avaliacao personalizada." />
-              </label>
-              <button className="premium-button justify-center" type="submit">
-                Gerar mensagem no WhatsApp
-                <MessageCircle size={18} />
-              </button>
-            </form>
-          </div>
-        </section>
-
-        <section id="localizacao" className="section-band">
-          <div className="mx-auto grid max-w-7xl gap-10 px-5 sm:px-8 lg:grid-cols-[1fr_1fr] lg:items-center">
-            <div>
-              <p className="eyebrow">Localizacao</p>
-              <h2 className="section-title">Av. Alcindo Cacela, 1474 - Nazare - Belem/PA</h2>
-              <a className="secondary-button mt-8 w-fit" href="https://www.google.com/maps/search/?api=1&query=Av.%20Alcindo%20Cacela%201474%20Nazare%20Belem%20PA" target="_blank" rel="noreferrer">
-                Abrir mapa
-                <MapPin size={18} />
-              </a>
-            </div>
-            <div className="map-placeholder">
-              <MapPin size={40} />
-              <span>Mapa e fachada podem ser inseridos aqui</span>
-            </div>
-          </div>
+        <section id="sobre" className="location-band">
+          <p className="section-kicker">Localizacao</p>
+          <h2>{siteContent.address}</h2>
+          <a className="outline-button" href="https://www.google.com/maps/search/?api=1&query=Av.%20Alcindo%20Cacela%201474%20Nazare%20Belem%20PA" target="_blank" rel="noreferrer">
+            Abrir mapa
+          </a>
         </section>
       </main>
 
-      <footer className="border-t border-white/10 bg-black py-10">
-        <div className="mx-auto flex max-w-7xl flex-col gap-6 px-5 text-sm text-white/60 sm:px-8 lg:flex-row lg:items-center lg:justify-between">
-          <img className="footer-logo" src="/brand/josy-logo-official-small.webp" alt="Josy Leao Solare" />
-          <p>Centro de Bronzeamento e Estetica - Belem/PA</p>
-          <a className="inline-flex items-center gap-2 text-gold" href={instagramUrl} target="_blank" rel="noreferrer">
-            <Camera size={18} />
-            Instagram
-          </a>
+      <footer className="footer">
+        <div>
+          <h3>Josy Leao Solare</h3>
+          <p>Centro de Bronzeamento e Estetica.</p>
+        </div>
+        <div>
+          <h4>Navegacao</h4>
+          <a href="#catalogo">Catalogo</a>
+          <a href="#experiencia">Experiencia</a>
+          <a href="#agendamento">Agenda</a>
+        </div>
+        <div>
+          <h4>Contato</h4>
+          <a href={quickMessage} target="_blank" rel="noreferrer">WhatsApp</a>
+          <a href={instagramUrl} target="_blank" rel="noreferrer">@josyleaosolare</a>
         </div>
       </footer>
 
-      <a className="floating-whatsapp" href={quickMessage} target="_blank" rel="noreferrer" aria-label="Agendar pelo WhatsApp">
+      <a className="float-whatsapp" href={quickMessage} target="_blank" rel="noreferrer" aria-label="WhatsApp">
         <MessageCircle size={26} />
       </a>
     </div>
