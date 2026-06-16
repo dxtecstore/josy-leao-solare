@@ -363,7 +363,13 @@ function AdminLogin() {
     setError('');
 
     if (!supabase) {
-      window.location.href = '/admin/dashboard';
+      if (email.trim().toLowerCase() === 'josyleao' && password === 'mucuretdanasa') {
+        window.sessionStorage.setItem('solare_demo_admin', 'true');
+        window.location.href = '/admin/dashboard';
+        return;
+      }
+
+      setError('Login ou senha incorretos.');
       return;
     }
 
@@ -383,7 +389,7 @@ function AdminLogin() {
         <p>Solare Studio OS</p>
         <h1>Gestao premium para bronzeamento e estetica.</h1>
         {!isSupabaseConfigured && <small>Modo demonstracao ativo. Configure o Supabase para salvar dados reais.</small>}
-        <input type="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="email@studio.com" />
+        <input type="text" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="Login" />
         <input type="password" value={password} onChange={(event) => setPassword(event.target.value)} placeholder="Senha" />
         {error && <strong>{error}</strong>}
         <button className="gold-button soft" type="submit">{isSupabaseConfigured ? 'Entrar no sistema' : 'Entrar no Studio OS'}</button>
@@ -393,7 +399,7 @@ function AdminLogin() {
 }
 
 function AdminDashboard() {
-  const [sessionReady, setSessionReady] = useState(!supabase);
+  const [sessionReady, setSessionReady] = useState(false);
   const [activeModule, setActiveModule] = useState('dashboard');
   const [services, setServices] = useState<Service[]>(fallbackServices);
   const [gallery, setGallery] = useState<GalleryItem[]>(fallbackGallery);
@@ -405,7 +411,16 @@ function AdminDashboard() {
 
   useEffect(() => {
     async function bootstrap() {
-      if (!supabase) return;
+      if (!supabase) {
+        if (window.sessionStorage.getItem('solare_demo_admin') === 'true') {
+          setSessionReady(true);
+          return;
+        }
+
+        window.location.href = '/admin/login';
+        return;
+      }
+
       const { data } = await supabase.auth.getSession();
       if (!data.session) {
         window.location.href = '/admin/login';
@@ -442,6 +457,7 @@ function AdminDashboard() {
 
   async function signOut() {
     if (supabase) await supabase.auth.signOut();
+    window.sessionStorage.removeItem('solare_demo_admin');
     window.location.href = '/admin/login';
   }
 
