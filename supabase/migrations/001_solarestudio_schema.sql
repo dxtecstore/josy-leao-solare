@@ -80,6 +80,20 @@ alter table public.settings enable row level security;
 alter table public.clients enable row level security;
 alter table public.time_blocks enable row level security;
 
+grant usage on schema public to anon, authenticated;
+grant select on public.services to anon, authenticated;
+grant select on public.gallery to anon, authenticated;
+grant select on public.testimonials to anon, authenticated;
+grant select on public.settings to anon, authenticated;
+grant insert on public.appointments to anon;
+grant select, insert, update, delete on public.services to authenticated;
+grant select, insert, update, delete on public.gallery to authenticated;
+grant select, insert, update, delete on public.appointments to authenticated;
+grant select, insert, update, delete on public.testimonials to authenticated;
+grant select, insert, update, delete on public.settings to authenticated;
+grant select, insert, update, delete on public.clients to authenticated;
+grant select, insert, update, delete on public.time_blocks to authenticated;
+
 create policy "Public can read active services" on public.services for select using (active = true);
 create policy "Public can read active gallery" on public.gallery for select using (active = true);
 create policy "Public can read active testimonials" on public.testimonials for select using (active = true);

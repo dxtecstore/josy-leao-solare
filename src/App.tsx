@@ -363,7 +363,7 @@ function AdminLogin() {
     setError('');
 
     if (!supabase) {
-      setError('Configure VITE_SUPABASE_URL e VITE_SUPABASE_ANON_KEY para ativar o login.');
+      window.location.href = '/admin/dashboard';
       return;
     }
 
@@ -382,11 +382,11 @@ function AdminLogin() {
         <Lock size={28} />
         <p>Solare Studio OS</p>
         <h1>Gestao premium para bronzeamento e estetica.</h1>
-        {!isSupabaseConfigured && <small>Supabase ainda nao configurado neste deploy.</small>}
+        {!isSupabaseConfigured && <small>Modo demonstracao ativo. Configure o Supabase para salvar dados reais.</small>}
         <input type="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="email@studio.com" />
         <input type="password" value={password} onChange={(event) => setPassword(event.target.value)} placeholder="Senha" />
         {error && <strong>{error}</strong>}
-        <button className="gold-button soft" type="submit">Entrar no sistema</button>
+        <button className="gold-button soft" type="submit">{isSupabaseConfigured ? 'Entrar no sistema' : 'Entrar no Studio OS'}</button>
       </form>
     </div>
   );
