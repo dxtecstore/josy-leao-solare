@@ -178,7 +178,7 @@ function LandingPage() {
       <main>
         <section id="hero" className="hero-frame refined-hero">
           <div className="hero-media" aria-hidden="true">
-            <img src={settings.hero_image_url || fallbackSettings.hero_image_url || ''} alt="" />
+            <img src={settings.logo_url || fallbackSettings.logo_url || ''} alt="" />
           </div>
           <div className="hero-text zara-hero">
             <img className="hero-logo-mark" src={settings.logo_url || fallbackSettings.logo_url || ''} alt={settings.business_name} />
