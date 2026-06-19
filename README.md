@@ -1,6 +1,8 @@
 # Josy Leao Solare
 
-Vitrine premium e plataforma de gestao para `Josy Leao Solare | Centro de Bronzeamento e Estetica`.
+Vitrine premium e plataforma de gestao para `Josy Leao Solare`.
+
+A versao comercial atual esta preparada para venda consultiva de catalogo adulto 18+, com atendimento discreto via WhatsApp, fotos de produtos, cards de alta conversao e area administrativa para editar catalogo, galeria, servicos, depoimentos e configuracoes.
 
 Nome interno do sistema: `Solare Studio OS`.
 
@@ -57,6 +59,7 @@ supabase/migrations/001_solarestudio_schema.sql
 
 Ela cria:
 
+- `products`
 - `services`
 - `gallery`
 - `appointments`
@@ -73,6 +76,7 @@ Depois de criar o projeto Supabase `josy-leao-solare`, aplique a migration e cri
 Modulos incluidos:
 
 - Dashboard com agendamentos do dia, clientes da semana, receita estimada e servico mais procurado
+- Produtos Sexy Shop com cadastro, preco, categoria, foto, status ativo/inativo e upload
 - Agenda inteligente com bloqueio de horarios e status de atendimento
 - CRM de clientes com historico, ultimo procedimento e observacoes
 - Galeria antes e depois com upload por categoria
@@ -82,11 +86,27 @@ Modulos incluidos:
 - Depoimentos e provas reais
 - Configuracoes do site com logo, hero, Instagram, WhatsApp e endereco
 
+## Catalogo de venda
+
+As imagens iniciais do catalogo estao em:
+
+```bash
+public/products/
+```
+
+A logo oficial convertida do PDF esta em:
+
+```bash
+public/brand/josy-logo-from-pdf.webp
+```
+
+Para trocar nome, preco, descricao ou foto sem Supabase configurado, use o admin demo em `/admin/login`. Para ambiente com Supabase, aplique a migration e use o modulo `Produtos Sexy Shop`.
+
 ## Personalizacao futura
 
-- Substituir placeholders por fotos reais no admin.
+- Substituir ou reorganizar fotos reais no admin.
 - Atualizar logo e hero pelo Studio OS.
-- Atualizar Instagram e imagens da fachada/localizacao.
+- Atualizar Instagram, WhatsApp, endereco e imagens da vitrine.
 
 ## Escopo desta versao
 

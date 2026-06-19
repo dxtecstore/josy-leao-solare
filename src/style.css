@@ -258,6 +258,26 @@ textarea {
   margin-top: 3rem;
 }
 
+.preview-trust-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.preview-trust-row span {
+  border: 1px solid rgba(246, 215, 122, 0.22);
+  background: rgba(0, 0, 0, 0.34);
+  color: rgba(255, 255, 255, 0.78);
+  padding: 0.55rem 0.85rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  backdrop-filter: blur(10px);
+}
+
 .preview-primary,
 .preview-secondary,
 .preview-booking-form button {
@@ -2715,6 +2735,7 @@ em {
   }
 
   .preview-actions,
+  .preview-trust-row,
   .preview-footer nav {
     width: 100%;
     flex-direction: column;
@@ -2722,6 +2743,7 @@ em {
 
   .preview-primary,
   .preview-secondary,
+  .preview-trust-row span,
   .preview-booking-form button {
     width: 100%;
   }

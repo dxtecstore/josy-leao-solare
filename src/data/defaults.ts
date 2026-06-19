@@ -6,7 +6,7 @@ export const fallbackSettings: Settings = {
   whatsapp: '5591986302070',
   instagram: 'https://www.instagram.com/josyleaosolare/',
   address: 'Av. Alcindo Cacela, 1474 - Nazare - Belem/PA',
-  logo_url: '/brand/josy-logo-official.webp',
+  logo_url: '/brand/josy-logo-from-pdf.webp',
   hero_image_url: '/brand/glow-01.jpg',
 };
 

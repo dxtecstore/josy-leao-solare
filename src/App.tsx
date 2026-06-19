@@ -244,8 +244,13 @@ function LandingPage() {
             <h1>Desejo, cuidado<br /><em>e discricao.</em></h1>
             <p>Catalogo adulto 18+ com produtos selecionados, atendimento reservado e compra guiada pelo WhatsApp.</p>
             <div className="preview-actions">
-              <a className="preview-primary" href="#agendamento">Agendar no WhatsApp</a>
-              <a className="preview-secondary" href="#storytelling">Conhecer experiencia</a>
+              <a className="preview-primary" href="#produtos">Ver catalogo</a>
+              <a className="preview-secondary" href="#agendamento">Comprar pelo WhatsApp</a>
+            </div>
+            <div className="preview-trust-row" aria-label="Diferenciais de compra">
+              <span>18+</span>
+              <span>Atendimento discreto</span>
+              <span>Consulta antes do pedido</span>
             </div>
           </div>
           <div className="preview-scroll" aria-hidden="true">
