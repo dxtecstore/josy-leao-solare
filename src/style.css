@@ -563,6 +563,45 @@ textarea {
   line-height: 1.7;
 }
 
+.preview-proof {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-block: 1px solid rgba(212, 175, 55, 0.15);
+  background:
+    radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.08), transparent 28rem),
+    #080808;
+}
+
+.preview-proof article {
+  display: grid;
+  place-items: center;
+  min-height: 10rem;
+  border-right: 1px solid rgba(212, 175, 55, 0.12);
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.preview-proof article:last-child {
+  border-right: 0;
+}
+
+.preview-proof strong {
+  color: var(--gold-soft);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(2.3rem, 4vw, 4rem);
+  font-weight: 500;
+  line-height: 0.9;
+}
+
+.preview-proof span {
+  margin-top: 0.85rem;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
 .preview-services {
   padding-block: 7rem;
 }
@@ -628,6 +667,29 @@ textarea {
   font-size: 0.68rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
+}
+
+.service-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 1rem;
+  border: 1px solid rgba(212, 175, 55, 0.32);
+  color: var(--gold-soft);
+  padding: 0.85rem 1rem;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: background 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.service-whatsapp:hover {
+  border-color: var(--gold-primary);
+  background: var(--gold-primary);
+  color: #000000;
 }
 
 .preview-service-card i {
@@ -2775,8 +2837,19 @@ em {
   .preview-product-grid,
   .preview-gallery-grid,
   .preview-testimonial-grid,
-  .preview-booking-form {
+  .preview-booking-form,
+  .preview-proof {
     grid-template-columns: 1fr;
+  }
+
+  .preview-proof article {
+    min-height: 8rem;
+    border-right: 0;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.12);
+  }
+
+  .preview-proof article:last-child {
+    border-bottom: 0;
   }
 
   .preview-gallery-grid {

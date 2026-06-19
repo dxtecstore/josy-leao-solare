@@ -104,7 +104,7 @@ function LandingPage() {
   const [form, setForm] = useState({
     client_name: '',
     phone: '',
-    service_id: fallbackProducts[0]?.id ?? '',
+    service_id: 'bronze-natural',
     preferred_date: '',
     preferred_time: '',
     notes: '',
@@ -133,45 +133,65 @@ function LandingPage() {
     void loadPublicData();
   }, []);
 
-  const quickMessage = buildWhatsAppUrl(
-    settings.whatsapp,
-    'Olá! Quero receber o catálogo adulto 18+ e consultar a disponibilidade dos produtos.',
-  );
+  const whatsappMessage = 'Olá, vi o site da Josy Leão Solare e gostaria de agendar meu atendimento.';
+  const quickMessage = buildWhatsAppUrl(settings.whatsapp, whatsappMessage);
   const visibleProducts = (products.length >= 20 ? products : fallbackProducts).filter((product) => product.active).slice(0, 20);
-  const selectedProduct = visibleProducts.find((product) => product.id === form.service_id) ?? visibleProducts[0];
-  const shoppingHighlights = [
+  const servicesShowcase = [
     {
-      name: 'Atendimento discreto',
-      description: 'Compra guiada pelo WhatsApp com linguagem segura, acolhedora e sem exposição.',
+      id: 'bronze-natural',
+      name: 'Bronzeamento natural',
+      description: 'Bronze uniforme e elegante, pensado para realçar o tom da pele com segurança e acabamento premium.',
+      cta: 'Agendar pelo WhatsApp',
     },
     {
-      name: 'Curadoria adulta 18+',
-      description: 'Produtos selecionados para diferentes momentos, estilos e níveis de experiência.',
+      id: 'marquinha',
+      name: 'Marquinha personalizada',
+      description: 'Design de marquinha feito com cuidado para valorizar o corpo e entregar a marquinha dos sonhos.',
+      cta: 'Quero minha marquinha',
     },
     {
-      name: 'Fotos e disponibilidade',
-      description: 'Veja detalhes, cores, valores e estoque antes de confirmar o pedido.',
+      id: 'biquini',
+      name: 'Design de biquíni',
+      description: 'Escolha orientada do desenho ideal para um resultado harmônico, feminino e sob medida.',
+      cta: 'Reservar meu horário',
     },
     {
-      name: 'Presente especial',
-      description: 'Opções para surpreender com elegância, discrição e apresentação premium.',
+      id: 'pele',
+      name: 'Cuidados com a pele',
+      description: 'Preparação, hidratação e finalização para uma pele iluminada, macia e pronta para o bronze.',
+      cta: 'Falar com a Josy',
     },
     {
-      name: 'Entrega combinada',
-      description: 'Combine retirada ou envio diretamente pelo WhatsApp.',
+      id: 'spa-banho',
+      name: 'Spa banho',
+      description: 'Momento de cuidado corporal para renovar a pele, relaxar e elevar a experiência de autoestima.',
+      cta: 'Agendar spa banho',
     },
     {
-      name: 'Orientação personalizada',
-      description: 'Escolha com mais segurança a partir do seu objetivo e preferência.',
+      id: 'sexy-shop',
+      name: 'Produtos sexy shop',
+      description: 'Vitrine discreta de produtos adultos 18+, com consulta individual e atendimento reservado.',
+      cta: 'Consultar produtos',
     },
   ];
+  const bookingOptions = [
+    ...servicesShowcase.map((service) => ({ id: service.id, name: service.name })),
+    ...visibleProducts.map((product) => ({ id: product.id, name: product.name })),
+  ];
+  const selectedInterest = bookingOptions.find((item) => item.id === form.service_id) ?? bookingOptions[0];
+  const socialProof = [
+    ['+2.000', 'clientes atendidas'],
+    ['12,8 mil', 'seguidores no Instagram'],
+    ['Nazaré', 'Belém/PA'],
+    ['LGBTQIAPN+', 'ambiente acolhedor'],
+  ];
   const galleryModels = (gallery.length >= 6 ? gallery : fallbackGallery).slice(0, 6);
-  const marqueeWords = ['Catálogo adulto 18+', 'Atendimento discreto', 'Presentes sensuais', 'Acessórios premium', 'Compra pelo WhatsApp', 'Entrega combinada'];
+  const marqueeWords = ['Bronzeamento premium', 'Marquinha dos sonhos', 'Design de biquíni', 'Spa banho', 'Atendimento feminino', 'Produtos 18+'];
 
   async function handleAppointment(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const message = `Olá, tenho interesse no produto ${selectedProduct?.name ?? 'do catálogo adulto 18+'}. Meu nome é ${form.client_name || '[nome]'}. Meu WhatsApp é ${form.phone || '[telefone]'}. ${form.notes ? `Observações: ${form.notes}` : ''}`;
+    const message = `${whatsappMessage} Meu nome é ${form.client_name || '[nome]'}. Tenho interesse em ${selectedInterest?.name ?? 'agendar atendimento'}. ${form.preferred_date ? `Data desejada: ${form.preferred_date}.` : ''} ${form.preferred_time ? `Período: ${form.preferred_time}.` : ''} ${form.notes ? `Observações: ${form.notes}` : ''}`;
 
     if (supabase) {
       await supabase.from('appointments').insert({
@@ -181,7 +201,7 @@ function LandingPage() {
         preferred_date: form.preferred_date || null,
         preferred_time: form.preferred_time || null,
         status: 'novo',
-        notes: `Produto: ${selectedProduct?.name ?? 'Catálogo'} | ${form.notes}`,
+        notes: `Interesse: ${selectedInterest?.name ?? 'Atendimento'} | ${form.notes}`,
       });
 
       if (form.client_name && form.phone) {
@@ -189,7 +209,7 @@ function LandingPage() {
           {
             name: form.client_name,
             whatsapp: form.phone,
-            last_procedure: selectedProduct?.name ?? null,
+            last_procedure: selectedInterest?.name ?? null,
             notes: form.notes,
           },
           { onConflict: 'whatsapp' },
@@ -205,27 +225,26 @@ function LandingPage() {
       <header className="preview-header">
         <a href="#topo" className="preview-brand" aria-label={settings.business_name}>
           <img src={settings.logo_url || fallbackSettings.logo_url || ''} alt="" />
-          <span>Josy Leao <em>Solare</em></span>
+          <span>Josy Leão <em>Solare</em></span>
         </a>
         <nav className="preview-nav">
-          <a href="#servicos">Catálogo</a>
+          <a href="#servicos">Serviços</a>
+          <a href="#galeria">Resultados</a>
           <a href="#produtos">Produtos</a>
-          <a href="#storytelling">Experiencia</a>
-          <a href="#galeria">Galeria</a>
+          <a href="#agendamento">Agendar</a>
           <a href="/admin/login">Admin</a>
         </nav>
-        <a className="preview-nav-cta" href="#agendamento">WhatsApp</a>
+        <a className="preview-nav-cta" href={quickMessage} target="_blank" rel="noreferrer">WhatsApp</a>
         <button className="preview-menu-button" type="button" aria-label="Abrir menu" onClick={() => setIsMenuOpen((value) => !value)}>
           {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
         </button>
         {isMenuOpen && (
           <div className="preview-mobile-menu">
             {[
-              ['servicos', 'Catálogo'],
+              ['servicos', 'Serviços'],
+              ['galeria', 'Resultados'],
               ['produtos', 'Produtos'],
-              ['storytelling', 'Experiencia'],
-              ['galeria', 'Galeria'],
-              ['agendamento', 'Agenda'],
+              ['agendamento', 'Agendar'],
             ].map(([href, label]) => (
               <a key={href} href={`#${href}`} onClick={() => setIsMenuOpen(false)}>{label}</a>
             ))}
@@ -241,16 +260,16 @@ function LandingPage() {
           <div className="preview-vignette" aria-hidden="true" />
           <div className="preview-hero-content">
             <span>Belém do Pará</span>
-            <h1>Desejo, cuidado<br /><em>e discrição.</em></h1>
-            <p>Catálogo adulto 18+ com produtos selecionados, atendimento reservado e compra guiada pelo WhatsApp.</p>
+            <h1>Sua marquinha<br /><em>dos sonhos.</em></h1>
+            <p>Bronzeamento premium, marquinha personalizada, cuidados com a pele e uma experiência acolhedora para você se sentir linda, segura e confiante.</p>
             <div className="preview-actions">
-              <a className="preview-primary" href="#produtos">Ver catálogo</a>
-              <a className="preview-secondary" href="#agendamento">Comprar pelo WhatsApp</a>
+              <a className="preview-primary" href="#agendamento">Agendar minha marquinha</a>
+              <a className="preview-secondary" href={quickMessage} target="_blank" rel="noreferrer">Falar com a Josy no WhatsApp</a>
             </div>
-            <div className="preview-trust-row" aria-label="Diferenciais de compra">
-              <span>18+</span>
-              <span>Atendimento discreto</span>
-              <span>Consulta antes do pedido</span>
+            <div className="preview-trust-row" aria-label="Diferenciais da Josy Leão Solare">
+              <span>+2.000 clientes</span>
+              <span>Atendimento feminino</span>
+              <span>12,8 mil no Instagram</span>
             </div>
           </div>
           <div className="preview-scroll" aria-hidden="true">
@@ -264,21 +283,89 @@ function LandingPage() {
             {Array.from({ length: 2 }).map((_, index) => (
               <div className="preview-marquee-group" key={index}>
                 {marqueeWords.map((word) => (
-                  <span key={`${word}-${index}`}>{word}<b>✦</b></span>
+                  <span key={`${word}-${index}`}>{word}<b>*</b></span>
                 ))}
               </div>
             ))}
           </div>
         </div>
 
+        <section id="storytelling" className="preview-story">
+          <div>
+            <span>Autoestima</span>
+            <h2>Mais que bronzeamento.<br /><em>Uma experiência de autoestima.</em></h2>
+            <i />
+            <p>Cada atendimento é pensado para realçar sua beleza com naturalidade, segurança e sofisticação, em um ambiente feminino, acolhedor e LGBTQIAPN+.</p>
+          </div>
+        </section>
+
+        <section className="preview-proof">
+          {socialProof.map(([value, label]) => (
+            <article key={label}>
+              <strong>{value}</strong>
+              <span>{label}</span>
+            </article>
+          ))}
+        </section>
+
+        <section id="servicos" className="preview-services">
+          <div className="preview-section-head">
+            <span>Serviços</span>
+            <h2>Serviços para <em>realçar sua beleza.</em></h2>
+          </div>
+          <div className="preview-service-grid">
+            {servicesShowcase.map((service, index) => (
+              <article className="preview-service-card" key={service.name}>
+                <Sparkles size={32} strokeWidth={1.25} />
+                <h3>{service.name}</h3>
+                <p>{service.description}</p>
+                <small>{String(index + 1).padStart(2, '0')} / Atendimento premium</small>
+                <a className="service-whatsapp" href={buildWhatsAppUrl(settings.whatsapp, whatsappMessage)} target="_blank" rel="noreferrer">{service.cta}</a>
+                <i />
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section id="galeria" className="preview-gallery">
+          <div className="preview-section-head">
+            <span>Resultados</span>
+            <h2>Resultados e bastidores <em>Solare</em></h2>
+          </div>
+          <div className="preview-gallery-grid">
+            {galleryModels.map((item, index) => (
+              <article key={item.id} className={index === 0 ? 'featured' : index === 3 ? 'wide' : ''}>
+                <img src={item.image_url} alt={item.title} loading="lazy" />
+                <div><b>{item.title}</b><span>{item.category}</span></div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="preview-testimonials">
+          <div className="preview-section-head">
+            <span>Prova social</span>
+            <h2>Confiança de quem <em>já viveu a experiência.</em></h2>
+          </div>
+          <div className="preview-testimonial-grid">
+            {testimonials.map((item) => (
+              <blockquote key={item.id}>
+                <b>“</b>
+                <p>{item.text}</p>
+                <cite>{item.client_name}</cite>
+              </blockquote>
+            ))}
+          </div>
+        </section>
+
         <section id="produtos" className="preview-products">
           <div className="preview-section-head">
-            <span>Boutique sensual</span>
-            <h2>Catálogo premium<br /><em>para escolher com discrição.</em></h2>
+            <span>Produtos sexy shop</span>
+            <h2>Vitrine discreta<br /><em>para consultar pelo WhatsApp.</em></h2>
           </div>
           <div className="preview-product-grid">
             {visibleProducts.map((product, index) => {
-              const message = `Olá, tenho interesse no produto ${product.name}. Pode me enviar mais informações?`;
+              const message = `${whatsappMessage} Gostaria de consultar o produto ${product.name}.`;
               return (
                 <article className="preview-product-card" key={product.id}>
                   <div className="preview-product-image">
@@ -297,90 +384,32 @@ function LandingPage() {
           </div>
         </section>
 
-        <section id="storytelling" className="preview-story">
-          <div>
-            <span> A compra </span>
-            <h2>Mais do que produto.<br /><em>Uma escolha discreta.</em></h2>
-            <i />
-            <p>Cada item foi pensado para quem busca desejo, autocuidado e liberdade com atendimento reservado, elegante e seguro.</p>
-          </div>
-        </section>
-
-        <section id="servicos" className="preview-services">
-          <div className="preview-section-head">
-            <span>Catálogo</span>
-            <h2>Como comprar com <em>segurança.</em></h2>
-          </div>
-          <div className="preview-service-grid">
-            {shoppingHighlights.map((service, index) => (
-              <article className="preview-service-card" key={service.name}>
-                <Sparkles size={32} strokeWidth={1.25} />
-                <h3>{service.name}</h3>
-                <p>{service.description}</p>
-                <small>{String(index + 1).padStart(2, '0')} / Compra orientada</small>
-                <i />
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section id="galeria" className="preview-gallery">
-          <div className="preview-section-head">
-            <span>Galeria</span>
-            <h2>Um olhar sobre o <em>estudio</em></h2>
-          </div>
-          <div className="preview-gallery-grid">
-            {galleryModels.map((item, index) => (
-              <article key={item.id} className={index === 0 ? 'featured' : index === 3 ? 'wide' : ''}>
-                <img src={item.image_url} alt={item.title} loading="lazy" />
-                <div><b>{item.title}</b><span>{item.category}</span></div>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className="preview-testimonials">
-          <div className="preview-section-head">
-            <span>Provas reais</span>
-            <h2>O que dizem sobre <em>a experiência.</em></h2>
-          </div>
-          <div className="preview-testimonial-grid">
-            {testimonials.map((item) => (
-              <blockquote key={item.id}>
-                <b>“</b>
-                <p>{item.text}</p>
-                <cite>{item.client_name}</cite>
-              </blockquote>
-            ))}
-          </div>
-        </section>
-
         <section id="agendamento" className="preview-booking">
           <div className="preview-booking-bg" aria-hidden="true" />
           <div className="preview-section-head">
-            <span>Agenda</span>
-            <h2>Quer consultar<br /><em>um produto?</em></h2>
+            <span>Agendamento</span>
+            <h2>Pronta para reservar<br /><em>seu horário?</em></h2>
           </div>
           <form className="preview-booking-form" onSubmit={handleAppointment}>
             <input required value={form.client_name} onChange={(event) => setForm({ ...form, client_name: event.target.value })} placeholder="Nome" />
             <input required value={form.phone} onChange={(event) => setForm({ ...form, phone: event.target.value })} placeholder="WhatsApp" />
             <select value={form.service_id} onChange={(event) => setForm({ ...form, service_id: event.target.value })}>
-              {visibleProducts.map((product) => (
-                <option key={product.id} value={product.id}>{product.name}</option>
+              {bookingOptions.map((option) => (
+                <option key={option.id} value={option.id}>{option.name}</option>
               ))}
             </select>
             <input type="date" value={form.preferred_date} onChange={(event) => setForm({ ...form, preferred_date: event.target.value })} />
             <select value={form.preferred_time} onChange={(event) => setForm({ ...form, preferred_time: event.target.value })}>
-              <option value="">Horario desejado</option>
+              <option value="">Horário desejado</option>
               {periods.map((period) => <option key={period}>{period}</option>)}
             </select>
-            <textarea value={form.notes} onChange={(event) => setForm({ ...form, notes: event.target.value })} placeholder="Observacoes" />
-            <button type="submit">Consultar no WhatsApp</button>
+            <textarea value={form.notes} onChange={(event) => setForm({ ...form, notes: event.target.value })} placeholder="Observações" />
+            <button type="submit">Reservar meu horário</button>
           </form>
         </section>
 
         <section className="preview-location">
-          <span>Localizacao</span>
+          <span>Localização</span>
           <h2>{settings.address}</h2>
           <a className="preview-secondary" href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(settings.address)}`} target="_blank" rel="noreferrer">Abrir mapa</a>
         </section>
@@ -389,7 +418,7 @@ function LandingPage() {
       <footer className="preview-footer">
         <div>
           <img src={settings.logo_url || fallbackSettings.logo_url || ''} alt="" />
-          <h3>Josy Leao <em>Solare</em></h3>
+          <h3>Josy Leão <em>Solare</em></h3>
         </div>
         <nav>
           <a href={settings.instagram} target="_blank" rel="noreferrer" aria-label="Instagram"><Camera size={20} /></a>
@@ -397,7 +426,7 @@ function LandingPage() {
         </nav>
         <p>{settings.address}</p>
         <i />
-        <small>© {new Date().getFullYear()} Josy Leao Solare. Todos os direitos reservados.</small>
+        <small>Copyright {new Date().getFullYear()} Josy Leão Solare. Todos os direitos reservados.</small>
       </footer>
 
       <a className="float-whatsapp" href={quickMessage} target="_blank" rel="noreferrer" aria-label="WhatsApp">
@@ -406,7 +435,6 @@ function LandingPage() {
     </div>
   );
 }
-
 function AdminLogin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -441,7 +469,7 @@ function AdminLogin() {
       <form onSubmit={handleLogin}>
         <Lock size={28} />
         <p>Solare Studio OS</p>
-        <h1>Gestao premium para bronzeamento e estetica.</h1>
+        <h1>Gestão premium para bronzeamento e estética.</h1>
         {!isSupabaseConfigured && <small>Modo demonstracao ativo. Configure o Supabase para salvar dados reais.</small>}
         <input type="text" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="Login" />
         <input type="password" value={password} onChange={(event) => setPassword(event.target.value)} placeholder="Senha" />
@@ -534,7 +562,7 @@ function AdminDashboard() {
       <aside className="studio-sidebar">
         <div>
           <p>Solare Studio OS</p>
-          <h1>Josy Leao Solare</h1>
+          <h1>Josy Leão Solare</h1>
         </div>
         {[
           ['dashboard', LayoutDashboard, 'Dashboard'],
@@ -562,7 +590,7 @@ function AdminDashboard() {
       <main className="studio-main">
         <header className="studio-header">
           <div>
-            <p>Centro de bronzeamento e estetica</p>
+            <p>Centro de bronzeamento e estética</p>
             <h2>{moduleTitle(activeModule)}</h2>
           </div>
           <a href="/" target="_blank" rel="noreferrer">
@@ -635,7 +663,7 @@ function AppointmentsTable({ appointments, reload }: { appointments: Appointment
         {appointments.map((appointment) => (
           <div key={appointment.id}>
             <span>{appointment.client_name}</span>
-            <span>{appointment.services?.name ?? 'Servico'}</span>
+            <span>{appointment.services?.name ?? 'Serviço'}</span>
             <span>{appointment.preferred_date} - {appointment.preferred_time}</span>
             <select value={appointment.status} onChange={(event) => void updateStatus(appointment.id, event.target.value as Appointment['status'])}>
               {statusList.map((status) => <option key={status}>{status}</option>)}

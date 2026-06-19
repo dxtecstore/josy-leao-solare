@@ -1,4 +1,4 @@
-# Josy Leao Solare
+# Josy Leão Solare
 
 Vitrine premium e plataforma de gestão para `Josy Leão Solare`.
 
@@ -100,7 +100,7 @@ A logo oficial convertida do PDF está em:
 public/brand/josy-logo-from-pdf.webp
 ```
 
-Para trocar nome, preco, descricao ou foto sem Supabase configurado, use o admin demo em `/admin/login`. Para ambiente com Supabase, aplique a migration e use o modulo `Produtos Sexy Shop`.
+Para trocar nome, preço, descrição ou foto sem Supabase configurado, use o admin demo em `/admin/login`. Para ambiente com Supabase, aplique a migration e use o módulo `Produtos Sexy Shop`.
 
 ## Personalizacao futura
 
