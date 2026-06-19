@@ -150,7 +150,7 @@ export const fallbackProducts: Product[] = [
   name,
   description,
   price: 59 + index * 10,
-  image_url: `/products/produto-${String(index + 1).padStart(2, '0')}.jpeg`,
+  image_url: `/products/produto-${String(index + 1).padStart(2, '0')}.jpeg?v=2`,
   category,
   active: true,
   created_at: new Date().toISOString(),
