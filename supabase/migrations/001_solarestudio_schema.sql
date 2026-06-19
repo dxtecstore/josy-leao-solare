@@ -11,6 +11,17 @@ create table if not exists public.services (
   created_at timestamptz not null default now()
 );
 
+create table if not exists public.products (
+  id uuid primary key default gen_random_uuid(),
+  name text not null,
+  description text,
+  price numeric(10,2),
+  image_url text,
+  category text,
+  active boolean not null default true,
+  created_at timestamptz not null default now()
+);
+
 create table if not exists public.gallery (
   id uuid primary key default gen_random_uuid(),
   title text not null,
@@ -73,6 +84,7 @@ create table if not exists public.time_blocks (
 );
 
 alter table public.services enable row level security;
+alter table public.products enable row level security;
 alter table public.gallery enable row level security;
 alter table public.appointments enable row level security;
 alter table public.testimonials enable row level security;
@@ -82,11 +94,13 @@ alter table public.time_blocks enable row level security;
 
 grant usage on schema public to anon, authenticated;
 grant select on public.services to anon, authenticated;
+grant select on public.products to anon, authenticated;
 grant select on public.gallery to anon, authenticated;
 grant select on public.testimonials to anon, authenticated;
 grant select on public.settings to anon, authenticated;
 grant insert on public.appointments to anon;
 grant select, insert, update, delete on public.services to authenticated;
+grant select, insert, update, delete on public.products to authenticated;
 grant select, insert, update, delete on public.gallery to authenticated;
 grant select, insert, update, delete on public.appointments to authenticated;
 grant select, insert, update, delete on public.testimonials to authenticated;
@@ -95,12 +109,14 @@ grant select, insert, update, delete on public.clients to authenticated;
 grant select, insert, update, delete on public.time_blocks to authenticated;
 
 create policy "Public can read active services" on public.services for select using (active = true);
+create policy "Public can read active products" on public.products for select using (active = true);
 create policy "Public can read active gallery" on public.gallery for select using (active = true);
 create policy "Public can read active testimonials" on public.testimonials for select using (active = true);
 create policy "Public can read settings" on public.settings for select using (true);
 create policy "Public can create appointments" on public.appointments for insert with check (true);
 
 create policy "Authenticated manage services" on public.services for all to authenticated using (true) with check (true);
+create policy "Authenticated manage products" on public.products for all to authenticated using (true) with check (true);
 create policy "Authenticated manage gallery" on public.gallery for all to authenticated using (true) with check (true);
 create policy "Authenticated manage appointments" on public.appointments for all to authenticated using (true) with check (true);
 create policy "Authenticated manage testimonials" on public.testimonials for all to authenticated using (true) with check (true);

@@ -382,6 +382,7 @@ textarea {
 }
 
 .preview-story,
+.preview-products,
 .preview-services,
 .preview-gallery,
 .preview-testimonials,
@@ -390,6 +391,108 @@ textarea {
   position: relative;
   background: var(--black-primary);
   padding: 6rem 1.5rem;
+}
+
+.preview-products {
+  background:
+    radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.08), transparent 28rem),
+    var(--black-primary);
+  padding-block: 6.5rem;
+}
+
+.preview-product-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.1rem;
+  max-width: 82rem;
+  margin: 0 auto;
+}
+
+.preview-product-card {
+  display: grid;
+  border: 1px solid rgba(212, 175, 55, 0.18);
+  background: var(--black-secondary);
+  overflow: hidden;
+  transition: border-color 0.35s, transform 0.35s, box-shadow 0.35s;
+}
+
+.preview-product-card:hover {
+  border-color: rgba(212, 175, 55, 0.58);
+  box-shadow: 0 22px 52px -18px rgba(212, 175, 55, 0.3);
+  transform: translateY(-0.35rem);
+}
+
+.preview-product-image {
+  aspect-ratio: 4 / 5;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(212, 175, 55, 0.14), transparent 12rem),
+    #080808;
+  overflow: hidden;
+}
+
+.preview-product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.82;
+  transition: opacity 0.4s, transform 0.6s;
+}
+
+.preview-product-card:hover img {
+  opacity: 1;
+  transform: scale(1.04);
+}
+
+.preview-product-image span {
+  color: rgba(212, 175, 55, 0.42);
+  font-size: 0.72rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.preview-product-card > div:last-child {
+  display: grid;
+  gap: 0.65rem;
+  padding: 1.15rem;
+}
+
+.preview-product-card small {
+  color: rgba(246, 215, 122, 0.76);
+  font-size: 0.58rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.preview-product-card h3 {
+  color: #ffffff;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.35rem;
+  line-height: 1.1;
+}
+
+.preview-product-card p {
+  min-height: 4.6rem;
+  color: var(--gray-text);
+  font-size: 0.82rem;
+  line-height: 1.55;
+}
+
+.preview-product-card strong {
+  color: var(--gold-soft);
+  font-size: 0.9rem;
+}
+
+.preview-product-card a {
+  border-top: 1px solid rgba(212, 175, 55, 0.14);
+  color: var(--gold-soft);
+  padding-top: 0.8rem;
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-decoration: none;
+  text-transform: uppercase;
 }
 
 .preview-story {
@@ -2278,7 +2381,8 @@ em {
 .service-admin-list,
 .admin-gallery,
 .loyalty-grid,
-.testimonial-admin-list {
+.testimonial-admin-list,
+.product-admin-list {
   display: grid;
   gap: 1rem;
 }
@@ -2312,6 +2416,47 @@ em {
   width: 100%;
   height: 14rem;
   object-fit: cover;
+}
+
+.product-admin-list article {
+  display: grid;
+  grid-template-columns: 5.5rem 1fr auto auto auto;
+  gap: 0.8rem;
+  align-items: center;
+  border: 1px solid rgba(247, 231, 180, 0.08);
+  background: rgba(255, 255, 255, 0.035);
+  padding: 0.85rem;
+}
+
+.product-admin-list img,
+.product-admin-list article > div {
+  width: 5.5rem;
+  height: 5.5rem;
+  object-fit: cover;
+  background: #080808;
+}
+
+.product-admin-list span {
+  color: #d4af37;
+  font-size: 0.62rem;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.product-admin-list h3 {
+  color: #f7e7b4;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.45rem;
+}
+
+.product-admin-list p {
+  color: rgba(255, 255, 255, 0.52);
+  font-size: 0.85rem;
+}
+
+.product-admin-list strong {
+  color: #ffffff;
 }
 
 .testimonial-admin-list article {
@@ -2473,6 +2618,10 @@ em {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .preview-product-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .preview-gallery-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -2578,6 +2727,7 @@ em {
   }
 
   .preview-story,
+  .preview-products,
   .preview-services,
   .preview-gallery,
   .preview-testimonials,
@@ -2587,6 +2737,7 @@ em {
   }
 
   .preview-service-grid,
+  .preview-product-grid,
   .preview-gallery-grid,
   .preview-testimonial-grid,
   .preview-booking-form {
@@ -2768,7 +2919,8 @@ em {
   }
 
   .os-table > div,
-  .service-admin-list article {
+  .service-admin-list article,
+  .product-admin-list article {
     grid-template-columns: 1fr;
   }
 }

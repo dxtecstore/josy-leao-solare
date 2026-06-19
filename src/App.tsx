@@ -28,16 +28,19 @@ import {
   type Appointment,
   type ClientProfile,
   type GalleryItem,
+  type Product,
   type Service,
   type Settings as BusinessSettings,
   type Testimonial,
   type TimeBlock,
 } from './lib/supabase';
-import { benefits, fallbackGallery, fallbackServices, fallbackSettings, fallbackTestimonials } from './data/defaults';
+import { benefits, fallbackGallery, fallbackProducts, fallbackServices, fallbackSettings, fallbackTestimonials } from './data/defaults';
 
 const categories = ['Bronze', 'Marquinha', 'Estetica facial', 'Estetica corporal'];
+const productCategories = ['Lingerie', 'Cosmeticos', 'Acessorios', 'Presentes'];
 const statusList: Appointment['status'][] = ['novo', 'confirmado', 'realizado', 'cancelado'];
 const periods = ['Manha', 'Tarde', 'Noite'];
+const demoProductsKey = 'solare_demo_products';
 
 function money(value?: number | null) {
   return value ? value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) : 'Sob consulta';
@@ -45,6 +48,28 @@ function money(value?: number | null) {
 
 function buildWhatsAppUrl(number: string, message: string) {
   return `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
+}
+
+function readDemoProducts() {
+  try {
+    const raw = window.localStorage.getItem(demoProductsKey);
+    return raw ? (JSON.parse(raw) as Product[]) : fallbackProducts;
+  } catch {
+    return fallbackProducts;
+  }
+}
+
+function saveDemoProducts(products: Product[]) {
+  window.localStorage.setItem(demoProductsKey, JSON.stringify(products));
+}
+
+function fileToDataUrl(file: File) {
+  return new Promise<string>((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(String(reader.result));
+    reader.onerror = () => reject(reader.error);
+    reader.readAsDataURL(file);
+  });
 }
 
 async function uploadMedia(file: File, folder: string) {
@@ -73,6 +98,7 @@ function App() {
 function LandingPage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [settings, setSettings] = useState<BusinessSettings>(fallbackSettings);
+  const [products, setProducts] = useState<Product[]>(fallbackProducts);
   const [services, setServices] = useState<Service[]>(fallbackServices);
   const [gallery, setGallery] = useState<GalleryItem[]>(fallbackGallery);
   const [testimonials, setTestimonials] = useState<Testimonial[]>(fallbackTestimonials);
@@ -87,16 +113,21 @@ function LandingPage() {
 
   useEffect(() => {
     async function loadPublicData() {
-      if (!supabase) return;
+      if (!supabase) {
+        setProducts(readDemoProducts().filter((product) => product.active));
+        return;
+      }
 
-      const [settingsResult, servicesResult, galleryResult, testimonialsResult] = await Promise.all([
+      const [settingsResult, productsResult, servicesResult, galleryResult, testimonialsResult] = await Promise.all([
         supabase.from('settings').select('*').limit(1).maybeSingle(),
+        supabase.from('products').select('*').eq('active', true).order('created_at', { ascending: true }),
         supabase.from('services').select('*').eq('active', true).order('created_at', { ascending: true }),
         supabase.from('gallery').select('*').eq('active', true).order('created_at', { ascending: false }),
         supabase.from('testimonials').select('*').eq('active', true).order('created_at', { ascending: false }),
       ]);
 
       if (settingsResult.data) setSettings(settingsResult.data);
+      if (productsResult.data?.length) setProducts(productsResult.data);
       if (servicesResult.data?.length) {
         setServices(servicesResult.data);
         setForm((current) => ({ ...current, service_id: servicesResult.data[0].id }));
@@ -111,8 +142,9 @@ function LandingPage() {
   const selectedService = services.find((service) => service.id === form.service_id) ?? services[0];
   const quickMessage = buildWhatsAppUrl(
     settings.whatsapp,
-    'Ola, Josy Leao Solare! Quero viver uma experiencia premium de bronzeamento e autoestima.',
+    'Ola, Josy Leao Solare! Tenho interesse no catalogo de produtos sexy shop.',
   );
+  const visibleProducts = (products.length >= 17 ? products : fallbackProducts).filter((product) => product.active).slice(0, 17);
   const procedureModels = (services.length >= 6 ? services : fallbackServices).slice(0, 6);
   const galleryModels = (gallery.length >= 6 ? gallery : fallbackGallery).slice(0, 6);
   const marqueeWords = ['Bronzeamento Premium', ...benefits.slice(0, 4), 'Josy Leao Solare'];
@@ -158,6 +190,7 @@ function LandingPage() {
         </a>
         <nav className="preview-nav">
           <a href="#servicos">Catalogo</a>
+          <a href="#produtos">Produtos</a>
           <a href="#storytelling">Bronze</a>
           <a href="#galeria">Galeria</a>
           <a href="/admin/login">Admin</a>
@@ -170,6 +203,7 @@ function LandingPage() {
           <div className="preview-mobile-menu">
             {[
               ['servicos', 'Catalogo'],
+              ['produtos', 'Produtos'],
               ['storytelling', 'Bronze'],
               ['galeria', 'Galeria'],
               ['agendamento', 'Agenda'],
@@ -212,6 +246,32 @@ function LandingPage() {
             ))}
           </div>
         </div>
+
+        <section id="produtos" className="preview-products">
+          <div className="preview-section-head">
+            <span>Sexy shop</span>
+            <h2>Catalogo com <em>17 produtos.</em></h2>
+          </div>
+          <div className="preview-product-grid">
+            {visibleProducts.map((product, index) => {
+              const message = `Ola, tenho interesse no produto ${product.name}. Pode me enviar mais informacoes?`;
+              return (
+                <article className="preview-product-card" key={product.id}>
+                  <div className="preview-product-image">
+                    {product.image_url ? <img src={product.image_url} alt={product.name} loading="lazy" /> : <span>Imagem</span>}
+                  </div>
+                  <div>
+                    <small>{String(index + 1).padStart(2, '0')} / {product.category || 'Produto'}</small>
+                    <h3>{product.name}</h3>
+                    <p>{product.description}</p>
+                    <strong>{money(product.price)}</strong>
+                    <a href={buildWhatsAppUrl(settings.whatsapp, message)} target="_blank" rel="noreferrer">Consultar no WhatsApp</a>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </section>
 
         <section id="storytelling" className="preview-story">
           <div>
@@ -371,6 +431,7 @@ function AdminLogin() {
 function AdminDashboard() {
   const [sessionReady, setSessionReady] = useState(false);
   const [activeModule, setActiveModule] = useState('dashboard');
+  const [products, setProducts] = useState<Product[]>(fallbackProducts);
   const [services, setServices] = useState<Service[]>(fallbackServices);
   const [gallery, setGallery] = useState<GalleryItem[]>(fallbackGallery);
   const [testimonials, setTestimonials] = useState<Testimonial[]>(fallbackTestimonials);
@@ -383,6 +444,7 @@ function AdminDashboard() {
     async function bootstrap() {
       if (!supabase) {
         if (window.sessionStorage.getItem('solare_demo_admin') === 'true') {
+          setProducts(readDemoProducts());
           setSessionReady(true);
           return;
         }
@@ -405,8 +467,9 @@ function AdminDashboard() {
   async function loadAdminData() {
     if (!supabase) return;
 
-    const [servicesResult, galleryResult, appointmentsResult, testimonialsResult, settingsResult, clientsResult, blocksResult] =
+    const [productsResult, servicesResult, galleryResult, appointmentsResult, testimonialsResult, settingsResult, clientsResult, blocksResult] =
       await Promise.all([
+        supabase.from('products').select('*').order('created_at', { ascending: false }),
         supabase.from('services').select('*').order('created_at', { ascending: false }),
         supabase.from('gallery').select('*').order('created_at', { ascending: false }),
         supabase.from('appointments').select('*, services(name, price, duration)').order('created_at', { ascending: false }),
@@ -416,6 +479,7 @@ function AdminDashboard() {
         supabase.from('time_blocks').select('*').order('block_date', { ascending: true }),
       ]);
 
+    if (productsResult.data?.length) setProducts(productsResult.data);
     if (servicesResult.data?.length) setServices(servicesResult.data);
     if (galleryResult.data?.length) setGallery(galleryResult.data);
     if (appointmentsResult.data) setAppointments(appointmentsResult.data as Appointment[]);
@@ -452,6 +516,7 @@ function AdminDashboard() {
           ['dashboard', LayoutDashboard, 'Dashboard'],
           ['agenda', CalendarDays, 'Agenda Inteligente'],
           ['crm', Users, 'CRM de Clientes'],
+          ['products', Sparkles, 'Produtos Sexy Shop'],
           ['gallery', ImageUp, 'Galeria Antes e Depois'],
           ['services', Sparkles, 'Catalogo de Servicos'],
           ['testimonials', Heart, 'Depoimentos'],
@@ -494,6 +559,7 @@ function AdminDashboard() {
 
         {activeModule === 'agenda' && <AgendaModule appointments={appointments} blocks={blocks} reload={loadAdminData} />}
         {activeModule === 'crm' && <CrmModule clients={clients} reload={loadAdminData} />}
+        {activeModule === 'products' && <ProductsModule products={products} setProducts={setProducts} reload={loadAdminData} />}
         {activeModule === 'gallery' && <GalleryModule gallery={gallery} reload={loadAdminData} />}
         {activeModule === 'services' && <ServicesModule services={services} reload={loadAdminData} />}
         {activeModule === 'testimonials' && <TestimonialsModule testimonials={testimonials} reload={loadAdminData} />}
@@ -510,6 +576,7 @@ function moduleTitle(module: string) {
     dashboard: 'Dashboard',
     agenda: 'Agenda Inteligente',
     crm: 'CRM de Clientes',
+    products: 'Produtos Sexy Shop',
     gallery: 'Galeria Antes e Depois',
     services: 'Catalogo de Servicos',
     testimonials: 'Depoimentos',
@@ -620,6 +687,142 @@ function CrmModule({ clients, reload }: { clients: ClientProfile[]; reload: () =
             <h3>{item.name}</h3>
             <p>{item.whatsapp}</p>
             <span>{item.last_procedure || 'Sem procedimento registrado'}</span>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function ProductsModule({
+  products,
+  setProducts,
+  reload,
+}: {
+  products: Product[];
+  setProducts: (products: Product[]) => void;
+  reload: () => Promise<void>;
+}) {
+  const emptyProduct = { name: '', description: '', price: '', image_url: '', category: productCategories[0], active: true };
+  const [product, setProduct] = useState(emptyProduct);
+  const [editingId, setEditingId] = useState('');
+  const [uploading, setUploading] = useState(false);
+
+  async function persistDemo(nextProducts: Product[]) {
+    setProducts(nextProducts);
+    saveDemoProducts(nextProducts);
+  }
+
+  async function save(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const payload = {
+      name: product.name,
+      description: product.description,
+      price: product.price ? Number(product.price) : null,
+      image_url: product.image_url || null,
+      category: product.category,
+      active: product.active,
+    };
+
+    if (!supabase) {
+      const nextProduct: Product = {
+        id: editingId || `product-${Date.now()}`,
+        ...payload,
+        created_at: products.find((item) => item.id === editingId)?.created_at ?? new Date().toISOString(),
+      };
+      const nextProducts = editingId
+        ? products.map((item) => (item.id === editingId ? nextProduct : item))
+        : [nextProduct, ...products];
+      await persistDemo(nextProducts);
+      setProduct(emptyProduct);
+      setEditingId('');
+      return;
+    }
+
+    if (editingId) {
+      await supabase.from('products').update(payload).eq('id', editingId);
+    } else {
+      await supabase.from('products').insert(payload);
+    }
+    setProduct(emptyProduct);
+    setEditingId('');
+    await reload();
+  }
+
+  function edit(item: Product) {
+    setEditingId(item.id);
+    setProduct({
+      name: item.name,
+      description: item.description ?? '',
+      price: item.price ? String(item.price) : '',
+      image_url: item.image_url ?? '',
+      category: item.category ?? productCategories[0],
+      active: item.active,
+    });
+  }
+
+  async function remove(id: string) {
+    if (!supabase) {
+      await persistDemo(products.filter((item) => item.id !== id));
+      return;
+    }
+    await supabase.from('products').delete().eq('id', id);
+    await reload();
+  }
+
+  async function toggle(item: Product) {
+    if (!supabase) {
+      await persistDemo(products.map((productItem) => (
+        productItem.id === item.id ? { ...productItem, active: !productItem.active } : productItem
+      )));
+      return;
+    }
+    await supabase.from('products').update({ active: !item.active }).eq('id', item.id);
+    await reload();
+  }
+
+  async function handleUpload(file?: File) {
+    if (!file) return;
+    setUploading(true);
+    try {
+      const imageUrl = supabase ? await uploadMedia(file, 'products') : await fileToDataUrl(file);
+      setProduct((current) => ({ ...current, image_url: imageUrl }));
+    } finally {
+      setUploading(false);
+    }
+  }
+
+  return (
+    <section className="module-grid">
+      <form className="os-form" onSubmit={save}>
+        <h3>{editingId ? 'Editar produto' : 'Novo produto sexy shop'}</h3>
+        <input required placeholder="Nome do produto" value={product.name} onChange={(event) => setProduct({ ...product, name: event.target.value })} />
+        <input placeholder="Preco" value={product.price} onChange={(event) => setProduct({ ...product, price: event.target.value })} />
+        <select value={product.category} onChange={(event) => setProduct({ ...product, category: event.target.value })}>
+          {productCategories.map((category) => <option key={category}>{category}</option>)}
+        </select>
+        <label className="file-field">
+          <ImageUp size={16} />
+          {uploading ? 'Enviando imagem...' : 'Enviar imagem do produto'}
+          <input type="file" accept="image/*" onChange={(event) => void handleUpload(event.target.files?.[0])} />
+        </label>
+        <input placeholder="URL da imagem" value={product.image_url} onChange={(event) => setProduct({ ...product, image_url: event.target.value })} />
+        <textarea placeholder="Descricao e informacoes do produto" value={product.description} onChange={(event) => setProduct({ ...product, description: event.target.value })} />
+        <button><Plus size={16} /> {editingId ? 'Salvar alteracoes' : 'Adicionar produto'}</button>
+      </form>
+      <div className="product-admin-list">
+        {products.map((item) => (
+          <article key={item.id}>
+            {item.image_url ? <img src={item.image_url} alt={item.name} /> : <div />}
+            <section>
+              <span>{item.category}</span>
+              <h3>{item.name}</h3>
+              <p>{item.description}</p>
+              <strong>{money(item.price)}</strong>
+            </section>
+            <button onClick={() => edit(item)}><Pencil size={16} /></button>
+            <button onClick={() => void toggle(item)}>{item.active ? 'Ativo' : 'Oculto'}</button>
+            <button onClick={() => void remove(item.id)}><Trash2 size={16} /></button>
           </article>
         ))}
       </div>

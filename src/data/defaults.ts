@@ -1,4 +1,4 @@
-import type { GalleryItem, Service, Settings, Testimonial } from '../lib/supabase';
+import type { GalleryItem, Product, Service, Settings, Testimonial } from '../lib/supabase';
 
 export const fallbackSettings: Settings = {
   id: 'default',
@@ -123,6 +123,44 @@ export const fallbackGallery: GalleryItem[] = [
     created_at: new Date().toISOString(),
   },
 ];
+
+const productImages = [
+  '/brand/glow-01.jpg',
+  '/brand/resultado-real-01.jpg',
+  '/brand/resultado-real-02.jpg',
+  '/brand/banho-lua-01.jpg',
+  '/brand/marquinha-01.jpg',
+  '/brand/verao-01.jpg',
+];
+
+export const fallbackProducts: Product[] = [
+  'Body Sensual Premium',
+  'Conjunto Renda Luxo',
+  'Perfume Intimo Glow',
+  'Gel Beijavel',
+  'Vela Aromatica Corporal',
+  'Massageador Deluxe',
+  'Lubrificante Premium',
+  'Kit Noite Especial',
+  'Body Chain Dourado',
+  'Meia 7/8 Renda',
+  'Espuma de Banho Sensual',
+  'Oleo Corporal Iluminador',
+  'Lingerie Strappy',
+  'Chicote Soft',
+  'Venda de Cetim',
+  'Algema Aveludada',
+  'Presente Surpresa Sexy',
+].map((name, index) => ({
+  id: `product-${index + 1}`,
+  name,
+  description: 'Produto selecionado para uma experiencia elegante, discreta e premium.',
+  price: 79 + index * 12,
+  image_url: productImages[index % productImages.length],
+  category: index < 6 ? 'Lingerie' : index < 12 ? 'Cosmeticos' : 'Acessorios',
+  active: true,
+  created_at: new Date().toISOString(),
+}));
 
 export const fallbackTestimonials: Testimonial[] = [
   {

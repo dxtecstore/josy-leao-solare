@@ -20,6 +20,17 @@ export type Service = {
   created_at: string;
 };
 
+export type Product = {
+  id: string;
+  name: string;
+  description: string | null;
+  price: number | null;
+  image_url: string | null;
+  category: string | null;
+  active: boolean;
+  created_at: string;
+};
+
 export type GalleryItem = {
   id: string;
   title: string;
