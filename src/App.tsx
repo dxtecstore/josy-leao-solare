@@ -34,10 +34,10 @@ import {
   type Testimonial,
   type TimeBlock,
 } from './lib/supabase';
-import { benefits, fallbackGallery, fallbackProducts, fallbackServices, fallbackSettings, fallbackTestimonials } from './data/defaults';
+import { fallbackGallery, fallbackProducts, fallbackServices, fallbackSettings, fallbackTestimonials } from './data/defaults';
 
 const categories = ['Bronze', 'Marquinha', 'Estetica facial', 'Estetica corporal'];
-const productCategories = ['Lingerie', 'Cosmeticos', 'Acessorios', 'Presentes'];
+const productCategories = ['Lingerie', 'Cosméticos', 'Acessórios', 'Presentes'];
 const statusList: Appointment['status'][] = ['novo', 'confirmado', 'realizado', 'cancelado'];
 const periods = ['Manha', 'Tarde', 'Noite'];
 const demoProductsKey = 'solare_demo_products';
@@ -135,18 +135,18 @@ function LandingPage() {
 
   const quickMessage = buildWhatsAppUrl(
     settings.whatsapp,
-    'Ola! Quero receber o catalogo adulto 18+ e consultar disponibilidade dos produtos.',
+    'Olá! Quero receber o catálogo adulto 18+ e consultar a disponibilidade dos produtos.',
   );
   const visibleProducts = (products.length >= 20 ? products : fallbackProducts).filter((product) => product.active).slice(0, 20);
   const selectedProduct = visibleProducts.find((product) => product.id === form.service_id) ?? visibleProducts[0];
   const shoppingHighlights = [
     {
       name: 'Atendimento discreto',
-      description: 'Compra guiada pelo WhatsApp com linguagem segura, acolhedora e sem exposicao.',
+      description: 'Compra guiada pelo WhatsApp com linguagem segura, acolhedora e sem exposição.',
     },
     {
       name: 'Curadoria adulta 18+',
-      description: 'Produtos selecionados para diferentes momentos, estilos e niveis de experiencia.',
+      description: 'Produtos selecionados para diferentes momentos, estilos e níveis de experiência.',
     },
     {
       name: 'Fotos e disponibilidade',
@@ -154,24 +154,24 @@ function LandingPage() {
     },
     {
       name: 'Presente especial',
-      description: 'Opcoes para surpreender com elegancia, discricao e apresentacao premium.',
+      description: 'Opções para surpreender com elegância, discrição e apresentação premium.',
     },
     {
       name: 'Entrega combinada',
       description: 'Combine retirada ou envio diretamente pelo WhatsApp.',
     },
     {
-      name: 'Orientacao personalizada',
-      description: 'Escolha com mais seguranca a partir do seu objetivo e preferencia.',
+      name: 'Orientação personalizada',
+      description: 'Escolha com mais segurança a partir do seu objetivo e preferência.',
     },
   ];
   const galleryModels = (gallery.length >= 6 ? gallery : fallbackGallery).slice(0, 6);
-  const marqueeWords = ['Catalogo adulto 18+', 'Atendimento discreto', 'Presentes sensuais', 'Acessorios premium', ...benefits.slice(0, 2)];
+  const marqueeWords = ['Catálogo adulto 18+', 'Atendimento discreto', 'Presentes sensuais', 'Acessórios premium', 'Compra pelo WhatsApp', 'Entrega combinada'];
 
   async function handleAppointment(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const message = `Ola, tenho interesse no produto ${selectedProduct?.name ?? 'do catalogo adulto 18+'}. Meu nome e ${form.client_name || '[nome]'}. Meu WhatsApp e ${form.phone || '[telefone]'}. ${form.notes ? `Observacoes: ${form.notes}` : ''}`;
+    const message = `Olá, tenho interesse no produto ${selectedProduct?.name ?? 'do catálogo adulto 18+'}. Meu nome é ${form.client_name || '[nome]'}. Meu WhatsApp é ${form.phone || '[telefone]'}. ${form.notes ? `Observações: ${form.notes}` : ''}`;
 
     if (supabase) {
       await supabase.from('appointments').insert({
@@ -181,7 +181,7 @@ function LandingPage() {
         preferred_date: form.preferred_date || null,
         preferred_time: form.preferred_time || null,
         status: 'novo',
-        notes: `Produto: ${selectedProduct?.name ?? 'Catalogo'} | ${form.notes}`,
+        notes: `Produto: ${selectedProduct?.name ?? 'Catálogo'} | ${form.notes}`,
       });
 
       if (form.client_name && form.phone) {
@@ -208,7 +208,7 @@ function LandingPage() {
           <span>Josy Leao <em>Solare</em></span>
         </a>
         <nav className="preview-nav">
-          <a href="#servicos">Catalogo</a>
+          <a href="#servicos">Catálogo</a>
           <a href="#produtos">Produtos</a>
           <a href="#storytelling">Experiencia</a>
           <a href="#galeria">Galeria</a>
@@ -221,7 +221,7 @@ function LandingPage() {
         {isMenuOpen && (
           <div className="preview-mobile-menu">
             {[
-              ['servicos', 'Catalogo'],
+              ['servicos', 'Catálogo'],
               ['produtos', 'Produtos'],
               ['storytelling', 'Experiencia'],
               ['galeria', 'Galeria'],
@@ -240,11 +240,11 @@ function LandingPage() {
           <img className="preview-watermark" src={settings.logo_url || fallbackSettings.logo_url || ''} alt="" aria-hidden="true" />
           <div className="preview-vignette" aria-hidden="true" />
           <div className="preview-hero-content">
-            <span>Belem do Para</span>
-            <h1>Desejo, cuidado<br /><em>e discricao.</em></h1>
-            <p>Catalogo adulto 18+ com produtos selecionados, atendimento reservado e compra guiada pelo WhatsApp.</p>
+            <span>Belém do Pará</span>
+            <h1>Desejo, cuidado<br /><em>e discrição.</em></h1>
+            <p>Catálogo adulto 18+ com produtos selecionados, atendimento reservado e compra guiada pelo WhatsApp.</p>
             <div className="preview-actions">
-              <a className="preview-primary" href="#produtos">Ver catalogo</a>
+              <a className="preview-primary" href="#produtos">Ver catálogo</a>
               <a className="preview-secondary" href="#agendamento">Comprar pelo WhatsApp</a>
             </div>
             <div className="preview-trust-row" aria-label="Diferenciais de compra">
@@ -273,19 +273,19 @@ function LandingPage() {
 
         <section id="produtos" className="preview-products">
           <div className="preview-section-head">
-            <span>Sexy shop</span>
-            <h2>Catalogo com <em>produtos premium.</em></h2>
+            <span>Boutique sensual</span>
+            <h2>Catálogo premium<br /><em>para escolher com discrição.</em></h2>
           </div>
           <div className="preview-product-grid">
             {visibleProducts.map((product, index) => {
-              const message = `Ola, tenho interesse no produto ${product.name}. Pode me enviar mais informacoes?`;
+              const message = `Olá, tenho interesse no produto ${product.name}. Pode me enviar mais informações?`;
               return (
                 <article className="preview-product-card" key={product.id}>
                   <div className="preview-product-image">
                     {product.image_url ? <img src={product.image_url} alt={product.name} loading="lazy" /> : <span>Imagem</span>}
                   </div>
                   <div>
-                    <small>{String(index + 1).padStart(2, '0')} / {product.category || 'Produto'}</small>
+                    <small>{String(index + 1).padStart(2, '0')} / {product.category || 'Produto'} / 18+</small>
                     <h3>{product.name}</h3>
                     <p>{product.description}</p>
                     <strong>{money(product.price)}</strong>
@@ -308,8 +308,8 @@ function LandingPage() {
 
         <section id="servicos" className="preview-services">
           <div className="preview-section-head">
-            <span>Catalogo</span>
-            <h2>Como comprar com <em>seguranca.</em></h2>
+            <span>Catálogo</span>
+            <h2>Como comprar com <em>segurança.</em></h2>
           </div>
           <div className="preview-service-grid">
             {shoppingHighlights.map((service, index) => (
@@ -342,7 +342,7 @@ function LandingPage() {
         <section className="preview-testimonials">
           <div className="preview-section-head">
             <span>Provas reais</span>
-            <h2>O que dizem sobre <em>a experiencia.</em></h2>
+            <h2>O que dizem sobre <em>a experiência.</em></h2>
           </div>
           <div className="preview-testimonial-grid">
             {testimonials.map((item) => (
@@ -542,11 +542,11 @@ function AdminDashboard() {
           ['crm', Users, 'CRM de Clientes'],
           ['products', Sparkles, 'Produtos Sexy Shop'],
           ['gallery', ImageUp, 'Galeria Antes e Depois'],
-          ['services', Sparkles, 'Catalogo de Servicos'],
+          ['services', Sparkles, 'Catálogo de Serviços'],
           ['testimonials', Heart, 'Depoimentos'],
           ['loyalty', Heart, 'Programa Fidelidade'],
           ['campaigns', MessageCircle, 'Campanhas WhatsApp'],
-          ['settings', Settings, 'Configuracoes do Site'],
+          ['settings', Settings, 'Configurações do Site'],
         ].map(([key, Icon, label]) => (
           <button key={key as string} className={activeModule === key ? 'active' : ''} onClick={() => setActiveModule(key as string)}>
             <Icon size={18} />
@@ -602,11 +602,11 @@ function moduleTitle(module: string) {
     crm: 'CRM de Clientes',
     products: 'Produtos Sexy Shop',
     gallery: 'Galeria Antes e Depois',
-    services: 'Catalogo de Servicos',
+    services: 'Catálogo de Serviços',
     testimonials: 'Depoimentos',
     loyalty: 'Programa Fidelidade',
     campaigns: 'Campanhas WhatsApp',
-    settings: 'Configuracoes do Site',
+    settings: 'Configurações do Site',
   };
   return titles[module] ?? 'Solare Studio OS';
 }
@@ -672,7 +672,7 @@ function AgendaModule({ appointments, blocks, reload }: { appointments: Appointm
         })}
       </div>
       <form className="os-form" onSubmit={addBlock}>
-        <h3>Bloqueio de horarios</h3>
+        <h3>Bloqueio de horários</h3>
         <input type="date" value={block.block_date} onChange={(event) => setBlock({ ...block, block_date: event.target.value })} />
         <input placeholder="Inicio" value={block.start_time} onChange={(event) => setBlock({ ...block, start_time: event.target.value })} />
         <input placeholder="Fim" value={block.end_time} onChange={(event) => setBlock({ ...block, end_time: event.target.value })} />
@@ -819,9 +819,9 @@ function ProductsModule({
   return (
     <section className="module-grid">
       <form className="os-form" onSubmit={save}>
-        <h3>{editingId ? 'Editar produto' : 'Novo produto sexy shop'}</h3>
+            <h3>{editingId ? 'Editar produto' : 'Novo produto do catálogo'}</h3>
         <input required placeholder="Nome do produto" value={product.name} onChange={(event) => setProduct({ ...product, name: event.target.value })} />
-        <input placeholder="Preco" value={product.price} onChange={(event) => setProduct({ ...product, price: event.target.value })} />
+        <input placeholder="Preço" value={product.price} onChange={(event) => setProduct({ ...product, price: event.target.value })} />
         <select value={product.category} onChange={(event) => setProduct({ ...product, category: event.target.value })}>
           {productCategories.map((category) => <option key={category}>{category}</option>)}
         </select>
@@ -831,8 +831,8 @@ function ProductsModule({
           <input type="file" accept="image/*" onChange={(event) => void handleUpload(event.target.files?.[0])} />
         </label>
         <input placeholder="URL da imagem" value={product.image_url} onChange={(event) => setProduct({ ...product, image_url: event.target.value })} />
-        <textarea placeholder="Descricao e informacoes do produto" value={product.description} onChange={(event) => setProduct({ ...product, description: event.target.value })} />
-        <button><Plus size={16} /> {editingId ? 'Salvar alteracoes' : 'Adicionar produto'}</button>
+        <textarea placeholder="Descrição e informações do produto" value={product.description} onChange={(event) => setProduct({ ...product, description: event.target.value })} />
+        <button><Plus size={16} /> {editingId ? 'Salvar alterações' : 'Adicionar produto'}</button>
       </form>
       <div className="product-admin-list">
         {products.map((item) => (
@@ -944,18 +944,18 @@ function ServicesModule({ services, reload }: { services: Service[]; reload: () 
   return (
     <section className="module-grid">
       <form className="os-form" onSubmit={save}>
-        <h3>Catalogo de procedimentos</h3>
+        <h3>Catálogo de procedimentos</h3>
         <input placeholder="Nome" value={service.name} onChange={(event) => setService({ ...service, name: event.target.value })} />
-        <input placeholder="Preco" value={service.price} onChange={(event) => setService({ ...service, price: event.target.value })} />
+        <input placeholder="Preço" value={service.price} onChange={(event) => setService({ ...service, price: event.target.value })} />
         <input placeholder="Tempo medio" value={service.duration} onChange={(event) => setService({ ...service, duration: event.target.value })} />
         <label className="file-field">
           <ImageUp size={16} />
-          {uploading ? 'Enviando imagem...' : 'Enviar imagem do servico'}
+          {uploading ? 'Enviando imagem...' : 'Enviar imagem do serviço'}
           <input type="file" accept="image/*" onChange={(event) => void handleUpload(event.target.files?.[0])} />
         </label>
         <input placeholder="Imagem" value={service.image_url} onChange={(event) => setService({ ...service, image_url: event.target.value })} />
-        <textarea placeholder="Descricao" value={service.description} onChange={(event) => setService({ ...service, description: event.target.value })} />
-        <button><Plus size={16} /> Adicionar servico</button>
+        <textarea placeholder="Descrição" value={service.description} onChange={(event) => setService({ ...service, description: event.target.value })} />
+        <button><Plus size={16} /> Adicionar serviço</button>
       </form>
       <div className="service-admin-list">
         {services.map((item) => (
@@ -1056,7 +1056,7 @@ function LoyaltyModule({ clients, reload }: { clients: ClientProfile[]; reload: 
 
 function CampaignsModule({ clients, services }: { clients: ClientProfile[]; services: Service[] }) {
   const phones = clients.map((client) => client.whatsapp).join(', ');
-  const message = `Ola! A Josy Leao Solare esta com horarios para ${services[0]?.name ?? 'bronzeamento premium'}. Quer reservar seu momento Solare?`;
+  const message = `Olá! A Josy Leão Solare está com horários para ${services[0]?.name ?? 'atendimento premium'}. Quer reservar seu momento Solare?`;
 
   return (
     <section className="campaign-box">
@@ -1095,7 +1095,7 @@ function SettingsModule({ settings, reload }: { settings: BusinessSettings; relo
 
   return (
     <form className="os-form settings-form" onSubmit={save}>
-      <h3>Configuracoes do site</h3>
+      <h3>Configurações do site</h3>
       <input value={draft.business_name} onChange={(event) => setDraft({ ...draft, business_name: event.target.value })} placeholder="Nome da empresa" />
       <input value={draft.whatsapp} onChange={(event) => setDraft({ ...draft, whatsapp: event.target.value })} placeholder="WhatsApp" />
       <input value={draft.instagram} onChange={(event) => setDraft({ ...draft, instagram: event.target.value })} placeholder="Instagram" />

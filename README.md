@@ -1,8 +1,8 @@
 # Josy Leao Solare
 
-Vitrine premium e plataforma de gestao para `Josy Leao Solare`.
+Vitrine premium e plataforma de gestão para `Josy Leão Solare`.
 
-A versao comercial atual esta preparada para venda consultiva de catalogo adulto 18+, com atendimento discreto via WhatsApp, fotos de produtos, cards de alta conversao e area administrativa para editar catalogo, galeria, servicos, depoimentos e configuracoes.
+A versão comercial atual está preparada para venda consultiva de catálogo adulto 18+, com atendimento discreto via WhatsApp, fotos de produtos, cards de alta conversão e área administrativa para editar catálogo, galeria, serviços, depoimentos e configurações.
 
 Nome interno do sistema: `Solare Studio OS`.
 
@@ -25,7 +25,7 @@ Rotas principais:
 
 - `/` - landing page comercial
 - `/admin/login` - login do Studio OS
-- `/admin/dashboard` - plataforma de gestao
+- `/admin/dashboard` - plataforma de gestão
 
 ## Build
 
@@ -40,7 +40,7 @@ O build gera a pasta `dist`, pronta para deploy na Vercel com:
 - Output directory: `dist`
 - Branch principal: `main`
 
-## Variaveis de ambiente
+## Variáveis de ambiente
 
 Copie `.env.example` para `.env` quando o novo projeto Supabase estiver provisionado.
 
@@ -51,7 +51,7 @@ VITE_SUPABASE_ANON_KEY=
 
 ## Supabase
 
-A migration inicial esta em:
+A migration inicial está em:
 
 ```bash
 supabase/migrations/001_solarestudio_schema.sql
@@ -67,34 +67,34 @@ Ela cria:
 - `settings`
 - `clients`
 - `time_blocks`
-- bucket publico `josy-media`
+- bucket público `josy-media`
 
-Depois de criar o projeto Supabase `josy-leao-solare`, aplique a migration e crie um usuario no Supabase Auth para acessar o admin.
+Depois de criar o projeto Supabase `josy-leao-solare`, aplique a migration e crie um usuário no Supabase Auth para acessar o admin.
 
 ## Solare Studio OS
 
-Modulos incluidos:
+Módulos incluídos:
 
-- Dashboard com agendamentos do dia, clientes da semana, receita estimada e servico mais procurado
-- Produtos Sexy Shop com cadastro, preco, categoria, foto, status ativo/inativo e upload
-- Agenda inteligente com bloqueio de horarios e status de atendimento
-- CRM de clientes com historico, ultimo procedimento e observacoes
+- Dashboard com agendamentos do dia, clientes da semana, receita estimada e serviço mais procurado
+- Produtos Sexy Shop com cadastro, preço, categoria, foto, status ativo/inativo e upload
+- Agenda inteligente com bloqueio de horários e status de atendimento
+- CRM de clientes com histórico, último procedimento e observações
 - Galeria antes e depois com upload por categoria
-- Catalogo de servicos com preco, tempo medio e imagem
-- Programa fidelidade com controle de sessoes e bonus
+- Catálogo de serviços com preço, tempo médio e imagem
+- Programa fidelidade com controle de sessões e bônus
 - Campanhas WhatsApp com lista exportavel e mensagens prontas
 - Depoimentos e provas reais
-- Configuracoes do site com logo, hero, Instagram, WhatsApp e endereco
+- Configurações do site com logo, hero, Instagram, WhatsApp e endereço
 
-## Catalogo de venda
+## Catálogo de venda
 
-As imagens iniciais do catalogo estao em:
+As imagens iniciais do catálogo estão em:
 
 ```bash
 public/products/
 ```
 
-A logo oficial convertida do PDF esta em:
+A logo oficial convertida do PDF está em:
 
 ```bash
 public/brand/josy-logo-from-pdf.webp
@@ -106,8 +106,8 @@ Para trocar nome, preco, descricao ou foto sem Supabase configurado, use o admin
 
 - Substituir ou reorganizar fotos reais no admin.
 - Atualizar logo e hero pelo Studio OS.
-- Atualizar Instagram, WhatsApp, endereco e imagens da vitrine.
+- Atualizar Instagram, WhatsApp, endereço e imagens da vitrine.
 
-## Escopo desta versao
+## Escopo desta versão
 
-Esta entrega contem a landing page premium e a primeira versao funcional do Solare Studio OS.
+Esta entrega contém a landing page premium e a primeira versão funcional do Solare Studio OS.
