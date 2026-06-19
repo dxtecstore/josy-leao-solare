@@ -99,13 +99,12 @@ function LandingPage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [settings, setSettings] = useState<BusinessSettings>(fallbackSettings);
   const [products, setProducts] = useState<Product[]>(fallbackProducts);
-  const [services, setServices] = useState<Service[]>(fallbackServices);
   const [gallery, setGallery] = useState<GalleryItem[]>(fallbackGallery);
   const [testimonials, setTestimonials] = useState<Testimonial[]>(fallbackTestimonials);
   const [form, setForm] = useState({
     client_name: '',
     phone: '',
-    service_id: fallbackServices[0]?.id ?? '',
+    service_id: fallbackProducts[0]?.id ?? '',
     preferred_date: '',
     preferred_time: '',
     notes: '',
@@ -118,20 +117,15 @@ function LandingPage() {
         return;
       }
 
-      const [settingsResult, productsResult, servicesResult, galleryResult, testimonialsResult] = await Promise.all([
+      const [settingsResult, productsResult, galleryResult, testimonialsResult] = await Promise.all([
         supabase.from('settings').select('*').limit(1).maybeSingle(),
         supabase.from('products').select('*').eq('active', true).order('created_at', { ascending: true }),
-        supabase.from('services').select('*').eq('active', true).order('created_at', { ascending: true }),
         supabase.from('gallery').select('*').eq('active', true).order('created_at', { ascending: false }),
         supabase.from('testimonials').select('*').eq('active', true).order('created_at', { ascending: false }),
       ]);
 
       if (settingsResult.data) setSettings(settingsResult.data);
       if (productsResult.data?.length) setProducts(productsResult.data);
-      if (servicesResult.data?.length) {
-        setServices(servicesResult.data);
-        setForm((current) => ({ ...current, service_id: servicesResult.data[0].id }));
-      }
       if (galleryResult.data?.length) setGallery(galleryResult.data);
       if (testimonialsResult.data?.length) setTestimonials(testimonialsResult.data);
     }
@@ -139,30 +133,55 @@ function LandingPage() {
     void loadPublicData();
   }, []);
 
-  const selectedService = services.find((service) => service.id === form.service_id) ?? services[0];
   const quickMessage = buildWhatsAppUrl(
     settings.whatsapp,
-    'Ola, Josy Leao Solare! Tenho interesse no catalogo de produtos sexy shop.',
+    'Ola! Quero receber o catalogo adulto 18+ e consultar disponibilidade dos produtos.',
   );
-  const visibleProducts = (products.length >= 17 ? products : fallbackProducts).filter((product) => product.active).slice(0, 17);
-  const procedureModels = (services.length >= 6 ? services : fallbackServices).slice(0, 6);
+  const visibleProducts = (products.length >= 20 ? products : fallbackProducts).filter((product) => product.active).slice(0, 20);
+  const selectedProduct = visibleProducts.find((product) => product.id === form.service_id) ?? visibleProducts[0];
+  const shoppingHighlights = [
+    {
+      name: 'Atendimento discreto',
+      description: 'Compra guiada pelo WhatsApp com linguagem segura, acolhedora e sem exposicao.',
+    },
+    {
+      name: 'Curadoria adulta 18+',
+      description: 'Produtos selecionados para diferentes momentos, estilos e niveis de experiencia.',
+    },
+    {
+      name: 'Fotos e disponibilidade',
+      description: 'Veja detalhes, cores, valores e estoque antes de confirmar o pedido.',
+    },
+    {
+      name: 'Presente especial',
+      description: 'Opcoes para surpreender com elegancia, discricao e apresentacao premium.',
+    },
+    {
+      name: 'Entrega combinada',
+      description: 'Combine retirada ou envio diretamente pelo WhatsApp.',
+    },
+    {
+      name: 'Orientacao personalizada',
+      description: 'Escolha com mais seguranca a partir do seu objetivo e preferencia.',
+    },
+  ];
   const galleryModels = (gallery.length >= 6 ? gallery : fallbackGallery).slice(0, 6);
-  const marqueeWords = ['Bronzeamento Premium', ...benefits.slice(0, 4), 'Josy Leao Solare'];
+  const marqueeWords = ['Catalogo adulto 18+', 'Atendimento discreto', 'Presentes sensuais', 'Acessorios premium', ...benefits.slice(0, 2)];
 
   async function handleAppointment(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const message = `Ola, tenho interesse em agendar ${selectedService?.name ?? 'um atendimento'} no dia ${form.preferred_date || '[data]'} as ${form.preferred_time || '[hora]'}. Meu nome e ${form.client_name || '[nome]'}.`;
+    const message = `Ola, tenho interesse no produto ${selectedProduct?.name ?? 'do catalogo adulto 18+'}. Meu nome e ${form.client_name || '[nome]'}. Meu WhatsApp e ${form.phone || '[telefone]'}. ${form.notes ? `Observacoes: ${form.notes}` : ''}`;
 
     if (supabase) {
       await supabase.from('appointments').insert({
         client_name: form.client_name,
         phone: form.phone,
-        service_id: selectedService?.id,
+        service_id: null,
         preferred_date: form.preferred_date || null,
         preferred_time: form.preferred_time || null,
         status: 'novo',
-        notes: form.notes,
+        notes: `Produto: ${selectedProduct?.name ?? 'Catalogo'} | ${form.notes}`,
       });
 
       if (form.client_name && form.phone) {
@@ -170,7 +189,7 @@ function LandingPage() {
           {
             name: form.client_name,
             whatsapp: form.phone,
-            last_procedure: selectedService?.name ?? null,
+            last_procedure: selectedProduct?.name ?? null,
             notes: form.notes,
           },
           { onConflict: 'whatsapp' },
@@ -191,7 +210,7 @@ function LandingPage() {
         <nav className="preview-nav">
           <a href="#servicos">Catalogo</a>
           <a href="#produtos">Produtos</a>
-          <a href="#storytelling">Bronze</a>
+          <a href="#storytelling">Experiencia</a>
           <a href="#galeria">Galeria</a>
           <a href="/admin/login">Admin</a>
         </nav>
@@ -204,7 +223,7 @@ function LandingPage() {
             {[
               ['servicos', 'Catalogo'],
               ['produtos', 'Produtos'],
-              ['storytelling', 'Bronze'],
+              ['storytelling', 'Experiencia'],
               ['galeria', 'Galeria'],
               ['agendamento', 'Agenda'],
             ].map(([href, label]) => (
@@ -222,8 +241,8 @@ function LandingPage() {
           <div className="preview-vignette" aria-hidden="true" />
           <div className="preview-hero-content">
             <span>Belem do Para</span>
-            <h1>Sua pele, sua luz,<br /><em>sua melhor versao.</em></h1>
-            <p>Bronzeamento artificial e estetica premium em Belem do Para.</p>
+            <h1>Desejo, cuidado<br /><em>e discricao.</em></h1>
+            <p>Catalogo adulto 18+ com produtos selecionados, atendimento reservado e compra guiada pelo WhatsApp.</p>
             <div className="preview-actions">
               <a className="preview-primary" href="#agendamento">Agendar no WhatsApp</a>
               <a className="preview-secondary" href="#storytelling">Conhecer experiencia</a>
@@ -250,7 +269,7 @@ function LandingPage() {
         <section id="produtos" className="preview-products">
           <div className="preview-section-head">
             <span>Sexy shop</span>
-            <h2>Catalogo com <em>17 produtos.</em></h2>
+            <h2>Catalogo com <em>produtos premium.</em></h2>
           </div>
           <div className="preview-product-grid">
             {visibleProducts.map((product, index) => {
@@ -275,25 +294,25 @@ function LandingPage() {
 
         <section id="storytelling" className="preview-story">
           <div>
-            <span> A experiencia </span>
-            <h2>Mais do que bronze.<br /><em>Uma experiencia.</em></h2>
+            <span> A compra </span>
+            <h2>Mais do que produto.<br /><em>Uma escolha discreta.</em></h2>
             <i />
-            <p>Cada detalhe foi pensado para realcar sua beleza com naturalidade, seguranca e sofisticacao.</p>
+            <p>Cada item foi pensado para quem busca desejo, autocuidado e liberdade com atendimento reservado, elegante e seguro.</p>
           </div>
         </section>
 
         <section id="servicos" className="preview-services">
           <div className="preview-section-head">
             <span>Catalogo</span>
-            <h2>Nossos <em>servicos</em></h2>
+            <h2>Como comprar com <em>seguranca.</em></h2>
           </div>
           <div className="preview-service-grid">
-            {procedureModels.map((service, index) => (
-              <article className="preview-service-card" key={service.id}>
+            {shoppingHighlights.map((service, index) => (
+              <article className="preview-service-card" key={service.name}>
                 <Sparkles size={32} strokeWidth={1.25} />
                 <h3>{service.name}</h3>
                 <p>{service.description}</p>
-                <small>{String(index + 1).padStart(2, '0')} / {money(service.price)}</small>
+                <small>{String(index + 1).padStart(2, '0')} / Compra orientada</small>
                 <i />
               </article>
             ))}
@@ -335,14 +354,14 @@ function LandingPage() {
           <div className="preview-booking-bg" aria-hidden="true" />
           <div className="preview-section-head">
             <span>Agenda</span>
-            <h2>Pronta para revelar<br /><em>sua melhor versao?</em></h2>
+            <h2>Quer consultar<br /><em>um produto?</em></h2>
           </div>
           <form className="preview-booking-form" onSubmit={handleAppointment}>
             <input required value={form.client_name} onChange={(event) => setForm({ ...form, client_name: event.target.value })} placeholder="Nome" />
             <input required value={form.phone} onChange={(event) => setForm({ ...form, phone: event.target.value })} placeholder="WhatsApp" />
             <select value={form.service_id} onChange={(event) => setForm({ ...form, service_id: event.target.value })}>
-              {procedureModels.map((service) => (
-                <option key={service.id} value={service.id}>{service.name}</option>
+              {visibleProducts.map((product) => (
+                <option key={product.id} value={product.id}>{product.name}</option>
               ))}
             </select>
             <input type="date" value={form.preferred_date} onChange={(event) => setForm({ ...form, preferred_date: event.target.value })} />
@@ -351,7 +370,7 @@ function LandingPage() {
               {periods.map((period) => <option key={period}>{period}</option>)}
             </select>
             <textarea value={form.notes} onChange={(event) => setForm({ ...form, notes: event.target.value })} placeholder="Observacoes" />
-            <button type="submit">Agendar agora no WhatsApp</button>
+            <button type="submit">Consultar no WhatsApp</button>
           </form>
         </section>
 
