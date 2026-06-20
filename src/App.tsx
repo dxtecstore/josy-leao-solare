@@ -634,10 +634,23 @@ function AdminDashboard() {
   const today = new Date().toISOString().slice(0, 10);
   const todayAppointments = appointments.filter((appointment) => appointment.preferred_date === today);
   const weekClients = clients.filter((client) => Date.now() - new Date(client.created_at).getTime() < 7 * 24 * 60 * 60 * 1000);
+  const activeAppointments = appointments.filter((appointment) => appointment.status !== 'cancelado');
   const estimatedRevenue = appointments
     .filter((appointment) => appointment.status !== 'cancelado')
     .reduce((sum, appointment) => sum + Number(appointment.services?.price ?? 0), 0);
-  const topService = services[0]?.name ?? 'Bronzeamento';
+  const serviceDemand = appointments.reduce<Record<string, number>>((acc, appointment) => {
+    const name = appointment.services?.name ?? 'Atendimento Solare';
+    acc[name] = (acc[name] ?? 0) + 1;
+    return acc;
+  }, {});
+  const topService = Object.entries(serviceDemand).sort((a, b) => b[1] - a[1])[0]?.[0] ?? services[0]?.name ?? 'Bronzeamento';
+  const statusSummary = [
+    ['Novos', appointments.filter((appointment) => appointment.status === 'novo').length],
+    ['Confirmados', appointments.filter((appointment) => appointment.status === 'confirmado').length],
+    ['Realizados', appointments.filter((appointment) => appointment.status === 'realizado').length],
+    ['Cancelados', appointments.filter((appointment) => appointment.status === 'cancelado').length],
+  ];
+  const todayLabel = new Intl.DateTimeFormat('pt-BR', { weekday: 'long', day: '2-digit', month: 'long' }).format(new Date());
 
   return (
     <div className="studio-os">
@@ -682,12 +695,45 @@ function AdminDashboard() {
         </header>
 
         {activeModule === 'dashboard' && (
-          <section className="os-grid">
-            <Metric icon={<CalendarDays />} label="Agendamentos do dia" value={String(todayAppointments.length)} />
-            <Metric icon={<Users />} label="Clientes da semana" value={String(weekClients.length)} />
-            <Metric icon={<BarChart3 />} label="Receita estimada" value={money(estimatedRevenue)} />
-            <Metric icon={<Sparkles />} label="Mais procurado" value={topService} />
-            <AppointmentsTable appointments={appointments.slice(0, 8)} reload={loadAdminData} />
+          <section className="dashboard-shell">
+            <div className="dashboard-hero">
+              <div>
+                <span>Hoje, {todayLabel}</span>
+                <h3>Visão rápida do Studio</h3>
+                <p>Acompanhe agenda, clientes e oportunidades de retorno em uma leitura limpa para o dia de atendimento.</p>
+              </div>
+              <a href="#agenda" onClick={() => setActiveModule('agenda')}>Abrir agenda</a>
+            </div>
+
+            <div className="os-grid metric-grid">
+              <Metric icon={<CalendarDays />} label="Agendamentos do dia" value={String(todayAppointments.length)} />
+              <Metric icon={<Users />} label="Clientes da semana" value={String(weekClients.length)} />
+              <Metric icon={<BarChart3 />} label="Receita estimada" value={money(estimatedRevenue)} />
+              <Metric icon={<Sparkles />} label="Mais procurado" value={topService} />
+            </div>
+
+            <div className="dashboard-columns">
+              <AppointmentsTable appointments={appointments.slice(0, 8)} reload={loadAdminData} />
+              <aside className="dashboard-side">
+                <article>
+                  <span>Fila de atendimento</span>
+                  <strong>{activeAppointments.length}</strong>
+                  <p>agendamentos ativos no sistema</p>
+                </article>
+                <div className="status-summary">
+                  {statusSummary.map(([label, value]) => (
+                    <span key={label as string}><b>{value}</b>{label}</span>
+                  ))}
+                </div>
+                <div className="recent-clients">
+                  <h3>Clientes recentes</h3>
+                  {(clients.length ? clients.slice(0, 4) : weekClients.slice(0, 4)).map((client) => (
+                    <p key={client.id}><b>{client.name}</b><small>{client.last_procedure || 'Sem procedimento registrado'}</small></p>
+                  ))}
+                  {!clients.length && <p><b>Aguardando clientes</b><small>Os novos cadastros aparecerão aqui.</small></p>}
+                </div>
+              </aside>
+            </div>
           </section>
         )}
 
@@ -740,18 +786,37 @@ function AppointmentsTable({ appointments, reload }: { appointments: Appointment
 
   return (
     <div className="os-panel wide">
-      <h3>Agendamentos recebidos</h3>
+      <div className="panel-title">
+        <span>Operação</span>
+        <h3>Agendamentos recebidos</h3>
+      </div>
       <div className="os-table">
+        <div className="os-table-head">
+          <span>Cliente</span>
+          <span>Interesse</span>
+          <span>Data e período</span>
+          <span>Status</span>
+        </div>
         {appointments.map((appointment) => (
           <div key={appointment.id}>
             <span>{appointment.client_name}</span>
             <span>{appointment.services?.name ?? 'Serviço'}</span>
             <span>{appointment.preferred_date} - {appointment.preferred_time}</span>
-            <select value={appointment.status} onChange={(event) => void updateStatus(appointment.id, event.target.value as Appointment['status'])}>
-              {statusList.map((status) => <option key={status}>{status}</option>)}
-            </select>
+            <label className={`status-select status-${appointment.status}`}>
+              <i />
+              <select value={appointment.status} onChange={(event) => void updateStatus(appointment.id, event.target.value as Appointment['status'])}>
+                {statusList.map((status) => <option key={status}>{status}</option>)}
+              </select>
+            </label>
           </div>
         ))}
+        {!appointments.length && (
+          <article className="empty-state">
+            <CalendarDays size={22} />
+            <strong>Nenhum agendamento recebido ainda.</strong>
+            <p>Quando uma cliente preencher o formulário da vitrine, o pedido aparecerá aqui.</p>
+          </article>
+        )}
       </div>
     </div>
   );
