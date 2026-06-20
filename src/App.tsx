@@ -467,6 +467,19 @@ function LandingPage() {
                 <a href="https://www.instagram.com/reel/DVgsdaiDkMR/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" rel="noreferrer">Abrir Reel</a>
               </div>
             </article>
+            <article className="instagram-reel-card featured">
+              <iframe
+                src="https://www.instagram.com/reel/DVcZKPxANGP/embed"
+                title="Reel luxo Josy Leão Solare"
+                loading="lazy"
+                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+              />
+              <div>
+                <span>Luxo Solare</span>
+                <h3>Um bastidor poderoso para reforçar desejo, autoestima e beleza real.</h3>
+                <a href="https://www.instagram.com/reel/DVcZKPxANGP/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" rel="noreferrer">Abrir Reel</a>
+              </div>
+            </article>
             <article className="instagram-reel-card">
               <iframe
                 src="https://www.instagram.com/reel/DK0le5spwDK/embed"
