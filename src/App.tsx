@@ -41,7 +41,7 @@ const productCategories = ['Lingerie', 'Cosméticos', 'Acessórios', 'Presentes'
 const statusList: Appointment['status'][] = ['novo', 'confirmado', 'realizado', 'cancelado'];
 const periods = ['Manha', 'Tarde', 'Noite'];
 const demoProductsKey = 'solare_demo_products';
-const mediaVersion = '20260620b';
+const mediaVersion = '20260620c';
 
 function mediaUrl(path: string) {
   return `${path}?v=${mediaVersion}`;
@@ -213,6 +213,12 @@ function LandingPage() {
       frame: 'detail focus-center',
     },
     {
+      src: mediaUrl('/brand/solare-bronze-05.jpg'),
+      title: 'Marquinha glow',
+      category: 'Detalhe real de bronze',
+      frame: 'detail focus-center',
+    },
+    {
       src: mediaUrl('/brand/solare-lgbt-01.jpg'),
       title: 'Atendimento LGBTQIAPN+',
       category: 'Bronze sem julgamento',
@@ -223,6 +229,12 @@ function LandingPage() {
       title: 'Experiência inclusiva',
       category: 'Ambiente acolhedor',
       frame: 'tall focus-top',
+    },
+    {
+      src: mediaUrl('/brand/solare-bronze-07.jpg'),
+      title: 'Resultado em casal',
+      category: 'Bronze Solare Skin',
+      frame: 'wide full-frame',
     },
     {
       src: mediaUrl('/brand/solare-correcao-01.jpg'),

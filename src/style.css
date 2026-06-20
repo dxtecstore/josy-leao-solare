@@ -971,6 +971,11 @@ textarea {
   aspect-ratio: 9 / 14;
 }
 
+.bronze-highlight-grid article.wide {
+  grid-column: span 6;
+  aspect-ratio: 4 / 3;
+}
+
 .bronze-highlight-grid article.detail {
   grid-column: span 4;
 }
@@ -3558,7 +3563,8 @@ em {
   .bronze-highlight-grid article:nth-child(2),
   .bronze-highlight-grid article.portrait,
   .bronze-highlight-grid article.detail,
-  .bronze-highlight-grid article.tall {
+  .bronze-highlight-grid article.tall,
+  .bronze-highlight-grid article.wide {
     grid-column: 1 / -1;
   }
 
@@ -3569,6 +3575,10 @@ em {
 
   .bronze-highlight-grid article.tall {
     aspect-ratio: 9 / 14;
+  }
+
+  .bronze-highlight-grid article.wide {
+    aspect-ratio: 4 / 5;
   }
 
   .preview-bikini-correction {
