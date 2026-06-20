@@ -99,7 +99,6 @@ function LandingPage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [settings, setSettings] = useState<BusinessSettings>(fallbackSettings);
   const [products, setProducts] = useState<Product[]>(fallbackProducts);
-  const [gallery, setGallery] = useState<GalleryItem[]>(fallbackGallery);
   const [testimonials, setTestimonials] = useState<Testimonial[]>(fallbackTestimonials);
   const [form, setForm] = useState({
     client_name: '',
@@ -117,16 +116,14 @@ function LandingPage() {
         return;
       }
 
-      const [settingsResult, productsResult, galleryResult, testimonialsResult] = await Promise.all([
+      const [settingsResult, productsResult, testimonialsResult] = await Promise.all([
         supabase.from('settings').select('*').limit(1).maybeSingle(),
         supabase.from('products').select('*').eq('active', true).order('created_at', { ascending: true }),
-        supabase.from('gallery').select('*').eq('active', true).order('created_at', { ascending: false }),
         supabase.from('testimonials').select('*').eq('active', true).order('created_at', { ascending: false }),
       ]);
 
       if (settingsResult.data) setSettings(settingsResult.data);
       if (productsResult.data?.length) setProducts(productsResult.data);
-      if (galleryResult.data?.length) setGallery(galleryResult.data);
       if (testimonialsResult.data?.length) setTestimonials(testimonialsResult.data);
     }
 
@@ -216,8 +213,17 @@ function LandingPage() {
       title: 'Experiência inclusiva',
       category: 'Ambiente acolhedor',
     },
+    {
+      src: '/brand/correcao-biquini-01.jpeg',
+      title: 'Correção de biquíni',
+      category: 'Antes e depois',
+    },
+    {
+      src: '/brand/correcao-biquini-02.jpeg',
+      title: 'Marquinha redesenhada',
+      category: 'Resultado real',
+    },
   ];
-  const galleryModels = (gallery.length >= 6 ? gallery : fallbackGallery).slice(0, 6);
   const marqueeWords = ['Bronzeamento premium', 'Marquinha dos sonhos', 'Design de biquíni', 'Spa banho', 'Atendimento feminino', 'Produtos 18+'];
 
   async function handleAppointment(event: FormEvent<HTMLFormElement>) {
@@ -408,14 +414,6 @@ function LandingPage() {
                 </article>
               ))}
             </div>
-          </div>
-          <div className="preview-gallery-grid">
-            {galleryModels.map((item, index) => (
-              <article key={item.id} className={index === 0 ? 'featured' : index === 3 ? 'wide' : ''}>
-                <img src={item.image_url} alt={item.title} loading="lazy" />
-                <div><b>{item.title}</b><span>{item.category}</span></div>
-              </article>
-            ))}
           </div>
           <div className="preview-section-actions">
             <a className="preview-secondary" href={settings.instagram} target="_blank" rel="noreferrer">Ver resultados no Instagram</a>
