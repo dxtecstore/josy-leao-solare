@@ -41,6 +41,11 @@ const productCategories = ['Lingerie', 'Cosméticos', 'Acessórios', 'Presentes'
 const statusList: Appointment['status'][] = ['novo', 'confirmado', 'realizado', 'cancelado'];
 const periods = ['Manha', 'Tarde', 'Noite'];
 const demoProductsKey = 'solare_demo_products';
+const mediaVersion = '20260620b';
+
+function mediaUrl(path: string) {
+  return `${path}?v=${mediaVersion}`;
+}
 
 function money(value?: number | null) {
   return value ? value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) : 'Sob consulta';
@@ -184,49 +189,49 @@ function LandingPage() {
   ];
   const bronzeHighlights = [
     {
-      src: '/brand/bronze-real-01.jpeg',
+      src: mediaUrl('/brand/solare-bronze-01.jpg'),
       title: 'Marquinha iluminada',
       category: 'Bronzeamento premium',
       frame: 'portrait focus-top',
     },
     {
-      src: '/brand/bronze-real-02.jpeg',
+      src: mediaUrl('/brand/solare-bronze-02.jpg'),
       title: 'Resultado natural',
       category: 'Bronze em cabine',
       frame: 'portrait focus-top',
     },
     {
-      src: '/brand/bronze-real-03.jpeg',
+      src: mediaUrl('/brand/solare-bronze-03.jpg'),
       title: 'Autoestima em destaque',
       category: 'Design de biquíni',
       frame: 'portrait focus-top',
     },
     {
-      src: '/brand/bronze-real-04.jpeg',
+      src: mediaUrl('/brand/solare-bronze-04.jpg'),
       title: 'Pele dourada',
       category: 'Acabamento glow',
       frame: 'detail focus-center',
     },
     {
-      src: '/brand/bronze-lgbt-01.jpeg',
+      src: mediaUrl('/brand/solare-lgbt-01.jpg'),
       title: 'Atendimento LGBTQIAPN+',
       category: 'Bronze sem julgamento',
       frame: 'portrait focus-top',
     },
     {
-      src: '/brand/bronze-lgbt-02.jpeg',
+      src: mediaUrl('/brand/solare-lgbt-02.jpg'),
       title: 'Experiência inclusiva',
       category: 'Ambiente acolhedor',
       frame: 'tall focus-top',
     },
     {
-      src: '/brand/correcao-biquini-01.jpeg',
+      src: mediaUrl('/brand/solare-correcao-01.jpg'),
       title: 'Correção de biquíni',
       category: 'Antes e depois',
       frame: 'tall full-frame',
     },
     {
-      src: '/brand/correcao-biquini-02.jpeg',
+      src: mediaUrl('/brand/solare-correcao-02.jpg'),
       title: 'Marquinha redesenhada',
       category: 'Resultado real',
       frame: 'tall full-frame',
@@ -339,7 +344,7 @@ function LandingPage() {
 
         <section id="storytelling" className="preview-story">
           <div className="preview-story-media">
-            <img src="/brand/josy-storytelling.png" alt="Josy Leão Solare, especialista em bronzeamento e estética" loading="lazy" />
+            <img src={mediaUrl('/brand/josy-storytelling.png')} alt="Josy Leão Solare, especialista em bronzeamento e estética" loading="lazy" />
           </div>
           <div className="preview-story-copy">
             <span>Storytelling</span>
@@ -381,11 +386,11 @@ function LandingPage() {
         <section className="preview-bikini-correction">
           <div className="bikini-correction-media">
             <figure>
-              <img src="/brand/correcao-biquini-01.jpeg" alt="Antes e depois de correção de biquíni com marquinha valorizada" loading="lazy" />
+              <img src={mediaUrl('/brand/solare-correcao-01.jpg')} alt="Antes e depois de correção de biquíni com marquinha valorizada" loading="lazy" />
               <figcaption>Correção com valorização da cintura</figcaption>
             </figure>
             <figure>
-              <img src="/brand/correcao-biquini-02.jpeg" alt="Resultado real de correção de biquíni para desenho de marquinha" loading="lazy" />
+              <img src={mediaUrl('/brand/solare-correcao-02.jpg')} alt="Resultado real de correção de biquíni para desenho de marquinha" loading="lazy" />
               <figcaption>Resultado real de marquinha redesenhada</figcaption>
             </figure>
           </div>
@@ -409,8 +414,8 @@ function LandingPage() {
           </div>
           <div className="preview-bronze-showcase">
             <article className="bronze-video-card">
-              <video controls playsInline muted preload="metadata" poster="/brand/bronze-real-02.jpeg">
-                <source src="/brand/video-bronze-01.mp4" type="video/mp4" />
+              <video controls playsInline muted preload="metadata" poster={mediaUrl('/brand/solare-bronze-02.jpg')}>
+                <source src={mediaUrl('/brand/video-bronze-01.mp4')} type="video/mp4" />
               </video>
               <div>
                 <span>Vídeo real</span>
