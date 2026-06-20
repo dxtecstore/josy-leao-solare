@@ -330,11 +330,15 @@ function LandingPage() {
         </div>
 
         <section id="storytelling" className="preview-story">
-          <div>
-            <span>Autoestima</span>
-            <h2>Mais que bronzeamento.<br /><em>Uma experiência de autoestima.</em></h2>
+          <div className="preview-story-media">
+            <img src="/brand/josy-storytelling.png" alt="Josy Leão Solare, especialista em bronzeamento e estética" loading="lazy" />
+          </div>
+          <div className="preview-story-copy">
+            <span>Storytelling</span>
+            <h2>Uma marca criada para cuidar da sua <em>luz.</em></h2>
             <i />
-            <p>Cada atendimento é pensado para realçar sua beleza com naturalidade, segurança e sofisticação, em um ambiente feminino, acolhedor e LGBTQIAPN+.</p>
+            <p>Por trás da Josy Leão Solare existe uma mulher que entende que beleza também é acolhimento, segurança e presença. Cada atendimento nasce desse olhar: valorizar o corpo real, respeitar cada história e entregar uma experiência em que a cliente se sente vista, confiante e pronta para viver sua melhor versão.</p>
+            <strong>Mais que bronzeamento: um ritual de autoestima, cuidado e pertencimento.</strong>
           </div>
         </section>
 

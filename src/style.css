@@ -538,14 +538,50 @@ textarea {
 }
 
 .preview-story {
-  padding-block: 7rem;
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  gap: clamp(2rem, 6vw, 6rem);
+  align-items: center;
+  max-width: 76rem;
+  margin: 0 auto;
+  padding: 7rem 2rem;
 }
 
-.preview-story > div,
 .preview-section-head {
   max-width: 56rem;
   margin: 0 auto;
   text-align: center;
+}
+
+.preview-story-media {
+  position: relative;
+  min-height: 36rem;
+  overflow: hidden;
+  border: 1px solid rgba(212, 175, 55, 0.16);
+  background: #080808;
+  box-shadow: 0 30px 90px -48px rgba(212, 175, 55, 0.55);
+}
+
+.preview-story-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.28)),
+    radial-gradient(circle at 50% 20%, rgba(247, 231, 180, 0.12), transparent 40%);
+}
+
+.preview-story-media img {
+  width: 100%;
+  height: 100%;
+  min-height: 36rem;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0.9;
+}
+
+.preview-story-copy {
+  text-align: left;
 }
 
 .preview-story h2,
@@ -561,16 +597,27 @@ textarea {
   display: block;
   width: min(14rem, 44vw);
   height: 1px;
-  margin: 2.5rem auto;
+  margin: 2.5rem 0;
   background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
 }
 
 .preview-story p {
   max-width: 42rem;
-  margin: 0 auto;
+  margin: 0;
   color: var(--gray-text);
   font-size: clamp(1rem, 1.5vw, 1.15rem);
   line-height: 1.7;
+}
+
+.preview-story strong {
+  display: block;
+  max-width: 38rem;
+  margin-top: 1.4rem;
+  color: var(--gold-soft);
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(1.35rem, 2vw, 2rem);
+  font-weight: 500;
+  line-height: 1.25;
 }
 
 .preview-proof {
@@ -3328,6 +3375,16 @@ em {
   .preview-booking,
   .preview-location {
     padding: 4.8rem 1.25rem;
+  }
+
+  .preview-story {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .preview-story-media,
+  .preview-story-media img {
+    min-height: 28rem;
   }
 
   .preview-service-grid,
