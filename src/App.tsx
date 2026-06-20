@@ -36,7 +36,7 @@ import {
 } from './lib/supabase';
 import { fallbackGallery, fallbackProducts, fallbackServices, fallbackSettings, fallbackTestimonials } from './data/defaults';
 
-const categories = ['Bronze', 'Marquinha', 'Estetica facial', 'Estetica corporal'];
+const categories = ['Bronze', 'Marquinha', 'Estética facial', 'Estética corporal'];
 const productCategories = ['Lingerie', 'Cosméticos', 'Acessórios', 'Presentes'];
 const statusList: Appointment['status'][] = ['novo', 'confirmado', 'realizado', 'cancelado'];
 const periods = ['Manha', 'Tarde', 'Noite'];
@@ -271,6 +271,7 @@ function LandingPage() {
               <span>Atendimento feminino</span>
               <span>12,8 mil no Instagram</span>
             </div>
+            <p className="preview-hero-note">Atendimento com hora marcada em Nazaré, Belém/PA, para mulheres e público LGBTQIAPN+.</p>
           </div>
           <div className="preview-scroll" aria-hidden="true">
             <span>Role</span>
@@ -327,6 +328,23 @@ function LandingPage() {
           </div>
         </section>
 
+        <section className="preview-bikini-correction">
+          <div className="bikini-correction-media">
+            <img src={galleryModels[0]?.image_url || fallbackGallery[0]?.image_url} alt="Correção de biquíni para marquinha personalizada" loading="lazy" />
+          </div>
+          <div className="bikini-correction-copy">
+            <span>Especialidade Solare</span>
+            <h2>Correção de biquíni para uma <em>marquinha mais elegante.</em></h2>
+            <p>Ajuste técnico do desenho do biquíni para alinhar proporção, simetria e acabamento antes do bronze. Ideal para quem quer corrigir a marca, valorizar o corpo e conquistar um resultado mais limpo, feminino e natural.</p>
+            <div className="bikini-correction-points">
+              <span><CheckCircle2 size={16} /> Avaliação do desenho atual</span>
+              <span><CheckCircle2 size={16} /> Ajuste da marquinha desejada</span>
+              <span><CheckCircle2 size={16} /> Orientação para o bronze perfeito</span>
+            </div>
+            <a className="preview-primary" href={buildWhatsAppUrl(settings.whatsapp, `${whatsappMessage} Quero saber mais sobre correção de biquíni.`)} target="_blank" rel="noreferrer">Quero corrigir minha marquinha</a>
+          </div>
+        </section>
+
         <section id="galeria" className="preview-gallery">
           <div className="preview-section-head">
             <span>Resultados</span>
@@ -339,6 +357,10 @@ function LandingPage() {
                 <div><b>{item.title}</b><span>{item.category}</span></div>
               </article>
             ))}
+          </div>
+          <div className="preview-section-actions">
+            <a className="preview-secondary" href={settings.instagram} target="_blank" rel="noreferrer">Ver resultados no Instagram</a>
+            <a className="preview-primary" href={quickMessage} target="_blank" rel="noreferrer">Agendar pelo WhatsApp</a>
           </div>
         </section>
 
@@ -411,6 +433,7 @@ function LandingPage() {
         <section className="preview-location">
           <span>Localização</span>
           <h2>{settings.address}</h2>
+          <p className="preview-location-copy">Centro de bronzeamento e estética em Nazaré, Belém/PA, com atendimento acolhedor, discreto e especializado.</p>
           <a className="preview-secondary" href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(settings.address)}`} target="_blank" rel="noreferrer">Abrir mapa</a>
         </section>
       </main>

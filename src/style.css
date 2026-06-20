@@ -250,6 +250,16 @@ textarea {
   font-size: clamp(1rem, 1.5vw, 1.125rem);
 }
 
+.preview-hero-note {
+  max-width: 34rem;
+  margin-top: 1rem;
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  line-height: 1.7;
+  text-transform: uppercase;
+}
+
 .preview-actions {
   display: flex;
   flex-wrap: wrap;
@@ -706,6 +716,97 @@ textarea {
   width: 100%;
 }
 
+.preview-bikini-correction {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: center;
+  max-width: 76rem;
+  margin: 0 auto;
+  padding: 1rem 2rem 7rem;
+}
+
+.bikini-correction-media {
+  position: relative;
+  min-height: 34rem;
+  overflow: hidden;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  background: #080808;
+  box-shadow: 0 28px 80px -42px rgba(212, 175, 55, 0.55);
+}
+
+.bikini-correction-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.36)),
+    radial-gradient(circle at 45% 30%, rgba(247, 231, 180, 0.16), transparent 44%);
+}
+
+.bikini-correction-media img {
+  width: 100%;
+  height: 100%;
+  min-height: 34rem;
+  object-fit: cover;
+  opacity: 0.82;
+  transform: scale(1.04);
+}
+
+.bikini-correction-copy span {
+  color: var(--gold-soft);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.bikini-correction-copy h2 {
+  max-width: 42rem;
+  margin-top: 1rem;
+  color: #ffffff;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(2.4rem, 5vw, 5.2rem);
+  font-weight: 500;
+  line-height: 0.92;
+}
+
+.bikini-correction-copy h2 em {
+  color: var(--gold-soft);
+  font-style: italic;
+}
+
+.bikini-correction-copy p {
+  max-width: 38rem;
+  margin-top: 1.35rem;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 1rem;
+  line-height: 1.85;
+}
+
+.bikini-correction-points {
+  display: grid;
+  gap: 0.7rem;
+  margin: 1.7rem 0 2rem;
+}
+
+.bikini-correction-points span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  width: fit-content;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.18);
+  padding-bottom: 0.55rem;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+}
+
+.bikini-correction-points svg {
+  color: var(--gold-primary);
+  flex: 0 0 auto;
+}
+
 .preview-gallery-grid {
   display: grid;
   grid-auto-rows: 200px;
@@ -766,6 +867,14 @@ textarea {
   font-size: 0.68rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
+}
+
+.preview-section-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
 }
 
 .preview-testimonial-grid {
@@ -866,6 +975,14 @@ textarea {
 .preview-location h2 {
   max-width: 48rem;
   margin: 1.25rem auto 2rem;
+}
+
+.preview-location-copy {
+  max-width: 40rem;
+  margin: -0.75rem auto 2rem;
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 0.95rem;
+  line-height: 1.75;
 }
 
 .preview-footer {
@@ -2810,6 +2927,7 @@ em {
   }
 
   .preview-actions,
+  .preview-section-actions,
   .preview-trust-row,
   .preview-footer nav {
     width: 100%;
@@ -2818,6 +2936,7 @@ em {
 
   .preview-primary,
   .preview-secondary,
+  .preview-section-actions a,
   .preview-trust-row span,
   .preview-booking-form button {
     width: 100%;
@@ -2826,6 +2945,7 @@ em {
   .preview-story,
   .preview-products,
   .preview-services,
+  .preview-bikini-correction,
   .preview-gallery,
   .preview-testimonials,
   .preview-booking,
@@ -2840,6 +2960,19 @@ em {
   .preview-booking-form,
   .preview-proof {
     grid-template-columns: 1fr;
+  }
+
+  .preview-bikini-correction {
+    gap: 2rem;
+  }
+
+  .bikini-correction-media,
+  .bikini-correction-media img {
+    min-height: 25rem;
+  }
+
+  .bikini-correction-copy .preview-primary {
+    width: 100%;
   }
 
   .preview-proof article {
