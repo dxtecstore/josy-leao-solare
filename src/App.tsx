@@ -185,6 +185,38 @@ function LandingPage() {
     ['Nazaré', 'Belém/PA'],
     ['LGBTQIAPN+', 'ambiente acolhedor'],
   ];
+  const bronzeHighlights = [
+    {
+      src: '/brand/bronze-real-01.jpeg',
+      title: 'Marquinha iluminada',
+      category: 'Bronzeamento premium',
+    },
+    {
+      src: '/brand/bronze-real-02.jpeg',
+      title: 'Resultado natural',
+      category: 'Bronze em cabine',
+    },
+    {
+      src: '/brand/bronze-real-03.jpeg',
+      title: 'Autoestima em destaque',
+      category: 'Design de biquíni',
+    },
+    {
+      src: '/brand/bronze-real-04.jpeg',
+      title: 'Pele dourada',
+      category: 'Acabamento glow',
+    },
+    {
+      src: '/brand/bronze-lgbt-01.jpeg',
+      title: 'Atendimento LGBTQIAPN+',
+      category: 'Bronze sem julgamento',
+    },
+    {
+      src: '/brand/bronze-lgbt-02.jpeg',
+      title: 'Experiência inclusiva',
+      category: 'Ambiente acolhedor',
+    },
+  ];
   const galleryModels = (gallery.length >= 6 ? gallery : fallbackGallery).slice(0, 6);
   const marqueeWords = ['Bronzeamento premium', 'Marquinha dos sonhos', 'Design de biquíni', 'Spa banho', 'Atendimento feminino', 'Produtos 18+'];
 
@@ -356,6 +388,26 @@ function LandingPage() {
           <div className="preview-section-head">
             <span>Resultados</span>
             <h2>Resultados e bastidores <em>Solare</em></h2>
+          </div>
+          <div className="preview-bronze-showcase">
+            <article className="bronze-video-card">
+              <video controls playsInline muted preload="metadata" poster="/brand/bronze-real-02.jpeg">
+                <source src="/brand/video-bronze-01.mp4" type="video/mp4" />
+              </video>
+              <div>
+                <span>Vídeo real</span>
+                <h3>Bronzeamento em movimento, com brilho e acabamento Solare.</h3>
+                <p>Um recorte da experiência para sentir o resultado antes de reservar seu horário.</p>
+              </div>
+            </article>
+            <div className="bronze-highlight-grid">
+              {bronzeHighlights.map((item) => (
+                <article key={item.src}>
+                  <img src={item.src} alt={`${item.title} - ${item.category}`} loading="lazy" />
+                  <div><b>{item.title}</b><span>{item.category}</span></div>
+                </article>
+              ))}
+            </div>
           </div>
           <div className="preview-gallery-grid">
             {galleryModels.map((item, index) => (
