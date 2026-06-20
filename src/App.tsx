@@ -454,6 +454,19 @@ function LandingPage() {
                 <a href="https://www.instagram.com/reel/DK0le5spwDK/?utm_source=ig_web_copy_link" target="_blank" rel="noreferrer">Abrir Reel</a>
               </div>
             </article>
+            <article className="instagram-reel-card alt">
+              <iframe
+                src="https://www.instagram.com/reel/DXhoOfqkeXC/embed"
+                title="Reel de resultado Josy Leão Solare"
+                loading="lazy"
+                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+              />
+              <div>
+                <span>Reel bombástico</span>
+                <h3>Mais presença, mais desejo e mais prova real do bronze Solare.</h3>
+                <a href="https://www.instagram.com/reel/DXhoOfqkeXC/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" rel="noreferrer">Abrir Reel</a>
+              </div>
+            </article>
             <div className="bronze-highlight-grid">
               {bronzeHighlights.map((item) => (
                 <article key={item.src} className={item.frame}>
