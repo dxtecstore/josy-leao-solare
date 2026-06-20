@@ -849,26 +849,63 @@ function AgendaModule({ appointments, blocks, reload }: { appointments: Appointm
   }
 
   return (
-    <section className="module-grid">
-      <div className="calendar-board">
+    <section className="agenda-layout">
+      <div className="agenda-panel">
+        <div className="panel-title">
+          <span>Próximos 14 dias</span>
+          <h3>Calendário de atendimentos</h3>
+        </div>
+        <div className="calendar-board">
         {Array.from({ length: 14 }).map((_, index) => {
-          const date = new Date(Date.now() + index * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+          const day = new Date(Date.now() + index * 24 * 60 * 60 * 1000);
+          const date = day.toISOString().slice(0, 10);
+          const count = appointments.filter((appointment) => appointment.preferred_date === date).length;
+          const weekday = new Intl.DateTimeFormat('pt-BR', { weekday: 'short' }).format(day).replace('.', '');
           return (
-            <article key={date}>
-              <strong>{date.slice(5).replace('-', '/')}</strong>
-              <span>{appointments.filter((appointment) => appointment.preferred_date === date).length} agend.</span>
+            <article key={date} className={count ? 'has-appointments' : ''}>
+              <small>{weekday}</small>
+              <strong>{date.slice(8)}/{date.slice(5, 7)}</strong>
+              <span>{count ? `${count} agendamento${count > 1 ? 's' : ''}` : 'Livre'}</span>
             </article>
           );
         })}
+        </div>
       </div>
-      <form className="os-form" onSubmit={addBlock}>
-        <h3>Bloqueio de horários</h3>
-        <input type="date" value={block.block_date} onChange={(event) => setBlock({ ...block, block_date: event.target.value })} />
-        <input placeholder="Inicio" value={block.start_time} onChange={(event) => setBlock({ ...block, start_time: event.target.value })} />
-        <input placeholder="Fim" value={block.end_time} onChange={(event) => setBlock({ ...block, end_time: event.target.value })} />
-        <textarea placeholder="Motivo" value={block.reason} onChange={(event) => setBlock({ ...block, reason: event.target.value })} />
+
+      <form className="os-form agenda-block-form" onSubmit={addBlock}>
+        <div className="panel-title">
+          <span>Controle da agenda</span>
+          <h3>Bloqueio de horários</h3>
+        </div>
+        <div className="agenda-form-grid">
+          <label>
+            <span>Data</span>
+            <input type="date" value={block.block_date} onChange={(event) => setBlock({ ...block, block_date: event.target.value })} />
+          </label>
+          <label>
+            <span>Início</span>
+            <input placeholder="09:00" value={block.start_time} onChange={(event) => setBlock({ ...block, start_time: event.target.value })} />
+          </label>
+          <label>
+            <span>Fim</span>
+            <input placeholder="12:00" value={block.end_time} onChange={(event) => setBlock({ ...block, end_time: event.target.value })} />
+          </label>
+        </div>
+        <label>
+          <span>Motivo</span>
+          <textarea placeholder="Ex.: manutenção, almoço, atendimento externo..." value={block.reason} onChange={(event) => setBlock({ ...block, reason: event.target.value })} />
+        </label>
         <button><Plus size={16} /> Bloquear horario</button>
-        {blocks.map((item) => <small key={item.id}>{item.block_date} - {item.start_time}-{item.end_time} - {item.reason}</small>)}
+        <div className="block-list">
+          {blocks.map((item) => (
+            <small key={item.id}>
+              <b>{item.block_date}</b>
+              <span>{item.start_time} - {item.end_time}</span>
+              <em>{item.reason || 'Sem motivo informado'}</em>
+            </small>
+          ))}
+          {!blocks.length && <p>Nenhum horário bloqueado por enquanto.</p>}
+        </div>
       </form>
     </section>
   );
