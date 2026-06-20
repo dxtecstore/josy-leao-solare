@@ -330,7 +330,14 @@ function LandingPage() {
 
         <section className="preview-bikini-correction">
           <div className="bikini-correction-media">
-            <img src={galleryModels[0]?.image_url || fallbackGallery[0]?.image_url} alt="Correção de biquíni para marquinha personalizada" loading="lazy" />
+            <figure>
+              <img src="/brand/correcao-biquini-01.jpeg" alt="Antes e depois de correção de biquíni com marquinha valorizada" loading="lazy" />
+              <figcaption>Correção com valorização da cintura</figcaption>
+            </figure>
+            <figure>
+              <img src="/brand/correcao-biquini-02.jpeg" alt="Resultado real de correção de biquíni para desenho de marquinha" loading="lazy" />
+              <figcaption>Resultado real de marquinha redesenhada</figcaption>
+            </figure>
           </div>
           <div className="bikini-correction-copy">
             <span>Especialidade Solare</span>
