@@ -480,6 +480,19 @@ function LandingPage() {
                 <a href="https://www.instagram.com/reel/DWO8kZKgE3C/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" rel="noreferrer">Abrir Reel</a>
               </div>
             </article>
+            <article className="instagram-reel-card alt">
+              <iframe
+                src="https://www.instagram.com/reel/DVrsgJrgDA_/embed"
+                title="Reel premium Josy Leão Solare"
+                loading="lazy"
+                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+              />
+              <div>
+                <span>Reel premium</span>
+                <h3>Mais uma prova visual para transformar desejo em agendamento.</h3>
+                <a href="https://www.instagram.com/reel/DVrsgJrgDA_/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" rel="noreferrer">Abrir Reel</a>
+              </div>
+            </article>
             <div className="bronze-highlight-grid">
               {bronzeHighlights.map((item) => (
                 <article key={item.src} className={item.frame}>
