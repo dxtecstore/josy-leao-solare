@@ -187,41 +187,49 @@ function LandingPage() {
       src: '/brand/bronze-real-01.jpeg',
       title: 'Marquinha iluminada',
       category: 'Bronzeamento premium',
+      frame: 'portrait focus-top',
     },
     {
       src: '/brand/bronze-real-02.jpeg',
       title: 'Resultado natural',
       category: 'Bronze em cabine',
+      frame: 'portrait focus-top',
     },
     {
       src: '/brand/bronze-real-03.jpeg',
       title: 'Autoestima em destaque',
       category: 'Design de biquíni',
+      frame: 'portrait focus-top',
     },
     {
       src: '/brand/bronze-real-04.jpeg',
       title: 'Pele dourada',
       category: 'Acabamento glow',
+      frame: 'detail focus-center',
     },
     {
       src: '/brand/bronze-lgbt-01.jpeg',
       title: 'Atendimento LGBTQIAPN+',
       category: 'Bronze sem julgamento',
+      frame: 'portrait focus-top',
     },
     {
       src: '/brand/bronze-lgbt-02.jpeg',
       title: 'Experiência inclusiva',
       category: 'Ambiente acolhedor',
+      frame: 'tall focus-top',
     },
     {
       src: '/brand/correcao-biquini-01.jpeg',
       title: 'Correção de biquíni',
       category: 'Antes e depois',
+      frame: 'tall full-frame',
     },
     {
       src: '/brand/correcao-biquini-02.jpeg',
       title: 'Marquinha redesenhada',
       category: 'Resultado real',
+      frame: 'tall full-frame',
     },
   ];
   const marqueeWords = ['Bronzeamento premium', 'Marquinha dos sonhos', 'Design de biquíni', 'Spa banho', 'Atendimento feminino', 'Produtos 18+'];
@@ -412,7 +420,7 @@ function LandingPage() {
             </article>
             <div className="bronze-highlight-grid">
               {bronzeHighlights.map((item) => (
-                <article key={item.src}>
+                <article key={item.src} className={item.frame}>
                   <img src={item.src} alt={`${item.title} - ${item.category}`} loading="lazy" />
                   <div><b>{item.title}</b><span>{item.category}</span></div>
                 </article>
