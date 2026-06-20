@@ -467,6 +467,19 @@ function LandingPage() {
                 <a href="https://www.instagram.com/reel/DXhoOfqkeXC/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" rel="noreferrer">Abrir Reel</a>
               </div>
             </article>
+            <article className="instagram-reel-card">
+              <iframe
+                src="https://www.instagram.com/reel/DWO8kZKgE3C/embed"
+                title="Reel excelente Josy Leão Solare"
+                loading="lazy"
+                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+              />
+              <div>
+                <span>Reel destaque</span>
+                <h3>Mais um resultado real para mostrar a força da experiência Solare.</h3>
+                <a href="https://www.instagram.com/reel/DWO8kZKgE3C/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" rel="noreferrer">Abrir Reel</a>
+              </div>
+            </article>
             <div className="bronze-highlight-grid">
               {bronzeHighlights.map((item) => (
                 <article key={item.src} className={item.frame}>
