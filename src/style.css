@@ -902,6 +902,16 @@ textarea {
     #080808;
 }
 
+.instagram-reel-card {
+  display: grid;
+  grid-template-columns: minmax(18rem, 0.48fr) minmax(0, 0.52fr);
+  overflow: hidden;
+  border: 1px solid rgba(212, 175, 55, 0.18);
+  background:
+    radial-gradient(circle at 20% 20%, rgba(212, 175, 55, 0.16), transparent 36%),
+    #080808;
+}
+
 .bronze-video-card video {
   width: 100%;
   height: 100%;
@@ -910,7 +920,15 @@ textarea {
   background: #000000;
 }
 
-.bronze-video-card > div {
+.instagram-reel-card iframe {
+  width: 100%;
+  min-height: 34rem;
+  border: 0;
+  background: #000000;
+}
+
+.bronze-video-card > div,
+.instagram-reel-card > div {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -918,6 +936,7 @@ textarea {
 }
 
 .bronze-video-card span,
+.instagram-reel-card span,
 .bronze-highlight-grid span {
   color: var(--gold-soft);
   font-size: 0.68rem;
@@ -926,7 +945,8 @@ textarea {
   text-transform: uppercase;
 }
 
-.bronze-video-card h3 {
+.bronze-video-card h3,
+.instagram-reel-card h3 {
   margin-top: 0.9rem;
   color: #ffffff;
   font-family: "Playfair Display", Georgia, serif;
@@ -935,12 +955,28 @@ textarea {
   line-height: 0.95;
 }
 
-.bronze-video-card p {
+.bronze-video-card p,
+.instagram-reel-card a {
   max-width: 28rem;
   margin-top: 1.1rem;
+}
+
+.bronze-video-card p {
   color: rgba(255, 255, 255, 0.64);
   font-size: 0.95rem;
   line-height: 1.75;
+}
+
+.instagram-reel-card a {
+  width: fit-content;
+  border: 1px solid rgba(212, 175, 55, 0.28);
+  color: var(--gold-soft);
+  padding: 0.85rem 1rem;
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-decoration: none;
+  text-transform: uppercase;
 }
 
 .bronze-highlight-grid {
@@ -974,6 +1010,11 @@ textarea {
 .bronze-highlight-grid article.wide {
   grid-column: span 6;
   aspect-ratio: 4 / 3;
+}
+
+.bronze-highlight-grid article.campaign {
+  grid-column: span 6;
+  aspect-ratio: 1 / 1;
 }
 
 .bronze-highlight-grid article.detail {
@@ -3544,6 +3585,7 @@ em {
   .preview-product-grid,
   .preview-gallery-grid,
   .bronze-video-card,
+  .instagram-reel-card,
   .preview-testimonial-grid,
   .preview-booking-form,
   .preview-proof {
@@ -3552,6 +3594,10 @@ em {
 
   .bronze-video-card video {
     min-height: 24rem;
+  }
+
+  .instagram-reel-card iframe {
+    min-height: 32rem;
   }
 
   .bronze-highlight-grid {
@@ -3564,7 +3610,8 @@ em {
   .bronze-highlight-grid article.portrait,
   .bronze-highlight-grid article.detail,
   .bronze-highlight-grid article.tall,
-  .bronze-highlight-grid article.wide {
+  .bronze-highlight-grid article.wide,
+  .bronze-highlight-grid article.campaign {
     grid-column: 1 / -1;
   }
 
@@ -3579,6 +3626,10 @@ em {
 
   .bronze-highlight-grid article.wide {
     aspect-ratio: 4 / 5;
+  }
+
+  .bronze-highlight-grid article.campaign {
+    aspect-ratio: 1 / 1;
   }
 
   .preview-bikini-correction {

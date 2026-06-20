@@ -41,7 +41,7 @@ const productCategories = ['Lingerie', 'Cosméticos', 'Acessórios', 'Presentes'
 const statusList: Appointment['status'][] = ['novo', 'confirmado', 'realizado', 'cancelado'];
 const periods = ['Manha', 'Tarde', 'Noite'];
 const demoProductsKey = 'solare_demo_products';
-const mediaVersion = '20260620c';
+const mediaVersion = '20260620d';
 
 function mediaUrl(path: string) {
   return `${path}?v=${mediaVersion}`;
@@ -235,6 +235,12 @@ function LandingPage() {
       title: 'Resultado em casal',
       category: 'Bronze Solare Skin',
       frame: 'wide full-frame',
+    },
+    {
+      src: mediaUrl('/brand/solare-bronze-chora-boy.png'),
+      title: 'Bronze Chora Boy',
+      category: 'Campanha Solare',
+      frame: 'campaign full-frame',
     },
     {
       src: mediaUrl('/brand/solare-correcao-01.jpg'),
@@ -433,6 +439,19 @@ function LandingPage() {
                 <span>Vídeo real</span>
                 <h3>Bronzeamento em movimento, com brilho e acabamento Solare.</h3>
                 <p>Um recorte da experiência para sentir o resultado antes de reservar seu horário.</p>
+              </div>
+            </article>
+            <article className="instagram-reel-card">
+              <iframe
+                src="https://www.instagram.com/reel/DK0le5spwDK/embed"
+                title="Reel Josy Leão Solare"
+                loading="lazy"
+                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+              />
+              <div>
+                <span>Reel no Instagram</span>
+                <h3>Veja o bronze em vídeo direto do perfil da Josy.</h3>
+                <a href="https://www.instagram.com/reel/DK0le5spwDK/?utm_source=ig_web_copy_link" target="_blank" rel="noreferrer">Abrir Reel</a>
               </div>
             </article>
             <div className="bronze-highlight-grid">

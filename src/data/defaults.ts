@@ -7,7 +7,7 @@ export const fallbackSettings: Settings = {
   instagram: 'https://www.instagram.com/josyleaosolare/',
   address: 'Av. Alcindo Cacela, 1474 - Nazaré - Belém/PA',
   logo_url: '/brand/josy-logo-from-pdf.webp',
-  hero_image_url: '/brand/solare-bronze-02.jpg?v=20260620c',
+  hero_image_url: '/brand/solare-bronze-02.jpg?v=20260620d',
 };
 
 export const fallbackServices: Service[] = [
@@ -17,7 +17,7 @@ export const fallbackServices: Service[] = [
     description: 'Bronze premium para pele iluminada, uniforme e com acabamento elegante.',
     price: 180,
     duration: '60 min',
-    image_url: '/brand/solare-bronze-02.jpg?v=20260620c',
+    image_url: '/brand/solare-bronze-02.jpg?v=20260620d',
     active: true,
     created_at: new Date().toISOString(),
   },
@@ -27,7 +27,7 @@ export const fallbackServices: Service[] = [
     description: 'Design de marquinha pensado para valorizar o corpo com delicadeza e segurança.',
     price: 220,
     duration: '90 min',
-    image_url: '/brand/solare-bronze-04.jpg?v=20260620c',
+    image_url: '/brand/solare-bronze-04.jpg?v=20260620d',
     active: true,
     created_at: new Date().toISOString(),
   },
@@ -37,7 +37,7 @@ export const fallbackServices: Service[] = [
     description: 'Banho e cuidado corporal para uma pele macia, renovada e iluminada.',
     price: 150,
     duration: '75 min',
-    image_url: '/brand/solare-bronze-01.jpg?v=20260620c',
+    image_url: '/brand/solare-bronze-01.jpg?v=20260620d',
     active: true,
     created_at: new Date().toISOString(),
   },
@@ -47,7 +47,7 @@ export const fallbackServices: Service[] = [
     description: 'Preparação, hidratação e finalização para potencializar o resultado do bronze.',
     price: 190,
     duration: '60 min',
-    image_url: '/brand/solare-bronze-03.jpg?v=20260620c',
+    image_url: '/brand/solare-bronze-03.jpg?v=20260620d',
     active: true,
     created_at: new Date().toISOString(),
   },
@@ -57,7 +57,7 @@ export const fallbackServices: Service[] = [
     description: 'Tratamentos delicados para glow, textura e sensação de pele bem cuidada.',
     price: 170,
     duration: '60 min',
-    image_url: '/brand/solare-lgbt-02.jpg?v=20260620c',
+    image_url: '/brand/solare-lgbt-02.jpg?v=20260620d',
     active: true,
     created_at: new Date().toISOString(),
   },
@@ -67,7 +67,7 @@ export const fallbackServices: Service[] = [
     description: 'Orientação do desenho ideal para uma marquinha harmônica, feminina e sob medida.',
     price: 90,
     duration: '40 min',
-    image_url: '/brand/solare-correcao-01.jpg?v=20260620c',
+    image_url: '/brand/solare-correcao-01.jpg?v=20260620d',
     active: true,
     created_at: new Date().toISOString(),
   },
@@ -77,7 +77,7 @@ export const fallbackGallery: GalleryItem[] = [
   {
     id: 'g1',
     title: 'Marquinha iluminada',
-    image_url: '/brand/solare-bronze-01.jpg?v=20260620c',
+    image_url: '/brand/solare-bronze-01.jpg?v=20260620d',
     category: 'Bronze',
     active: true,
     created_at: new Date().toISOString(),
@@ -85,7 +85,7 @@ export const fallbackGallery: GalleryItem[] = [
   {
     id: 'g2',
     title: 'Bronze natural',
-    image_url: '/brand/solare-bronze-02.jpg?v=20260620c',
+    image_url: '/brand/solare-bronze-02.jpg?v=20260620d',
     category: 'Bronze',
     active: true,
     created_at: new Date().toISOString(),
@@ -93,7 +93,7 @@ export const fallbackGallery: GalleryItem[] = [
   {
     id: 'g3',
     title: 'Design de biquíni',
-    image_url: '/brand/solare-bronze-03.jpg?v=20260620c',
+    image_url: '/brand/solare-bronze-03.jpg?v=20260620d',
     category: 'Marquinha',
     active: true,
     created_at: new Date().toISOString(),
@@ -101,7 +101,7 @@ export const fallbackGallery: GalleryItem[] = [
   {
     id: 'g4',
     title: 'Pele glow',
-    image_url: '/brand/solare-bronze-04.jpg?v=20260620c',
+    image_url: '/brand/solare-bronze-04.jpg?v=20260620d',
     category: 'Bronze',
     active: true,
     created_at: new Date().toISOString(),
@@ -109,7 +109,7 @@ export const fallbackGallery: GalleryItem[] = [
   {
     id: 'g5',
     title: 'Bronze inclusivo',
-    image_url: '/brand/solare-lgbt-01.jpg?v=20260620c',
+    image_url: '/brand/solare-lgbt-01.jpg?v=20260620d',
     category: 'LGBTQIAPN+',
     active: true,
     created_at: new Date().toISOString(),
@@ -117,7 +117,7 @@ export const fallbackGallery: GalleryItem[] = [
   {
     id: 'g6',
     title: 'Experiência acolhedora',
-    image_url: '/brand/solare-lgbt-02.jpg?v=20260620c',
+    image_url: '/brand/solare-lgbt-02.jpg?v=20260620d',
     category: 'LGBTQIAPN+',
     active: true,
     created_at: new Date().toISOString(),
@@ -125,7 +125,7 @@ export const fallbackGallery: GalleryItem[] = [
   {
     id: 'g7',
     title: 'Correção de biquíni',
-    image_url: '/brand/solare-correcao-01.jpg?v=20260620c',
+    image_url: '/brand/solare-correcao-01.jpg?v=20260620d',
     category: 'Antes e depois',
     active: true,
     created_at: new Date().toISOString(),
@@ -133,7 +133,7 @@ export const fallbackGallery: GalleryItem[] = [
   {
     id: 'g8',
     title: 'Marquinha redesenhada',
-    image_url: '/brand/solare-correcao-02.jpg?v=20260620c',
+    image_url: '/brand/solare-correcao-02.jpg?v=20260620d',
     category: 'Resultado real',
     active: true,
     created_at: new Date().toISOString(),
@@ -177,7 +177,7 @@ export const fallbackTestimonials: Testimonial[] = [
     id: 't1',
     client_name: 'Cliente Solare',
     text: 'Atendimento cuidadoso, ambiente acolhedor e resultado que aumenta a autoestima.',
-    image_url: '/brand/solare-bronze-02.jpg?v=20260620c',
+    image_url: '/brand/solare-bronze-02.jpg?v=20260620d',
     active: true,
     created_at: new Date().toISOString(),
   },
@@ -185,7 +185,7 @@ export const fallbackTestimonials: Testimonial[] = [
     id: 't2',
     client_name: 'Cliente Solare',
     text: 'A marquinha ficou linda e o cuidado com a pele fez toda diferença.',
-    image_url: '/brand/solare-bronze-04.jpg?v=20260620c',
+    image_url: '/brand/solare-bronze-04.jpg?v=20260620d',
     active: true,
     created_at: new Date().toISOString(),
   },
@@ -193,7 +193,7 @@ export const fallbackTestimonials: Testimonial[] = [
     id: 't3',
     client_name: 'Cliente Solare',
     text: 'Experiência discreta, feminina e muito profissional do início ao fim.',
-    image_url: '/brand/solare-lgbt-01.jpg?v=20260620c',
+    image_url: '/brand/solare-lgbt-01.jpg?v=20260620d',
     active: true,
     created_at: new Date().toISOString(),
   },
@@ -207,5 +207,6 @@ export const benefits = [
   'Resultado natural',
   'Experiência premium',
 ];
+
 
 
