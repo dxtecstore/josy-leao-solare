@@ -923,6 +923,24 @@ textarea {
   order: 2;
 }
 
+.instagram-reel-card.featured {
+  min-height: 36rem;
+  border-color: rgba(247, 231, 180, 0.3);
+  box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.38), inset 0 0 0 1px rgba(247, 231, 180, 0.04);
+  background:
+    radial-gradient(circle at 16% 16%, rgba(247, 231, 180, 0.18), transparent 34%),
+    radial-gradient(circle at 82% 18%, rgba(212, 175, 55, 0.16), transparent 32%),
+    #050505;
+}
+
+.instagram-reel-card.featured h3 {
+  font-size: clamp(2.35rem, 4.8vw, 4.5rem);
+}
+
+.instagram-reel-card.featured iframe {
+  min-height: 38rem;
+}
+
 .bronze-video-card video {
   width: 100%;
   height: 100%;

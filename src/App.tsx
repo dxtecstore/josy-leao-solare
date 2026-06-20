@@ -441,6 +441,32 @@ function LandingPage() {
                 <p>Um recorte da experiência para sentir o resultado antes de reservar seu horário.</p>
               </div>
             </article>
+            <article className="instagram-reel-card featured">
+              <iframe
+                src="https://www.instagram.com/reel/DVqgd-Tji2L/embed"
+                title="Reel destaque Josy Leão Solare"
+                loading="lazy"
+                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+              />
+              <div>
+                <span>Destaque principal</span>
+                <h3>O tipo de resultado que transforma curiosidade em desejo de agendar.</h3>
+                <a href="https://www.instagram.com/reel/DVqgd-Tji2L/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" rel="noreferrer">Abrir Reel</a>
+              </div>
+            </article>
+            <article className="instagram-reel-card featured alt">
+              <iframe
+                src="https://www.instagram.com/reel/DVgsdaiDkMR/embed"
+                title="Reel destaque premium Josy Leão Solare"
+                loading="lazy"
+                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+              />
+              <div>
+                <span>Destaque Solare</span>
+                <h3>Mais presença, mais pele iluminada e mais prova real da experiência.</h3>
+                <a href="https://www.instagram.com/reel/DVgsdaiDkMR/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" rel="noreferrer">Abrir Reel</a>
+              </div>
+            </article>
             <article className="instagram-reel-card">
               <iframe
                 src="https://www.instagram.com/reel/DK0le5spwDK/embed"
