@@ -383,7 +383,9 @@ function LandingPage() {
       <main>
         <section id="topo" className="preview-hero">
           <div className="preview-hero-glow" aria-hidden="true" />
-          <img className="preview-watermark" src={settings.logo_url || fallbackSettings.logo_url || ''} alt="" aria-hidden="true" />
+          <video className="preview-hero-video" autoPlay muted loop playsInline preload="metadata" poster={mediaUrl('/brand/solare-bronze-07.jpg')} aria-hidden="true">
+            <source src={mediaUrl('/brand/hero2.mp4')} type="video/mp4" />
+          </video>
           <div className="preview-vignette" aria-hidden="true" />
           <div className="preview-hero-content">
             <span>Belém do Pará</span>
