@@ -448,7 +448,8 @@ textarea {
 .preview-products,
 .preview-services,
 .preview-gallery,
-.preview-testimonials,
+.preview-belonging,
+.preview-social,
 .preview-booking,
 .preview-location {
   position: relative;
@@ -570,6 +571,85 @@ textarea {
   text-transform: uppercase;
 }
 
+.preview-social {
+  background:
+    radial-gradient(circle at 50% 0%, rgba(247, 231, 180, 0.08), transparent 28rem),
+    #050505;
+}
+
+.preview-social-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+  max-width: 76rem;
+  margin: 2.6rem auto 0;
+}
+
+.preview-social-grid article {
+  overflow: hidden;
+  border: 1px solid rgba(212, 175, 55, 0.16);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.015)),
+    #080808;
+}
+
+.preview-social-grid article.featured {
+  grid-column: span 2;
+}
+
+.preview-social-media {
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: #000000;
+}
+
+.preview-social-media img,
+.preview-social-media video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.preview-social-grid article > div:last-child {
+  display: grid;
+  gap: 0.8rem;
+  padding: 1.15rem;
+}
+
+.preview-social-grid span {
+  color: var(--gold-soft);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.preview-social-grid h3 {
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 0.95rem;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.preview-social-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.preview-social-actions a {
+  border: 1px solid rgba(212, 175, 55, 0.24);
+  color: var(--gold-soft);
+  padding: 0.72rem 0.8rem;
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
 .preview-story {
   display: grid;
   grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
@@ -584,6 +664,19 @@ textarea {
   max-width: 56rem;
   margin: 0 auto;
   text-align: center;
+}
+
+.preview-section-head p {
+  max-width: 34rem;
+  margin: 1rem auto 0;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.preview-section-head code {
+  color: var(--gold-soft);
+  font-family: inherit;
 }
 
 .preview-story-media {
@@ -694,10 +787,6 @@ textarea {
 
 .preview-services {
   padding-block: 7rem;
-}
-
-.preview-testimonials {
-  background: var(--black-secondary);
 }
 
 .preview-section-head {
@@ -909,6 +998,63 @@ textarea {
   flex: 0 0 auto;
 }
 
+.preview-belonging {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  gap: clamp(1.5rem, 4vw, 4rem);
+  align-items: center;
+  max-width: 76rem;
+  margin: 0 auto;
+}
+
+.preview-belonging-media {
+  min-height: 28rem;
+  overflow: hidden;
+  border: 1px solid rgba(212, 175, 55, 0.18);
+  background: #060606;
+}
+
+.preview-belonging-media img {
+  width: 100%;
+  height: 100%;
+  min-height: 28rem;
+  object-fit: cover;
+  object-position: center top;
+  opacity: 0.9;
+}
+
+.preview-belonging-copy {
+  display: grid;
+  gap: 1.2rem;
+}
+
+.preview-belonging-copy span {
+  color: var(--gold-soft);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.preview-belonging-copy h2 {
+  max-width: 34rem;
+  color: #ffffff;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(2.4rem, 5vw, 4.8rem);
+  font-weight: 500;
+  line-height: 0.96;
+}
+
+.preview-belonging-copy p {
+  max-width: 31rem;
+  color: rgba(255, 255, 255, 0.64);
+  line-height: 1.75;
+}
+
+.preview-belonging-copy .preview-primary {
+  width: fit-content;
+}
+
 .preview-gallery-grid {
   display: grid;
   grid-auto-rows: 200px;
@@ -935,45 +1081,6 @@ textarea {
     #080808;
 }
 
-.instagram-reel-card {
-  display: grid;
-  grid-template-columns: minmax(18rem, 0.48fr) minmax(0, 0.52fr);
-  overflow: hidden;
-  border: 1px solid rgba(212, 175, 55, 0.18);
-  background:
-    radial-gradient(circle at 20% 20%, rgba(212, 175, 55, 0.16), transparent 36%),
-    #080808;
-}
-
-.instagram-reel-card.alt {
-  grid-template-columns: minmax(0, 0.52fr) minmax(18rem, 0.48fr);
-  background:
-    radial-gradient(circle at 78% 20%, rgba(247, 231, 180, 0.13), transparent 36%),
-    #080808;
-}
-
-.instagram-reel-card.alt .reel-cover {
-  order: 2;
-}
-
-.instagram-reel-card.featured {
-  min-height: 36rem;
-  border-color: rgba(247, 231, 180, 0.3);
-  box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.38), inset 0 0 0 1px rgba(247, 231, 180, 0.04);
-  background:
-    radial-gradient(circle at 16% 16%, rgba(247, 231, 180, 0.18), transparent 34%),
-    radial-gradient(circle at 82% 18%, rgba(212, 175, 55, 0.16), transparent 32%),
-    #050505;
-}
-
-.instagram-reel-card.featured h3 {
-  font-size: clamp(2.35rem, 4.8vw, 4.5rem);
-}
-
-.instagram-reel-card.featured .reel-cover {
-  min-height: 38rem;
-}
-
 .bronze-video-card video {
   width: 100%;
   height: 100%;
@@ -982,63 +1089,7 @@ textarea {
   background: #000000;
 }
 
-.instagram-reel-card .reel-cover {
-  position: relative;
-  display: block;
-  width: 100%;
-  height: 100%;
-  min-height: 34rem;
-  overflow: hidden;
-  background: #000000;
-  border: 0;
-  padding: 0;
-  text-decoration: none;
-}
-
-.instagram-reel-card .reel-cover img {
-  width: 100%;
-  height: 100%;
-  min-height: inherit;
-  object-fit: cover;
-  filter: saturate(1.05) contrast(1.04);
-  transition: transform 800ms ease, filter 800ms ease;
-}
-
-.instagram-reel-card .reel-cover::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.66)),
-    radial-gradient(circle at 50% 20%, rgba(247, 231, 180, 0.12), transparent 42%);
-}
-
-.instagram-reel-card .reel-cover:hover img {
-  transform: scale(1.035);
-  filter: saturate(1.12) contrast(1.08);
-}
-
-.reel-play {
-  position: absolute;
-  left: 1rem;
-  right: 1rem;
-  bottom: 1rem;
-  z-index: 1;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.55rem;
-  width: fit-content;
-  max-width: calc(100% - 2rem);
-  border: 1px solid rgba(247, 231, 180, 0.34);
-  background: rgba(0, 0, 0, 0.72);
-  color: var(--gold-soft);
-  padding: 0.75rem 0.9rem;
-  backdrop-filter: blur(12px);
-}
-
-.bronze-video-card > div,
-.instagram-reel-card > div {
+.bronze-video-card > div {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -1046,7 +1097,6 @@ textarea {
 }
 
 .bronze-video-card span,
-.instagram-reel-card span,
 .bronze-highlight-grid span {
   color: var(--gold-soft);
   font-size: 0.68rem;
@@ -1055,8 +1105,7 @@ textarea {
   text-transform: uppercase;
 }
 
-.bronze-video-card h3,
-.instagram-reel-card h3 {
+.bronze-video-card h3 {
   margin-top: 0.9rem;
   color: #ffffff;
   font-family: "Playfair Display", Georgia, serif;
@@ -1065,8 +1114,7 @@ textarea {
   line-height: 0.95;
 }
 
-.bronze-video-card p,
-.instagram-reel-card > div > a {
+.bronze-video-card p {
   max-width: 28rem;
   margin-top: 1.1rem;
 }
@@ -1075,18 +1123,6 @@ textarea {
   color: rgba(255, 255, 255, 0.64);
   font-size: 0.95rem;
   line-height: 1.75;
-}
-
-.instagram-reel-card > div > a {
-  width: fit-content;
-  border: 1px solid rgba(212, 175, 55, 0.28);
-  color: var(--gold-soft);
-  padding: 0.85rem 1rem;
-  font-size: 0.68rem;
-  font-weight: 900;
-  letter-spacing: 0.14em;
-  text-decoration: none;
-  text-transform: uppercase;
 }
 
 .bronze-highlight-grid {
@@ -1239,45 +1275,6 @@ textarea {
   justify-content: center;
   gap: 1rem;
   margin-top: 2rem;
-}
-
-.preview-testimonial-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1.5rem;
-  max-width: 72rem;
-  margin: 0 auto;
-}
-
-.preview-testimonial-grid blockquote {
-  border: 1px solid rgba(212, 175, 55, 0.15);
-  background: var(--black-primary);
-  padding: 2rem;
-}
-
-.preview-testimonial-grid b {
-  color: rgba(212, 175, 55, 0.42);
-  font-family: "Playfair Display", Georgia, serif;
-  font-size: 3rem;
-  line-height: 1;
-}
-
-.preview-testimonial-grid p {
-  margin-top: 0.8rem;
-  color: var(--gray-text);
-  font-size: 0.95rem;
-  font-style: italic;
-  line-height: 1.75;
-}
-
-.preview-testimonial-grid cite {
-  display: block;
-  margin-top: 1.5rem;
-  color: #ffffff;
-  font-size: 0.72rem;
-  font-style: normal;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
 }
 
 .preview-booking {
@@ -3680,10 +3677,11 @@ em {
   .preview-services,
   .preview-bikini-correction,
   .preview-gallery,
-  .preview-testimonials,
+  .preview-belonging,
+  .preview-social,
   .preview-booking,
   .preview-location {
-    padding: 4.8rem 1.25rem;
+    padding: 4.2rem 1.1rem;
   }
 
   .preview-story {
@@ -3700,23 +3698,15 @@ em {
   .preview-product-grid,
   .preview-gallery-grid,
   .bronze-video-card,
-  .instagram-reel-card,
-  .preview-testimonial-grid,
+  .preview-belonging,
+  .preview-social-grid,
   .preview-booking-form,
   .preview-proof {
     grid-template-columns: 1fr;
   }
 
   .bronze-video-card video {
-    min-height: 24rem;
-  }
-
-  .instagram-reel-card .reel-cover {
-    min-height: 32rem;
-  }
-
-  .instagram-reel-card.alt .reel-cover {
-    order: 0;
+    min-height: 20rem;
   }
 
   .bronze-highlight-grid {
@@ -3769,6 +3759,44 @@ em {
     width: 100%;
   }
 
+  .preview-belonging-media,
+  .preview-belonging-media img {
+    min-height: 22rem;
+  }
+
+  .preview-belonging-copy h2 {
+    font-size: clamp(2.2rem, 12vw, 3.5rem);
+  }
+
+  .preview-belonging-copy .preview-primary {
+    width: 100%;
+  }
+
+  .preview-product-card p {
+    min-height: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .preview-social-grid {
+    margin-top: 2rem;
+  }
+
+  .preview-social-grid article.featured {
+    grid-column: auto;
+  }
+
+  .preview-social-media {
+    aspect-ratio: 4 / 4.6;
+  }
+
+  .preview-social-actions a {
+    width: 100%;
+    text-align: center;
+  }
+
   .preview-proof article {
     min-height: 8rem;
     border-right: 0;
@@ -3777,6 +3805,13 @@ em {
 
   .preview-proof article:last-child {
     border-bottom: 0;
+  }
+
+  .float-whatsapp {
+    right: 0.95rem;
+    bottom: calc(1rem + env(safe-area-inset-bottom));
+    width: 3.35rem;
+    height: 3.35rem;
   }
 
   .preview-gallery-grid {

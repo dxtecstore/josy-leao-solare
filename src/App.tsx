@@ -35,6 +35,7 @@ import {
   type TimeBlock,
 } from './lib/supabase';
 import { fallbackGallery, fallbackProducts, fallbackServices, fallbackSettings, fallbackTestimonials } from './data/defaults';
+import { socialMediaContent } from './data/socialMediaContent';
 
 const categories = ['Bronze', 'Marquinha', 'Estética facial', 'Estética corporal'];
 const productCategories = ['Lingerie', 'Cosméticos', 'Acessórios', 'Presentes'];
@@ -104,7 +105,6 @@ function LandingPage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [settings, setSettings] = useState<BusinessSettings>(fallbackSettings);
   const [products, setProducts] = useState<Product[]>(fallbackProducts);
-  const [testimonials, setTestimonials] = useState<Testimonial[]>(fallbackTestimonials);
   const [form, setForm] = useState({
     client_name: '',
     phone: '',
@@ -121,15 +121,13 @@ function LandingPage() {
         return;
       }
 
-      const [settingsResult, productsResult, testimonialsResult] = await Promise.all([
+      const [settingsResult, productsResult] = await Promise.all([
         supabase.from('settings').select('*').limit(1).maybeSingle(),
         supabase.from('products').select('*').eq('active', true).order('created_at', { ascending: true }),
-        supabase.from('testimonials').select('*').eq('active', true).order('created_at', { ascending: false }),
       ]);
 
       if (settingsResult.data) setSettings(settingsResult.data);
       if (productsResult.data?.length) setProducts(productsResult.data);
-      if (testimonialsResult.data?.length) setTestimonials(testimonialsResult.data);
     }
 
     void loadPublicData();
@@ -137,7 +135,7 @@ function LandingPage() {
 
   const whatsappMessage = 'Olá, vi o site da Josy Leão Solare e gostaria de agendar meu atendimento.';
   const quickMessage = buildWhatsAppUrl(settings.whatsapp, whatsappMessage);
-  const visibleProducts = (products.length >= 20 ? products : fallbackProducts).filter((product) => product.active).slice(0, 20);
+  const visibleProducts = (products.length >= 17 ? products : fallbackProducts).filter((product) => product.active).slice(0, 17);
   const servicesShowcase = [
     {
       id: 'bronze-natural',
@@ -219,30 +217,6 @@ function LandingPage() {
       frame: 'detail focus-center',
     },
     {
-      src: mediaUrl('/brand/solare-lgbt-01.jpg'),
-      title: 'Atendimento LGBTQIAPN+',
-      category: 'Bronze sem julgamento',
-      frame: 'portrait focus-top',
-    },
-    {
-      src: mediaUrl('/brand/solare-lgbt-02.jpg'),
-      title: 'Experiência inclusiva',
-      category: 'Ambiente acolhedor',
-      frame: 'tall focus-top',
-    },
-    {
-      src: mediaUrl('/brand/solare-bronze-07.jpg'),
-      title: 'Resultado em casal',
-      category: 'Bronze Solare Skin',
-      frame: 'wide full-frame',
-    },
-    {
-      src: mediaUrl('/brand/solare-bronze-chora-boy.png'),
-      title: 'Bronze Chora Boy',
-      category: 'Campanha Solare',
-      frame: 'campaign full-frame',
-    },
-    {
       src: mediaUrl('/brand/solare-correcao-01.jpg'),
       title: 'Correção de biquíni',
       category: 'Antes e depois',
@@ -253,64 +227,6 @@ function LandingPage() {
       title: 'Marquinha redesenhada',
       category: 'Resultado real',
       frame: 'tall full-frame',
-    },
-  ];
-  const instagramReels = [
-    {
-      code: 'DVqgd-Tji2L',
-      url: 'https://www.instagram.com/reel/DVqgd-Tji2L/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
-      label: 'Destaque principal',
-      title: 'O tipo de resultado que transforma curiosidade em desejo de agendar.',
-      cover: mediaUrl('/brand/solare-bronze-07.jpg'),
-      className: 'featured',
-    },
-    {
-      code: 'DVgsdaiDkMR',
-      url: 'https://www.instagram.com/reel/DVgsdaiDkMR/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
-      label: 'Destaque Solare',
-      title: 'Mais presença, mais pele iluminada e mais prova real da experiência.',
-      cover: mediaUrl('/brand/solare-bronze-chora-boy.png'),
-      className: 'featured alt',
-    },
-    {
-      code: 'DVcZKPxANGP',
-      url: 'https://www.instagram.com/reel/DVcZKPxANGP/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
-      label: 'Luxo Solare',
-      title: 'Um bastidor poderoso para reforçar desejo, autoestima e beleza real.',
-      cover: mediaUrl('/brand/josy-storytelling.png'),
-      className: 'featured',
-    },
-    {
-      code: 'DK0le5spwDK',
-      url: 'https://www.instagram.com/reel/DK0le5spwDK/?utm_source=ig_web_copy_link',
-      label: 'Reel no Instagram',
-      title: 'Veja o bronze em vídeo direto do perfil da Josy.',
-      cover: mediaUrl('/brand/solare-bronze-02.jpg'),
-      className: '',
-    },
-    {
-      code: 'DXhoOfqkeXC',
-      url: 'https://www.instagram.com/reel/DXhoOfqkeXC/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
-      label: 'Reel bombástico',
-      title: 'Mais presença, mais desejo e mais prova real do bronze Solare.',
-      cover: mediaUrl('/brand/solare-bronze-01.jpg'),
-      className: 'alt',
-    },
-    {
-      code: 'DWO8kZKgE3C',
-      url: 'https://www.instagram.com/reel/DWO8kZKgE3C/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
-      label: 'Reel destaque',
-      title: 'Mais um resultado real para mostrar a força da experiência Solare.',
-      cover: mediaUrl('/brand/solare-lgbt-02.jpg'),
-      className: '',
-    },
-    {
-      code: 'DVrsgJrgDA_',
-      url: 'https://www.instagram.com/reel/DVrsgJrgDA_/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
-      label: 'Reel premium',
-      title: 'Mais uma prova visual para transformar desejo em agendamento.',
-      cover: mediaUrl('/brand/solare-correcao-02.jpg'),
-      className: 'alt',
     },
   ];
   const marqueeWords = ['Bronzeamento premium', 'Marquinha dos sonhos', 'Design de biquíni', 'Spa banho', 'Atendimento feminino', 'Produtos 18+'];
@@ -358,6 +274,7 @@ function LandingPage() {
           <a href="#servicos">Serviços</a>
           <a href="#galeria">Resultados</a>
           <a href="#produtos">Produtos</a>
+          <a href="#social">Instagram</a>
           <a href="#agendamento">Agendar</a>
           <a href="/admin/login">Admin</a>
         </nav>
@@ -371,6 +288,7 @@ function LandingPage() {
               ['servicos', 'Serviços'],
               ['galeria', 'Resultados'],
               ['produtos', 'Produtos'],
+              ['social', 'Instagram'],
               ['agendamento', 'Agendar'],
             ].map(([href, label]) => (
               <a key={href} href={`#${href}`} onClick={() => setIsMenuOpen(false)}>{label}</a>
@@ -388,19 +306,19 @@ function LandingPage() {
           </video>
           <div className="preview-vignette" aria-hidden="true" />
           <div className="preview-hero-content">
-            <span>Belém do Pará</span>
+            <span>Bronzeamento e estética em Belém</span>
             <h1>Sua marquinha<br /><em>dos sonhos.</em></h1>
-            <p>Bronzeamento premium, marquinha personalizada, cuidados com a pele e uma experiência acolhedora para você se sentir linda, segura e confiante.</p>
+            <p>Bronze, cuidado com a pele e atendimento acolhedor para realçar sua beleza com segurança.</p>
             <div className="preview-actions">
-              <a className="preview-primary" href="#agendamento">Agendar minha marquinha</a>
-              <a className="preview-secondary" href={quickMessage} target="_blank" rel="noreferrer">Falar com a Josy no WhatsApp</a>
+              <a className="preview-primary" href={quickMessage} target="_blank" rel="noreferrer">Agendar pelo WhatsApp</a>
+              <a className="preview-secondary" href="#galeria">Ver resultados reais</a>
             </div>
             <div className="preview-trust-row" aria-label="Diferenciais da Josy Leão Solare">
               <span>+2.000 clientes</span>
               <span>Atendimento feminino</span>
               <span>12,8 mil no Instagram</span>
             </div>
-            <p className="preview-hero-note">Atendimento com hora marcada em Nazaré, Belém/PA, para mulheres e público LGBTQIAPN+.</p>
+            <p className="preview-hero-note">Av. Alcindo Cacela, 1474 - Nazaré, Belém/PA.</p>
           </div>
           <div className="preview-scroll" aria-hidden="true">
             <span>Role</span>
@@ -420,19 +338,6 @@ function LandingPage() {
           </div>
         </div>
 
-        <section id="storytelling" className="preview-story">
-          <div className="preview-story-media">
-            <img src={mediaUrl('/brand/josy-storytelling.png')} alt="Josy Leão Solare, especialista em bronzeamento e estética" loading="lazy" />
-          </div>
-          <div className="preview-story-copy">
-            <span>Storytelling</span>
-            <h2>Uma marca criada para cuidar da sua <em>luz.</em></h2>
-            <i />
-            <p>Por trás da Josy Leão Solare existe uma mulher que entende que beleza também é acolhimento, segurança e presença. Cada atendimento nasce desse olhar: valorizar o corpo real, respeitar cada história e entregar uma experiência em que a cliente se sente vista, confiante e pronta para viver sua melhor versão.</p>
-            <strong>Mais que bronzeamento: um ritual de autoestima, cuidado e pertencimento.</strong>
-          </div>
-        </section>
-
         <section className="preview-proof">
           {socialProof.map(([value, label]) => (
             <article key={label}>
@@ -440,6 +345,19 @@ function LandingPage() {
               <span>{label}</span>
             </article>
           ))}
+        </section>
+
+        <section id="storytelling" className="preview-story">
+          <div className="preview-story-media">
+            <img src={mediaUrl('/brand/josy-storytelling.png')} alt="Josy Leão Solare, especialista em bronzeamento e estética" loading="lazy" />
+          </div>
+          <div className="preview-story-copy">
+            <span>Sobre a experiência</span>
+            <h2>Cuidado real para sua pele, seu corpo e sua <em>confiança.</em></h2>
+            <i />
+            <p>Cada detalhe do bronze é pensado para valorizar o corpo real, respeitar sua pele e entregar um atendimento seguro, bonito e personalizado.</p>
+            <strong>Mais que bronzeamento: uma experiência de cuidado e presença.</strong>
+          </div>
         </section>
 
         <section id="servicos" className="preview-services">
@@ -488,7 +406,8 @@ function LandingPage() {
         <section id="galeria" className="preview-gallery">
           <div className="preview-section-head">
             <span>Resultados</span>
-            <h2>Resultados e bastidores <em>Solare</em></h2>
+            <h2>Resultados e experiências <em>reais</em></h2>
+            <p>Registros de bronzeamento, cuidado e presença no espaço Josy Leão Solare.</p>
           </div>
           <div className="preview-bronze-showcase">
             <article className="bronze-video-card">
@@ -497,23 +416,10 @@ function LandingPage() {
               </video>
               <div>
                 <span>Vídeo real</span>
-                <h3>Bronzeamento em movimento, com brilho e acabamento Solare.</h3>
-                <p>Um recorte da experiência para sentir o resultado antes de reservar seu horário.</p>
+                <h3>Bronze em movimento, brilho e acabamento natural.</h3>
+                <p>Um recorte curto da experiência para sentir o cuidado antes de reservar.</p>
               </div>
             </article>
-            {instagramReels.map((reel) => (
-              <article key={reel.code} className={`instagram-reel-card ${reel.className}`}>
-                <a className="reel-cover" href={reel.url} target="_blank" rel="noreferrer" aria-label={`Abrir ${reel.label} no Instagram`}>
-                  <img src={reel.cover} alt={`${reel.label} - Josy Leão Solare`} loading="lazy" />
-                  <span className="reel-play"><Camera size={18} /> Assistir no Instagram</span>
-                </a>
-                <div>
-                  <span>{reel.label}</span>
-                  <h3>{reel.title}</h3>
-                  <a href={reel.url} target="_blank" rel="noreferrer">Abrir Reel</a>
-                </div>
-              </article>
-            ))}
             <div className="bronze-highlight-grid">
               {bronzeHighlights.map((item) => (
                 <article key={item.src} className={item.frame}>
@@ -529,19 +435,15 @@ function LandingPage() {
           </div>
         </section>
 
-        <section className="preview-testimonials">
-          <div className="preview-section-head">
-            <span>Prova social</span>
-            <h2>Confiança de quem <em>já viveu a experiência.</em></h2>
+        <section className="preview-belonging">
+          <div className="preview-belonging-media">
+            <img src={mediaUrl('/brand/solare-lgbt-02.jpg')} alt="Cliente no espaço Josy Leão Solare em atendimento acolhedor" loading="lazy" />
           </div>
-          <div className="preview-testimonial-grid">
-            {testimonials.map((item) => (
-              <blockquote key={item.id}>
-                <b>“</b>
-                <p>{item.text}</p>
-                <cite>{item.client_name}</cite>
-              </blockquote>
-            ))}
+          <div className="preview-belonging-copy">
+            <span>Pertencimento</span>
+            <h2>Beleza, liberdade e respeito caminham juntos.</h2>
+            <p>Aqui, cada corpo, identidade e história são acolhidos com cuidado, segurança e profissionalismo.</p>
+            <a className="preview-primary" href={buildWhatsAppUrl(settings.whatsapp, `${whatsappMessage} Quero conhecer o espaço.`)} target="_blank" rel="noreferrer">Conhecer pelo WhatsApp</a>
           </div>
         </section>
 
@@ -552,7 +454,7 @@ function LandingPage() {
           </div>
           <div className="preview-product-grid">
             {visibleProducts.map((product, index) => {
-              const message = `${whatsappMessage} Gostaria de consultar o produto ${product.name}.`;
+              const message = `Olá, vi o produto ${product.name} no site da Josy Leão Solare e gostaria de saber mais.`;
               return (
                 <article className="preview-product-card" key={product.id}>
                   <div className="preview-product-image">
@@ -569,6 +471,44 @@ function LandingPage() {
               );
             })}
           </div>
+        </section>
+
+        <section id="social" className="preview-social">
+          <div className="preview-section-head">
+            <span>Instagram</span>
+            <h2>Bastidores e momentos <em>Solare.</em></h2>
+            <p>Registros selecionados para ver de perto a presença, o cuidado e a identidade do espaço.</p>
+          </div>
+          <div className="preview-social-grid">
+            {socialMediaContent.map((item) => (
+              <article className={item.featured ? 'featured' : ''} key={item.id}>
+                <div className="preview-social-media">
+                  {item.type === 'video' ? (
+                    <video controls playsInline preload="metadata" poster={item.thumbnail || item.src}>
+                      <source src={item.src} type="video/mp4" />
+                    </video>
+                  ) : (
+                    <img src={item.thumbnail || item.src} alt={`${item.category} - ${item.caption}`} loading="lazy" />
+                  )}
+                </div>
+                <div>
+                  <span>{item.category}</span>
+                  <h3>{item.caption}</h3>
+                  <div className="preview-social-actions">
+                    {item.instagramUrl && <a href={item.instagramUrl} target="_blank" rel="noreferrer">Ver no Instagram</a>}
+                    <a href={quickMessage} target="_blank" rel="noreferrer">Agendar pelo WhatsApp</a>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="preview-location">
+          <span>Localização</span>
+          <h2>{settings.address}</h2>
+          <p className="preview-location-copy">Centro de bronzeamento e estética em Nazaré, Belém/PA, com atendimento acolhedor, discreto e especializado.</p>
+          <a className="preview-secondary" href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(settings.address)}`} target="_blank" rel="noreferrer">Abrir mapa</a>
         </section>
 
         <section id="agendamento" className="preview-booking">
@@ -593,13 +533,6 @@ function LandingPage() {
             <textarea value={form.notes} onChange={(event) => setForm({ ...form, notes: event.target.value })} placeholder="Observações" />
             <button type="submit">Reservar meu horário</button>
           </form>
-        </section>
-
-        <section className="preview-location">
-          <span>Localização</span>
-          <h2>{settings.address}</h2>
-          <p className="preview-location-copy">Centro de bronzeamento e estética em Nazaré, Belém/PA, com atendimento acolhedor, discreto e especializado.</p>
-          <a className="preview-secondary" href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(settings.address)}`} target="_blank" rel="noreferrer">Abrir mapa</a>
         </section>
       </main>
 
