@@ -382,6 +382,9 @@ function LandingPage() {
 
       <main>
         <section id="topo" className="preview-hero">
+          <video className="preview-hero-video" autoPlay muted loop playsInline preload="metadata" poster={mediaUrl('/brand/solare-bronze-07.jpg')} aria-hidden="true">
+            <source src={mediaUrl('/brand/video-bronze-01.mp4')} type="video/mp4" />
+          </video>
           <div className="preview-hero-glow" aria-hidden="true" />
           <img className="preview-watermark" src={settings.logo_url || fallbackSettings.logo_url || ''} alt="" aria-hidden="true" />
           <div className="preview-vignette" aria-hidden="true" />
