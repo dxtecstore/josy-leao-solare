@@ -255,6 +255,64 @@ function LandingPage() {
       frame: 'tall full-frame',
     },
   ];
+  const instagramReels = [
+    {
+      code: 'DVqgd-Tji2L',
+      url: 'https://www.instagram.com/reel/DVqgd-Tji2L/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
+      label: 'Destaque principal',
+      title: 'O tipo de resultado que transforma curiosidade em desejo de agendar.',
+      cover: mediaUrl('/brand/solare-bronze-07.jpg'),
+      className: 'featured',
+    },
+    {
+      code: 'DVgsdaiDkMR',
+      url: 'https://www.instagram.com/reel/DVgsdaiDkMR/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
+      label: 'Destaque Solare',
+      title: 'Mais presença, mais pele iluminada e mais prova real da experiência.',
+      cover: mediaUrl('/brand/solare-bronze-chora-boy.png'),
+      className: 'featured alt',
+    },
+    {
+      code: 'DVcZKPxANGP',
+      url: 'https://www.instagram.com/reel/DVcZKPxANGP/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
+      label: 'Luxo Solare',
+      title: 'Um bastidor poderoso para reforçar desejo, autoestima e beleza real.',
+      cover: mediaUrl('/brand/josy-storytelling.png'),
+      className: 'featured',
+    },
+    {
+      code: 'DK0le5spwDK',
+      url: 'https://www.instagram.com/reel/DK0le5spwDK/?utm_source=ig_web_copy_link',
+      label: 'Reel no Instagram',
+      title: 'Veja o bronze em vídeo direto do perfil da Josy.',
+      cover: mediaUrl('/brand/solare-bronze-02.jpg'),
+      className: '',
+    },
+    {
+      code: 'DXhoOfqkeXC',
+      url: 'https://www.instagram.com/reel/DXhoOfqkeXC/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
+      label: 'Reel bombástico',
+      title: 'Mais presença, mais desejo e mais prova real do bronze Solare.',
+      cover: mediaUrl('/brand/solare-bronze-01.jpg'),
+      className: 'alt',
+    },
+    {
+      code: 'DWO8kZKgE3C',
+      url: 'https://www.instagram.com/reel/DWO8kZKgE3C/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
+      label: 'Reel destaque',
+      title: 'Mais um resultado real para mostrar a força da experiência Solare.',
+      cover: mediaUrl('/brand/solare-lgbt-02.jpg'),
+      className: '',
+    },
+    {
+      code: 'DVrsgJrgDA_',
+      url: 'https://www.instagram.com/reel/DVrsgJrgDA_/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
+      label: 'Reel premium',
+      title: 'Mais uma prova visual para transformar desejo em agendamento.',
+      cover: mediaUrl('/brand/solare-correcao-02.jpg'),
+      className: 'alt',
+    },
+  ];
   const marqueeWords = ['Bronzeamento premium', 'Marquinha dos sonhos', 'Design de biquíni', 'Spa banho', 'Atendimento feminino', 'Produtos 18+'];
 
   async function handleAppointment(event: FormEvent<HTMLFormElement>) {
@@ -441,97 +499,19 @@ function LandingPage() {
                 <p>Um recorte da experiência para sentir o resultado antes de reservar seu horário.</p>
               </div>
             </article>
-            <article className="instagram-reel-card featured">
-              <iframe
-                src="https://www.instagram.com/reel/DVqgd-Tji2L/embed"
-                title="Reel destaque Josy Leão Solare"
-                loading="lazy"
-                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-              />
-              <div>
-                <span>Destaque principal</span>
-                <h3>O tipo de resultado que transforma curiosidade em desejo de agendar.</h3>
-                <a href="https://www.instagram.com/reel/DVqgd-Tji2L/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" rel="noreferrer">Abrir Reel</a>
-              </div>
-            </article>
-            <article className="instagram-reel-card featured alt">
-              <iframe
-                src="https://www.instagram.com/reel/DVgsdaiDkMR/embed"
-                title="Reel destaque premium Josy Leão Solare"
-                loading="lazy"
-                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-              />
-              <div>
-                <span>Destaque Solare</span>
-                <h3>Mais presença, mais pele iluminada e mais prova real da experiência.</h3>
-                <a href="https://www.instagram.com/reel/DVgsdaiDkMR/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" rel="noreferrer">Abrir Reel</a>
-              </div>
-            </article>
-            <article className="instagram-reel-card featured">
-              <iframe
-                src="https://www.instagram.com/reel/DVcZKPxANGP/embed"
-                title="Reel luxo Josy Leão Solare"
-                loading="lazy"
-                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-              />
-              <div>
-                <span>Luxo Solare</span>
-                <h3>Um bastidor poderoso para reforçar desejo, autoestima e beleza real.</h3>
-                <a href="https://www.instagram.com/reel/DVcZKPxANGP/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" rel="noreferrer">Abrir Reel</a>
-              </div>
-            </article>
-            <article className="instagram-reel-card">
-              <iframe
-                src="https://www.instagram.com/reel/DK0le5spwDK/embed"
-                title="Reel Josy Leão Solare"
-                loading="lazy"
-                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-              />
-              <div>
-                <span>Reel no Instagram</span>
-                <h3>Veja o bronze em vídeo direto do perfil da Josy.</h3>
-                <a href="https://www.instagram.com/reel/DK0le5spwDK/?utm_source=ig_web_copy_link" target="_blank" rel="noreferrer">Abrir Reel</a>
-              </div>
-            </article>
-            <article className="instagram-reel-card alt">
-              <iframe
-                src="https://www.instagram.com/reel/DXhoOfqkeXC/embed"
-                title="Reel de resultado Josy Leão Solare"
-                loading="lazy"
-                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-              />
-              <div>
-                <span>Reel bombástico</span>
-                <h3>Mais presença, mais desejo e mais prova real do bronze Solare.</h3>
-                <a href="https://www.instagram.com/reel/DXhoOfqkeXC/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" rel="noreferrer">Abrir Reel</a>
-              </div>
-            </article>
-            <article className="instagram-reel-card">
-              <iframe
-                src="https://www.instagram.com/reel/DWO8kZKgE3C/embed"
-                title="Reel excelente Josy Leão Solare"
-                loading="lazy"
-                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-              />
-              <div>
-                <span>Reel destaque</span>
-                <h3>Mais um resultado real para mostrar a força da experiência Solare.</h3>
-                <a href="https://www.instagram.com/reel/DWO8kZKgE3C/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" rel="noreferrer">Abrir Reel</a>
-              </div>
-            </article>
-            <article className="instagram-reel-card alt">
-              <iframe
-                src="https://www.instagram.com/reel/DVrsgJrgDA_/embed"
-                title="Reel premium Josy Leão Solare"
-                loading="lazy"
-                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-              />
-              <div>
-                <span>Reel premium</span>
-                <h3>Mais uma prova visual para transformar desejo em agendamento.</h3>
-                <a href="https://www.instagram.com/reel/DVrsgJrgDA_/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" rel="noreferrer">Abrir Reel</a>
-              </div>
-            </article>
+            {instagramReels.map((reel) => (
+              <article key={reel.code} className={`instagram-reel-card ${reel.className}`}>
+                <a className="reel-cover" href={reel.url} target="_blank" rel="noreferrer" aria-label={`Abrir ${reel.label} no Instagram`}>
+                  <img src={reel.cover} alt={`${reel.label} - Josy Leão Solare`} loading="lazy" />
+                  <span className="reel-play"><Camera size={18} /> Assistir no Instagram</span>
+                </a>
+                <div>
+                  <span>{reel.label}</span>
+                  <h3>{reel.title}</h3>
+                  <a href={reel.url} target="_blank" rel="noreferrer">Abrir Reel</a>
+                </div>
+              </article>
+            ))}
             <div className="bronze-highlight-grid">
               {bronzeHighlights.map((item) => (
                 <article key={item.src} className={item.frame}>
