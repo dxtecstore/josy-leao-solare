@@ -42,7 +42,7 @@ const productCategories = ['Lingerie', 'Cosméticos', 'Acessórios', 'Presentes'
 const statusList: Appointment['status'][] = ['novo', 'confirmado', 'realizado', 'cancelado'];
 const periods = ['Manha', 'Tarde', 'Noite'];
 const demoProductsKey = 'solare_demo_products';
-const mediaVersion = '20260622a';
+const mediaVersion = '20260622b';
 
 function mediaUrl(path: string) {
   return `${path}?v=${mediaVersion}`;
@@ -215,6 +215,18 @@ function LandingPage() {
       title: 'Marquinha glow',
       category: 'Detalhe real de bronze',
       frame: 'detail focus-center',
+    },
+    {
+      src: mediaUrl('/brand/solare-resultado-casal.jpg'),
+      title: 'Resultado em casal',
+      category: 'Bronze Solare Skin',
+      frame: 'wide full-frame',
+    },
+    {
+      src: mediaUrl('/brand/solare-bronze-lgbt-resultado.jpg'),
+      title: 'Bronze inclusivo',
+      category: 'Resultado LGBTQIAPN+',
+      frame: 'portrait focus-top',
     },
     {
       src: mediaUrl('/brand/solare-correcao-01.jpg'),
@@ -454,7 +466,7 @@ function LandingPage() {
 
         <section className="preview-belonging">
           <div className="preview-belonging-media">
-            <img src={mediaUrl('/brand/solare-lgbt-02.jpg')} alt="Cliente no espaço Josy Leão Solare em atendimento acolhedor" loading="lazy" />
+            <img src={mediaUrl('/brand/solare-bronze-lgbt-resultado.jpg')} alt="Resultado de bronze inclusivo no espaço Josy Leão Solare" loading="lazy" />
           </div>
           <div className="preview-belonging-copy">
             <span>Pertencimento</span>
