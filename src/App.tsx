@@ -381,11 +381,11 @@ function LandingPage() {
             <img src={mediaUrl('/brand/josy-storytelling.png')} alt="Josy Leão Solare, especialista em bronzeamento e estética" loading="lazy" />
           </div>
           <div className="preview-story-copy">
-            <span>Sobre a experiência</span>
-            <h2>Cuidado real para sua pele, seu corpo e sua <em>confiança.</em></h2>
+            <span>História da fundadora</span>
+            <h2>A mulher por trás da Solare: cuidado, presença e <em>visão.</em></h2>
             <i />
-            <p>Cada detalhe do bronze é pensado para valorizar o corpo real, respeitar sua pele e entregar um atendimento seguro, bonito e personalizado.</p>
-            <strong>Mais que bronzeamento: uma experiência de cuidado e presença.</strong>
+            <p>Josy Leão criou a Solare para transformar bronzeamento em uma experiência de autoestima. Seu olhar está em cada detalhe: no desenho da marquinha, no cuidado com a pele, na escuta de cada cliente e no acolhimento de quem chega para se sentir mais bonita, segura e livre.</p>
+            <strong>Mais que uma empresária da beleza, Josy conduz uma marca feita para realçar corpos reais, histórias reais e a luz de cada pessoa.</strong>
           </div>
         </section>
 
