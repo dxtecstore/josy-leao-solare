@@ -42,7 +42,7 @@ const productCategories = ['Lingerie', 'Cosméticos', 'Acessórios', 'Presentes'
 const statusList: Appointment['status'][] = ['novo', 'confirmado', 'realizado', 'cancelado'];
 const periods = ['Manha', 'Tarde', 'Noite'];
 const demoProductsKey = 'solare_demo_products';
-const mediaVersion = '20260620d';
+const mediaVersion = '20260622a';
 
 function mediaUrl(path: string) {
   return `${path}?v=${mediaVersion}`;
@@ -326,6 +326,23 @@ function LandingPage() {
           </div>
         </section>
 
+        <section className="preview-opening-film">
+          <div className="opening-film-copy">
+            <span>Inauguração Solare</span>
+            <h2>Um novo capítulo para viver beleza com mais presença.</h2>
+            <p>Um registro especial do espaço, da energia da marca e da experiência que recebe cada cliente com cuidado, sofisticação e acolhimento.</p>
+            <div>
+              <a className="preview-primary" href={quickMessage} target="_blank" rel="noreferrer">Agendar pelo WhatsApp</a>
+              <a className="preview-secondary" href="#social">Ver mais vídeos</a>
+            </div>
+          </div>
+          <div className="opening-film-media">
+            <video controls playsInline preload="metadata" poster={mediaUrl('/brand/josy-logo-from-pdf.webp')}>
+              <source src={mediaUrl('/videos/inauguracao.mp4')} type="video/mp4" />
+            </video>
+          </div>
+        </section>
+
         <div className="preview-marquee" aria-hidden="true">
           <div className="preview-marquee-track">
             {Array.from({ length: 2 }).map((_, index) => (
@@ -475,9 +492,9 @@ function LandingPage() {
 
         <section id="social" className="preview-social">
           <div className="preview-section-head">
-            <span>Instagram</span>
-            <h2>Bastidores e momentos <em>Solare.</em></h2>
-            <p>Registros selecionados para ver de perto a presença, o cuidado e a identidade do espaço.</p>
+            <span>Vídeos Solare</span>
+            <h2>Bastidores, cabine e experiências <em>em movimento.</em></h2>
+            <p>Uma rolagem leve com vídeos locais para mostrar o espaço, os procedimentos e a energia da marca.</p>
           </div>
           <div className="preview-social-grid">
             {socialMediaContent.map((item) => (
