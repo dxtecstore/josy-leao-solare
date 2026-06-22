@@ -492,9 +492,9 @@ textarea {
 .opening-film-media {
   position: relative;
   overflow: hidden;
-  border: 1px solid rgba(247, 231, 180, 0.22);
+  border: 1px solid rgba(247, 231, 180, 0.14);
   background: #000000;
-  box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.44);
+  box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.38);
 }
 
 .opening-film-media::after {
@@ -536,29 +536,71 @@ textarea {
   padding-block: 7.5rem;
 }
 
-.preview-product-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1.35rem;
+.preview-product-carousel {
   max-width: 76rem;
   margin: 0 auto;
 }
 
-.preview-product-card {
+.product-carousel-top {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.65rem;
+  margin: -1.2rem 0 1.2rem;
+}
+
+.product-carousel-top button {
   display: grid;
+  width: 2.75rem;
+  height: 2.75rem;
   border: 1px solid rgba(246, 215, 122, 0.18);
+  border-radius: 999px;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.025);
+  color: var(--gold-soft);
+  cursor: pointer;
+  transition: border-color 0.3s, background 0.3s, transform 0.3s;
+}
+
+.product-carousel-top button:hover {
+  border-color: rgba(246, 215, 122, 0.46);
+  background: rgba(212, 175, 55, 0.09);
+  transform: translateY(-2px);
+}
+
+.product-carousel-top button:disabled {
+  cursor: default;
+  opacity: 0.36;
+  transform: none;
+}
+
+.preview-product-viewport {
+  overflow: hidden;
+}
+
+.preview-product-track {
+  display: flex;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.preview-product-card {
+  flex: 0 0 25%;
+  display: grid;
+  min-width: 0;
+  border: 1px solid rgba(246, 215, 122, 0.12);
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.015)),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.01)),
     #080808;
   overflow: hidden;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  margin-right: 1rem;
   transition: border-color 0.35s, transform 0.35s, box-shadow 0.35s, background 0.35s;
 }
 
 .preview-product-card:hover {
-  border-color: rgba(246, 215, 122, 0.52);
-  box-shadow: 0 26px 62px -24px rgba(212, 175, 55, 0.36);
-  transform: translateY(-0.35rem);
+  border-color: rgba(246, 215, 122, 0.34);
+  box-shadow: 0 24px 56px -32px rgba(212, 175, 55, 0.34);
+  transform: translateY(-0.25rem);
 }
 
 .preview-product-image {
@@ -632,7 +674,7 @@ textarea {
 }
 
 .preview-product-card a {
-  border-top: 1px solid rgba(212, 175, 55, 0.14);
+  border-top: 1px solid rgba(212, 175, 55, 0.1);
   color: var(--gold-soft);
   padding-top: 0.8rem;
   font-size: 0.66rem;
@@ -640,6 +682,29 @@ textarea {
   letter-spacing: 0.16em;
   text-decoration: none;
   text-transform: uppercase;
+}
+
+.product-carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.product-carousel-dots button {
+  width: 0.5rem;
+  height: 0.5rem;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(246, 215, 122, 0.22);
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.3s, transform 0.3s, width 0.3s;
+}
+
+.product-carousel-dots button.active {
+  width: 1.45rem;
+  background: var(--gold-soft);
 }
 
 .preview-social {
@@ -664,9 +729,9 @@ textarea {
   flex: 0 0 min(22rem, 78vw);
   scroll-snap-align: start;
   overflow: hidden;
-  border: 1px solid rgba(212, 175, 55, 0.16);
+  border: 1px solid rgba(212, 175, 55, 0.1);
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.015)),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.012)),
     #080808;
 }
 
@@ -721,7 +786,7 @@ textarea {
 }
 
 .preview-social-actions a {
-  border: 1px solid rgba(212, 175, 55, 0.24);
+  border: 1px solid rgba(212, 175, 55, 0.16);
   color: var(--gold-soft);
   padding: 0.72rem 0.8rem;
   font-size: 0.6rem;
@@ -764,9 +829,9 @@ textarea {
   position: relative;
   min-height: 36rem;
   overflow: hidden;
-  border: 1px solid rgba(212, 175, 55, 0.16);
+  border: 1px solid rgba(212, 175, 55, 0.1);
   background: #080808;
-  box-shadow: 0 30px 90px -48px rgba(212, 175, 55, 0.55);
+  box-shadow: 0 30px 90px -54px rgba(212, 175, 55, 0.48);
 }
 
 .preview-story-media::after {
@@ -830,7 +895,7 @@ textarea {
 .preview-proof {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  border-block: 1px solid rgba(212, 175, 55, 0.15);
+  border-block: 1px solid rgba(212, 175, 55, 0.1);
   background:
     radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.08), transparent 28rem),
     #080808;
@@ -840,7 +905,7 @@ textarea {
   display: grid;
   place-items: center;
   min-height: 10rem;
-  border-right: 1px solid rgba(212, 175, 55, 0.12);
+  border-right: 1px solid rgba(212, 175, 55, 0.08);
   padding: 1.5rem;
   text-align: center;
 }
@@ -884,16 +949,18 @@ textarea {
 
 .preview-service-card {
   position: relative;
-  border: 1px solid rgba(212, 175, 55, 0.25);
-  background: var(--black-secondary);
+  border: 1px solid rgba(212, 175, 55, 0.14);
+  background:
+    linear-gradient(145deg, rgba(246, 215, 122, 0.035), transparent 45%),
+    var(--black-secondary);
   padding: 2rem;
   transition: transform 0.5s, border-color 0.5s, box-shadow 0.5s;
 }
 
 .preview-service-card:hover {
-  border-color: var(--gold-primary);
-  box-shadow: 0 20px 50px -15px rgba(212, 175, 55, 0.25);
-  transform: translateY(-0.5rem);
+  border-color: rgba(212, 175, 55, 0.36);
+  box-shadow: 0 20px 50px -28px rgba(212, 175, 55, 0.28);
+  transform: translateY(-0.35rem);
 }
 
 .preview-service-card svg {
@@ -935,7 +1002,7 @@ textarea {
   justify-content: center;
   width: 100%;
   margin-top: 1rem;
-  border: 1px solid rgba(212, 175, 55, 0.32);
+  border: 1px solid rgba(212, 175, 55, 0.2);
   color: var(--gold-soft);
   padding: 0.85rem 1rem;
   font-size: 0.66rem;
@@ -988,9 +1055,9 @@ textarea {
   min-height: 34rem;
   margin: 0;
   overflow: hidden;
-  border: 1px solid rgba(212, 175, 55, 0.2);
+  border: 1px solid rgba(212, 175, 55, 0.12);
   background: #080808;
-  box-shadow: 0 28px 80px -42px rgba(212, 175, 55, 0.55);
+  box-shadow: 0 28px 80px -50px rgba(212, 175, 55, 0.48);
 }
 
 .bikini-correction-media img {
@@ -1091,7 +1158,7 @@ textarea {
 .preview-belonging-media {
   min-height: 28rem;
   overflow: hidden;
-  border: 1px solid rgba(212, 175, 55, 0.18);
+  border: 1px solid rgba(212, 175, 55, 0.11);
   background: #060606;
 }
 
@@ -1156,7 +1223,7 @@ textarea {
   display: grid;
   grid-template-columns: minmax(0, 1.25fr) minmax(18rem, 0.75fr);
   overflow: hidden;
-  border: 1px solid rgba(212, 175, 55, 0.18);
+  border: 1px solid rgba(212, 175, 55, 0.11);
   background:
     radial-gradient(circle at 80% 15%, rgba(212, 175, 55, 0.14), transparent 36%),
     #080808;
@@ -1217,7 +1284,7 @@ textarea {
   position: relative;
   min-width: 0;
   overflow: hidden;
-  border: 1px solid rgba(212, 175, 55, 0.15);
+  border: 1px solid rgba(212, 175, 55, 0.09);
   background:
     radial-gradient(circle at 50% 20%, rgba(212, 175, 55, 0.12), transparent 42%),
     var(--black-secondary);
@@ -1245,11 +1312,6 @@ textarea {
 }
 
 .bronze-highlight-grid article.detail {
-  grid-column: span 4;
-}
-
-.bronze-highlight-grid article:nth-child(1),
-.bronze-highlight-grid article:nth-child(2) {
   grid-column: span 4;
 }
 
@@ -1425,6 +1487,13 @@ textarea {
   color: rgba(255, 255, 255, 0.58);
   font-size: 0.95rem;
   line-height: 1.75;
+}
+
+.preview-location-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
 }
 
 .preview-footer {
@@ -3651,8 +3720,8 @@ em {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .preview-product-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .preview-product-card {
+    flex-basis: 33.333%;
   }
 
   .preview-gallery-grid {
@@ -3753,6 +3822,7 @@ em {
   }
 
   .preview-actions,
+  .preview-location-actions,
   .preview-section-actions,
   .preview-trust-row,
   .preview-footer nav {
@@ -3762,6 +3832,7 @@ em {
 
   .preview-primary,
   .preview-secondary,
+  .preview-location-actions a,
   .preview-section-actions a,
   .preview-trust-row span,
   .preview-booking-form button {
@@ -3778,7 +3849,22 @@ em {
   .preview-social,
   .preview-booking,
   .preview-location {
-    padding: 4.2rem 1.1rem;
+    padding: 3.55rem 1.1rem;
+  }
+
+  .preview-products {
+    padding-block: 4.25rem;
+  }
+
+  .preview-services,
+  .preview-gallery,
+  .preview-social,
+  .preview-booking {
+    padding-block: 3.9rem;
+  }
+
+  .preview-section-head {
+    margin-bottom: 2.55rem;
   }
 
   .preview-story {
@@ -3792,13 +3878,48 @@ em {
   }
 
   .preview-service-grid,
-  .preview-product-grid,
   .preview-gallery-grid,
   .bronze-video-card,
   .preview-belonging,
   .preview-booking-form,
   .preview-proof {
     grid-template-columns: 1fr;
+  }
+
+  .product-carousel-top {
+    justify-content: center;
+    margin: -0.5rem 0 1rem;
+  }
+
+  .product-carousel-top button {
+    width: 2.55rem;
+    height: 2.55rem;
+  }
+
+  .preview-product-viewport {
+    margin-inline: -1.1rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .preview-product-viewport::-webkit-scrollbar {
+    display: none;
+  }
+
+  .preview-product-track {
+    transform: none !important;
+    padding-inline: 1.1rem;
+  }
+
+  .preview-product-card {
+    flex: 0 0 calc(100vw - 2.2rem);
+    margin-right: 0.85rem;
+    scroll-snap-align: center;
+  }
+
+  .preview-product-image {
+    aspect-ratio: 1 / 0.92;
   }
 
   .preview-opening-film {
@@ -3823,7 +3944,7 @@ em {
   }
 
   .bronze-video-card video {
-    min-height: 20rem;
+    min-height: 18rem;
   }
 
   .bronze-highlight-grid {
@@ -3869,7 +3990,7 @@ em {
 
   .bikini-correction-media figure,
   .bikini-correction-media img {
-    min-height: 25rem;
+    min-height: 22rem;
   }
 
   .bikini-correction-copy .preview-primary {

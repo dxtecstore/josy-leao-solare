@@ -1,5 +1,5 @@
 import type { FormEvent, ReactNode } from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   BarChart3,
   CalendarDays,
@@ -21,6 +21,8 @@ import {
   Trash2,
   Users,
   X,
+  ChevronLeft,
+  ChevronRight,
 } from 'lucide-react';
 import {
   isSupabaseConfigured,
@@ -105,6 +107,9 @@ function LandingPage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [settings, setSettings] = useState<BusinessSettings>(fallbackSettings);
   const [products, setProducts] = useState<Product[]>(fallbackProducts);
+  const [productPage, setProductPage] = useState(0);
+  const [productsPerView, setProductsPerView] = useState(1);
+  const productViewportRef = useRef<HTMLDivElement>(null);
   const [form, setForm] = useState({
     client_name: '',
     phone: '',
@@ -134,44 +139,62 @@ function LandingPage() {
   }, []);
 
   const whatsappMessage = 'Olá, vi o site da Josy Leão Solare e gostaria de agendar meu atendimento.';
-  const quickMessage = buildWhatsAppUrl(settings.whatsapp, whatsappMessage);
+  const ctaMessages = {
+    bronze: 'Olá, gostaria de agendar meu bronzeamento.',
+    correction: 'Olá, gostaria de saber mais sobre correção de marquinha.',
+    banho: 'Olá, gostaria de agendar um Banho de Lua.',
+    products: 'Olá, gostaria de conhecer os produtos disponíveis.',
+    sexyShop: 'Olá, gostaria de saber mais sobre este produto.',
+    location: 'Olá, gostaria de saber como chegar ao espaço.',
+  };
+  const quickMessage = buildWhatsAppUrl(settings.whatsapp, ctaMessages.bronze);
   const visibleProducts = (products.length >= 17 ? products : fallbackProducts).filter((product) => product.active).slice(0, 17);
+  const maxProductPage = Math.max(0, visibleProducts.length - productsPerView);
+  const productPageCount = Math.max(1, Math.ceil(visibleProducts.length / productsPerView));
+  const activeProductDot = Math.min(productPageCount - 1, Math.floor(productPage / productsPerView));
+  const productShift = productPage * (100 / productsPerView);
   const servicesShowcase = [
     {
       id: 'bronze-natural',
       name: 'Bronzeamento natural',
       description: 'Bronze uniforme e elegante, pensado para realçar o tom da pele com segurança e acabamento premium.',
       cta: 'Agendar pelo WhatsApp',
+      message: ctaMessages.bronze,
     },
     {
       id: 'marquinha',
       name: 'Marquinha personalizada',
       description: 'Design de marquinha feito com cuidado para valorizar o corpo e entregar a marquinha dos sonhos.',
       cta: 'Quero minha marquinha',
+      message: ctaMessages.correction,
     },
     {
       id: 'biquini',
       name: 'Design de biquíni',
       description: 'Escolha orientada do desenho ideal para um resultado harmônico, feminino e sob medida.',
       cta: 'Reservar meu horário',
+      message: ctaMessages.correction,
     },
     {
       id: 'pele',
       name: 'Cuidados com a pele',
       description: 'Preparação, hidratação e finalização para uma pele iluminada, macia e pronta para o bronze.',
       cta: 'Falar com a Josy',
+      message: ctaMessages.bronze,
     },
     {
       id: 'spa-banho',
       name: 'Spa banho',
       description: 'Momento de cuidado corporal para renovar a pele, relaxar e elevar a experiência de autoestima.',
       cta: 'Agendar spa banho',
+      message: ctaMessages.banho,
     },
     {
       id: 'sexy-shop',
       name: 'Produtos sexy shop',
       description: 'Vitrine discreta de produtos adultos 18+, com consulta individual e atendimento reservado.',
       cta: 'Consultar produtos',
+      message: ctaMessages.products,
     },
   ];
   const bookingOptions = [
@@ -187,9 +210,15 @@ function LandingPage() {
   ];
   const bronzeHighlights = [
     {
-      src: mediaUrl('/brand/solare-bronze-01.jpg'),
-      title: 'Marquinha iluminada',
-      category: 'Bronzeamento premium',
+      src: mediaUrl('/brand/solare-resultado-casal.jpg'),
+      title: 'Ambiente Solare',
+      category: 'Espaço e experiência',
+      frame: 'wide full-frame',
+    },
+    {
+      src: mediaUrl('/brand/solare-bronze-03.jpg'),
+      title: 'Atendimento guiado',
+      category: 'Design de biquíni',
       frame: 'portrait focus-top',
     },
     {
@@ -199,10 +228,28 @@ function LandingPage() {
       frame: 'portrait focus-top',
     },
     {
-      src: mediaUrl('/brand/solare-bronze-03.jpg'),
-      title: 'Autoestima em destaque',
-      category: 'Design de biquíni',
+      src: mediaUrl('/brand/solare-bronze-01.jpg'),
+      title: 'Marquinha iluminada',
+      category: 'Bronzeamento premium',
+      frame: 'detail focus-center',
+    },
+    {
+      src: mediaUrl('/brand/solare-bronze-lgbt-resultado.jpg'),
+      title: 'Bronze inclusivo',
+      category: 'Resultado LGBTQIAPN+',
       frame: 'portrait focus-top',
+    },
+    {
+      src: mediaUrl('/brand/solare-correcao-01.jpg'),
+      title: 'Correção de biquíni',
+      category: 'Transformação',
+      frame: 'tall full-frame',
+    },
+    {
+      src: mediaUrl('/brand/solare-correcao-02.jpg'),
+      title: 'Marquinha redesenhada',
+      category: 'Resultado real',
+      frame: 'tall full-frame',
     },
     {
       src: mediaUrl('/brand/solare-bronze-04.jpg'),
@@ -216,32 +263,44 @@ function LandingPage() {
       category: 'Detalhe real de bronze',
       frame: 'detail focus-center',
     },
-    {
-      src: mediaUrl('/brand/solare-resultado-casal.jpg'),
-      title: 'Resultado em casal',
-      category: 'Bronze Solare Skin',
-      frame: 'wide full-frame',
-    },
-    {
-      src: mediaUrl('/brand/solare-bronze-lgbt-resultado.jpg'),
-      title: 'Bronze inclusivo',
-      category: 'Resultado LGBTQIAPN+',
-      frame: 'portrait focus-top',
-    },
-    {
-      src: mediaUrl('/brand/solare-correcao-01.jpg'),
-      title: 'Correção de biquíni',
-      category: 'Antes e depois',
-      frame: 'tall full-frame',
-    },
-    {
-      src: mediaUrl('/brand/solare-correcao-02.jpg'),
-      title: 'Marquinha redesenhada',
-      category: 'Resultado real',
-      frame: 'tall full-frame',
-    },
   ];
   const marqueeWords = ['Bronzeamento premium', 'Marquinha dos sonhos', 'Design de biquíni', 'Spa banho', 'Atendimento feminino', 'Produtos 18+'];
+
+  useEffect(() => {
+    function updateProductsPerView() {
+      if (window.innerWidth >= 1180) {
+        setProductsPerView(4);
+        return;
+      }
+
+      if (window.innerWidth >= 760) {
+        setProductsPerView(3);
+        return;
+      }
+
+      setProductsPerView(1);
+    }
+
+    updateProductsPerView();
+    window.addEventListener('resize', updateProductsPerView);
+    return () => window.removeEventListener('resize', updateProductsPerView);
+  }, []);
+
+  useEffect(() => {
+    setProductPage((page) => Math.min(page, maxProductPage));
+  }, [maxProductPage]);
+
+  function goToProductPage(page: number) {
+    const nextPage = Math.max(0, Math.min(page, maxProductPage));
+    setProductPage(nextPage);
+
+    if (productsPerView === 1 && productViewportRef.current) {
+      productViewportRef.current.scrollTo({
+        left: productViewportRef.current.clientWidth * nextPage,
+        behavior: 'smooth',
+      });
+    }
+  }
 
   async function handleAppointment(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -322,7 +381,7 @@ function LandingPage() {
             <h1>Sua marquinha<br /><em>dos sonhos.</em></h1>
             <p>Bronze, cuidado com a pele e atendimento acolhedor para realçar sua beleza com segurança.</p>
             <div className="preview-actions">
-              <a className="preview-primary" href={quickMessage} target="_blank" rel="noreferrer">Agendar pelo WhatsApp</a>
+              <a className="preview-primary" href={buildWhatsAppUrl(settings.whatsapp, ctaMessages.bronze)} target="_blank" rel="noreferrer">Agendar pelo WhatsApp</a>
               <a className="preview-secondary" href="#galeria">Ver resultados reais</a>
             </div>
             <div className="preview-trust-row" aria-label="Diferenciais da Josy Leão Solare">
@@ -344,7 +403,7 @@ function LandingPage() {
             <h2>Um novo capítulo para viver beleza com mais presença.</h2>
             <p>Um registro especial do espaço, da energia da marca e da experiência que recebe cada cliente com cuidado, sofisticação e acolhimento.</p>
             <div>
-              <a className="preview-primary" href={quickMessage} target="_blank" rel="noreferrer">Agendar pelo WhatsApp</a>
+              <a className="preview-primary" href={buildWhatsAppUrl(settings.whatsapp, ctaMessages.bronze)} target="_blank" rel="noreferrer">Agendar pelo WhatsApp</a>
               <a className="preview-secondary" href="#social">Ver mais vídeos</a>
             </div>
           </div>
@@ -401,7 +460,7 @@ function LandingPage() {
                 <h3>{service.name}</h3>
                 <p>{service.description}</p>
                 <small>{String(index + 1).padStart(2, '0')} / Atendimento premium</small>
-                <a className="service-whatsapp" href={buildWhatsAppUrl(settings.whatsapp, whatsappMessage)} target="_blank" rel="noreferrer">{service.cta}</a>
+                <a className="service-whatsapp" href={buildWhatsAppUrl(settings.whatsapp, service.message)} target="_blank" rel="noreferrer">{service.cta}</a>
                 <i />
               </article>
             ))}
@@ -428,7 +487,7 @@ function LandingPage() {
               <span><CheckCircle2 size={16} /> Ajuste da marquinha desejada</span>
               <span><CheckCircle2 size={16} /> Orientação para o bronze perfeito</span>
             </div>
-            <a className="preview-primary" href={buildWhatsAppUrl(settings.whatsapp, `${whatsappMessage} Quero saber mais sobre correção de biquíni.`)} target="_blank" rel="noreferrer">Quero corrigir minha marquinha</a>
+            <a className="preview-primary" href={buildWhatsAppUrl(settings.whatsapp, ctaMessages.correction)} target="_blank" rel="noreferrer">Quero corrigir minha marquinha</a>
           </div>
         </section>
 
@@ -460,7 +519,7 @@ function LandingPage() {
           </div>
           <div className="preview-section-actions">
             <a className="preview-secondary" href={settings.instagram} target="_blank" rel="noreferrer">Ver resultados no Instagram</a>
-            <a className="preview-primary" href={quickMessage} target="_blank" rel="noreferrer">Agendar pelo WhatsApp</a>
+            <a className="preview-primary" href={buildWhatsAppUrl(settings.whatsapp, ctaMessages.bronze)} target="_blank" rel="noreferrer">Agendar pelo WhatsApp</a>
           </div>
         </section>
 
@@ -472,7 +531,7 @@ function LandingPage() {
             <span>Pertencimento</span>
             <h2>Beleza, liberdade e respeito caminham juntos.</h2>
             <p>Aqui, cada corpo, identidade e história são acolhidos com cuidado, segurança e profissionalismo.</p>
-            <a className="preview-primary" href={buildWhatsAppUrl(settings.whatsapp, `${whatsappMessage} Quero conhecer o espaço.`)} target="_blank" rel="noreferrer">Conhecer pelo WhatsApp</a>
+            <a className="preview-primary" href={buildWhatsAppUrl(settings.whatsapp, ctaMessages.location)} target="_blank" rel="noreferrer">Conhecer pelo WhatsApp</a>
           </div>
         </section>
 
@@ -481,24 +540,52 @@ function LandingPage() {
             <span>Produtos sexy shop</span>
             <h2>Vitrine discreta<br /><em>para consultar pelo WhatsApp.</em></h2>
           </div>
-          <div className="preview-product-grid">
-            {visibleProducts.map((product, index) => {
-              const message = `Olá, vi o produto ${product.name} no site da Josy Leão Solare e gostaria de saber mais.`;
-              return (
-                <article className="preview-product-card" key={product.id}>
-                  <div className="preview-product-image">
-                    {product.image_url ? <img src={product.image_url} alt={product.name} loading="lazy" /> : <span>Imagem</span>}
-                  </div>
-                  <div>
-                    <small>{String(index + 1).padStart(2, '0')} / {product.category || 'Produto'} / 18+</small>
-                    <h3>{product.name}</h3>
-                    <p>{product.description}</p>
-                    <strong>{money(product.price)}</strong>
-                    <a href={buildWhatsAppUrl(settings.whatsapp, message)} target="_blank" rel="noreferrer">Consultar no WhatsApp</a>
-                  </div>
-                </article>
-              );
-            })}
+          <div className="preview-product-carousel">
+            <div className="product-carousel-top">
+              <button type="button" aria-label="Produto anterior" disabled={productPage === 0} onClick={() => goToProductPage(productPage - productsPerView)}>
+                <ChevronLeft size={20} />
+              </button>
+              <button type="button" aria-label="Próximos produtos" disabled={productPage === maxProductPage} onClick={() => goToProductPage(productPage + productsPerView)}>
+                <ChevronRight size={20} />
+              </button>
+            </div>
+            <div
+              className="preview-product-viewport"
+              ref={productViewportRef}
+              onScroll={(event) => {
+                if (productsPerView !== 1) return;
+                const nextPage = Math.round(event.currentTarget.scrollLeft / event.currentTarget.clientWidth);
+                if (nextPage !== productPage) setProductPage(Math.max(0, Math.min(nextPage, maxProductPage)));
+              }}
+            >
+              <div className="preview-product-track" style={{ transform: `translateX(-${productShift}%)` }}>
+                {visibleProducts.map((product, index) => (
+                  <article className="preview-product-card" key={product.id}>
+                    <div className="preview-product-image">
+                      {product.image_url ? <img src={product.image_url} alt={product.name} loading="lazy" /> : <span>Imagem</span>}
+                    </div>
+                    <div>
+                      <small>{String(index + 1).padStart(2, '0')} / {product.category || 'Produto'} / 18+</small>
+                      <h3>{product.name}</h3>
+                      <p>{product.description}</p>
+                      <strong>{money(product.price)}</strong>
+                      <a href={buildWhatsAppUrl(settings.whatsapp, ctaMessages.sexyShop)} target="_blank" rel="noreferrer">Consultar no WhatsApp</a>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+            <div className="product-carousel-dots" aria-label="Paginação dos produtos">
+              {Array.from({ length: productPageCount }).map((_, index) => (
+                <button
+                  aria-label={`Ver página ${index + 1} de produtos`}
+                  className={index === activeProductDot ? 'active' : ''}
+                  key={index}
+                  type="button"
+                  onClick={() => goToProductPage(index * productsPerView)}
+                />
+              ))}
+            </div>
           </div>
         </section>
 
@@ -525,7 +612,7 @@ function LandingPage() {
                   <h3>{item.caption}</h3>
                   <div className="preview-social-actions">
                     {item.instagramUrl && <a href={item.instagramUrl} target="_blank" rel="noreferrer">Ver no Instagram</a>}
-                    <a href={quickMessage} target="_blank" rel="noreferrer">Agendar pelo WhatsApp</a>
+                    <a href={buildWhatsAppUrl(settings.whatsapp, ctaMessages.bronze)} target="_blank" rel="noreferrer">Agendar pelo WhatsApp</a>
                   </div>
                 </div>
               </article>
@@ -537,7 +624,10 @@ function LandingPage() {
           <span>Localização</span>
           <h2>{settings.address}</h2>
           <p className="preview-location-copy">Centro de bronzeamento e estética em Nazaré, Belém/PA, com atendimento acolhedor, discreto e especializado.</p>
-          <a className="preview-secondary" href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(settings.address)}`} target="_blank" rel="noreferrer">Abrir mapa</a>
+          <div className="preview-location-actions">
+            <a className="preview-secondary" href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(settings.address)}`} target="_blank" rel="noreferrer">Abrir mapa</a>
+            <a className="preview-primary" href={buildWhatsAppUrl(settings.whatsapp, ctaMessages.location)} target="_blank" rel="noreferrer">Como chegar pelo WhatsApp</a>
+          </div>
         </section>
 
         <section id="agendamento" className="preview-booking">
