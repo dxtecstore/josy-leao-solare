@@ -468,7 +468,7 @@ function LandingPage() {
 
         <section id="storytelling" className="preview-story">
           <div className="preview-story-media">
-            <img src={mediaUrl('/brand/josy-storytelling.png')} alt="Josy Leão Solare, especialista em bronzeamento e estética" loading="lazy" />
+            <img src={mediaUrl('/brand/josy-storytelling-premium.png')} alt="Josy Leão Solare, especialista em bronzeamento e estética" loading="lazy" />
           </div>
           <div className="preview-story-copy">
             <span>História da fundadora</span>
