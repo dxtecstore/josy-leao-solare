@@ -135,9 +135,13 @@ function App() {
 function LandingPage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [settings, setSettings] = useState<BusinessSettings>(fallbackSettings);
+  const [services, setServices] = useState<Service[]>(fallbackServices);
+  const [servicePage, setServicePage] = useState(0);
+  const [servicesPerView, setServicesPerView] = useState(1);
   const [products, setProducts] = useState<Product[]>(fallbackProducts);
   const [productPage, setProductPage] = useState(0);
   const [productsPerView, setProductsPerView] = useState(1);
+  const serviceViewportRef = useRef<HTMLDivElement>(null);
   const productViewportRef = useRef<HTMLDivElement>(null);
   const [form, setForm] = useState({
     client_name: '',
@@ -152,16 +156,19 @@ function LandingPage() {
     async function loadPublicData() {
       if (!supabase) {
         setSettings(readDemoSettings());
+        setServices(fallbackServices.filter((service) => service.active));
         setProducts(readDemoProducts().filter((product) => product.active));
         return;
       }
 
-      const [settingsResult, productsResult] = await Promise.all([
+      const [settingsResult, servicesResult, productsResult] = await Promise.all([
         supabase.from('settings').select('*').limit(1).maybeSingle(),
+        supabase.from('services').select('*').eq('active', true).order('created_at', { ascending: true }),
         supabase.from('products').select('*').eq('active', true).order('created_at', { ascending: true }),
       ]);
 
       if (settingsResult.data) setSettings(settingsResult.data);
+      if (servicesResult.data?.length) setServices(servicesResult.data);
       if (productsResult.data?.length) setProducts(productsResult.data);
     }
 
@@ -178,58 +185,20 @@ function LandingPage() {
     location: 'Olá, gostaria de saber como chegar ao espaço.',
   };
   const quickMessage = buildWhatsAppUrl(settings.whatsapp, ctaMessages.bronze);
+  const visibleServices = (services.length ? services : fallbackServices).filter((service) => service.active);
+  const serviceImageFallback = (index: number) => fallbackServices[index]?.image_url || fallbackServices[0]?.image_url || '';
+  const maxServicePage = Math.max(0, visibleServices.length - servicesPerView);
+  const servicePageCount = Math.max(1, Math.ceil(visibleServices.length / servicesPerView));
+  const activeServiceDot = Math.min(servicePageCount - 1, Math.floor(servicePage / servicesPerView));
+  const serviceShift = servicePage * (100 / servicesPerView);
   const visibleProducts = (products.length >= 17 ? products : fallbackProducts).filter((product) => product.active).slice(0, 17);
   const productImageFallback = (index: number) => fallbackProducts[index]?.image_url || fallbackProducts[0]?.image_url || '';
   const maxProductPage = Math.max(0, visibleProducts.length - productsPerView);
   const productPageCount = Math.max(1, Math.ceil(visibleProducts.length / productsPerView));
   const activeProductDot = Math.min(productPageCount - 1, Math.floor(productPage / productsPerView));
   const productShift = productPage * (100 / productsPerView);
-  const servicesShowcase = [
-    {
-      id: 'bronze-natural',
-      name: 'Bronzeamento natural',
-      description: 'Bronze uniforme e elegante, pensado para realçar o tom da pele com segurança e acabamento premium.',
-      cta: 'Agendar pelo WhatsApp',
-      message: ctaMessages.bronze,
-    },
-    {
-      id: 'marquinha',
-      name: 'Marquinha personalizada',
-      description: 'Design de marquinha feito com cuidado para valorizar o corpo e entregar a marquinha dos sonhos.',
-      cta: 'Quero minha marquinha',
-      message: ctaMessages.correction,
-    },
-    {
-      id: 'biquini',
-      name: 'Design de biquíni',
-      description: 'Escolha orientada do desenho ideal para um resultado harmônico, feminino e sob medida.',
-      cta: 'Reservar meu horário',
-      message: ctaMessages.correction,
-    },
-    {
-      id: 'pele',
-      name: 'Cuidados com a pele',
-      description: 'Preparação, hidratação e finalização para uma pele iluminada, macia e pronta para o bronze.',
-      cta: 'Falar com a Josy',
-      message: ctaMessages.bronze,
-    },
-    {
-      id: 'spa-banho',
-      name: 'Spa banho',
-      description: 'Momento de cuidado corporal para renovar a pele, relaxar e elevar a experiência de autoestima.',
-      cta: 'Agendar spa banho',
-      message: ctaMessages.banho,
-    },
-    {
-      id: 'sexy-shop',
-      name: 'Produtos sexy shop',
-      description: 'Vitrine discreta de produtos adultos 18+, com consulta individual e atendimento reservado.',
-      cta: 'Consultar produtos',
-      message: ctaMessages.products,
-    },
-  ];
   const bookingOptions = [
-    ...servicesShowcase.map((service) => ({ id: service.id, name: service.name })),
+    ...visibleServices.map((service) => ({ id: service.id, name: service.name })),
     ...visibleProducts.map((product) => ({ id: product.id, name: product.name })),
   ];
   const selectedInterest = bookingOptions.find((item) => item.id === form.service_id) ?? bookingOptions[0];
@@ -300,15 +269,18 @@ function LandingPage() {
   useEffect(() => {
     function updateProductsPerView() {
       if (window.innerWidth >= 1180) {
+        setServicesPerView(3);
         setProductsPerView(4);
         return;
       }
 
       if (window.innerWidth >= 760) {
+        setServicesPerView(2);
         setProductsPerView(3);
         return;
       }
 
+      setServicesPerView(1);
       setProductsPerView(1);
     }
 
@@ -321,6 +293,22 @@ function LandingPage() {
     setProductPage((page) => Math.min(page, maxProductPage));
   }, [maxProductPage]);
 
+  useEffect(() => {
+    setServicePage((page) => Math.min(page, maxServicePage));
+  }, [maxServicePage]);
+
+  function goToServicePage(page: number) {
+    const nextPage = Math.max(0, Math.min(page, maxServicePage));
+    setServicePage(nextPage);
+
+    if (servicesPerView === 1 && serviceViewportRef.current) {
+      serviceViewportRef.current.scrollTo({
+        left: serviceViewportRef.current.clientWidth * nextPage,
+        behavior: 'smooth',
+      });
+    }
+  }
+
   function goToProductPage(page: number) {
     const nextPage = Math.max(0, Math.min(page, maxProductPage));
     setProductPage(nextPage);
@@ -331,6 +319,15 @@ function LandingPage() {
         behavior: 'smooth',
       });
     }
+  }
+
+  function serviceWhatsAppMessage(serviceName: string) {
+    const normalized = serviceName.toLowerCase();
+    if (normalized.includes('banho')) return `Olá, gostaria de agendar ${serviceName}.`;
+    if (normalized.includes('marquinha') || normalized.includes('biquíni') || normalized.includes('biquini')) {
+      return `Olá, gostaria de saber mais sobre ${serviceName}.`;
+    }
+    return `Olá, gostaria de agendar ${serviceName}.`;
   }
 
   async function handleAppointment(event: FormEvent<HTMLFormElement>) {
@@ -484,17 +481,67 @@ function LandingPage() {
             <span>Serviços</span>
             <h2>Serviços para <em>realçar sua beleza.</em></h2>
           </div>
-          <div className="preview-service-grid">
-            {servicesShowcase.map((service, index) => (
-              <article className="preview-service-card" key={service.name}>
-                <Sparkles size={32} strokeWidth={1.25} />
-                <h3>{service.name}</h3>
-                <p>{service.description}</p>
-                <small>{String(index + 1).padStart(2, '0')} / Atendimento premium</small>
-                <a className="service-whatsapp" href={buildWhatsAppUrl(settings.whatsapp, service.message)} target="_blank" rel="noreferrer">{service.cta}</a>
-                <i />
-              </article>
-            ))}
+          <div className="preview-service-carousel">
+            <div className="service-carousel-top">
+              <button type="button" aria-label="Serviço anterior" disabled={servicePage === 0} onClick={() => goToServicePage(servicePage - servicesPerView)}>
+                <ChevronLeft size={20} />
+              </button>
+              <button type="button" aria-label="Próximos serviços" disabled={servicePage === maxServicePage} onClick={() => goToServicePage(servicePage + servicesPerView)}>
+                <ChevronRight size={20} />
+              </button>
+            </div>
+            <div
+              className="preview-service-viewport"
+              ref={serviceViewportRef}
+              onScroll={(event) => {
+                if (servicesPerView !== 1) return;
+                const nextPage = Math.round(event.currentTarget.scrollLeft / event.currentTarget.clientWidth);
+                if (nextPage !== servicePage) setServicePage(Math.max(0, Math.min(nextPage, maxServicePage)));
+              }}
+            >
+              <div className="preview-service-track" style={{ transform: `translateX(-${serviceShift}%)` }}>
+                {visibleServices.map((service, index) => (
+                  <article className="preview-service-card" key={service.id}>
+                    <div className="preview-service-image">
+                      {(service.image_url || serviceImageFallback(index)) ? (
+                        <img
+                          src={service.image_url || serviceImageFallback(index)}
+                          alt={service.name}
+                          loading="lazy"
+                          onError={(event) => {
+                            const fallback = serviceImageFallback(index);
+                            if (fallback && event.currentTarget.src !== new URL(fallback, window.location.origin).href) {
+                              event.currentTarget.src = fallback;
+                            }
+                          }}
+                        />
+                      ) : (
+                        <Sparkles size={36} strokeWidth={1.25} />
+                      )}
+                    </div>
+                    <div className="preview-service-content">
+                      <small>{String(index + 1).padStart(2, '0')} / Procedimento premium</small>
+                      <h3>{service.name}</h3>
+                      <p>{service.description || 'Atendimento personalizado para valorizar sua beleza com cuidado, conforto e acabamento premium.'}</p>
+                      <strong>{money(service.price)} {service.duration ? <span>/ {service.duration}</span> : null}</strong>
+                      <a className="service-whatsapp" href={buildWhatsAppUrl(settings.whatsapp, serviceWhatsAppMessage(service.name))} target="_blank" rel="noreferrer">Agendar pelo WhatsApp</a>
+                    </div>
+                    <i />
+                  </article>
+                ))}
+              </div>
+            </div>
+            <div className="service-carousel-dots" aria-label="Paginação dos serviços">
+              {Array.from({ length: servicePageCount }).map((_, index) => (
+                <button
+                  aria-label={`Ver página ${index + 1} de serviços`}
+                  className={index === activeServiceDot ? 'active' : ''}
+                  key={index}
+                  type="button"
+                  onClick={() => goToServicePage(index * servicesPerView)}
+                />
+              ))}
+            </div>
           </div>
         </section>
 
@@ -1382,15 +1429,40 @@ function GalleryModule({ gallery, setGallery, reload }: { gallery: GalleryItem[]
 }
 
 function ServicesModule({ services, reload }: { services: Service[]; reload: () => Promise<void> }) {
-  const [service, setService] = useState({ name: '', description: '', price: '', duration: '', image_url: '', active: true });
+  const emptyService = { name: '', description: '', price: '', duration: '', image_url: '', active: true };
+  const [service, setService] = useState(emptyService);
+  const [editingId, setEditingId] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
 
   async function save(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!supabase) return;
-    await supabase.from('services').insert({ ...service, price: service.price ? Number(service.price) : null });
-    setService({ name: '', description: '', price: '', duration: '', image_url: '', active: true });
+    const payload = { ...service, price: service.price ? Number(service.price) : null };
+    if (editingId) {
+      await supabase.from('services').update(payload).eq('id', editingId);
+    } else {
+      await supabase.from('services').insert(payload);
+    }
+    setService(emptyService);
+    setEditingId(null);
     await reload();
+  }
+
+  function edit(item: Service) {
+    setEditingId(item.id);
+    setService({
+      name: item.name,
+      description: item.description ?? '',
+      price: item.price ? String(item.price) : '',
+      duration: item.duration ?? '',
+      image_url: item.image_url ?? '',
+      active: item.active,
+    });
+  }
+
+  function cancelEdit() {
+    setEditingId(null);
+    setService(emptyService);
   }
 
   async function remove(id: string) {
@@ -1413,28 +1485,36 @@ function ServicesModule({ services, reload }: { services: Service[]; reload: () 
   return (
     <section className="module-grid">
       <form className="os-form" onSubmit={save}>
-        <h3>Catálogo de procedimentos</h3>
+        <h3>{editingId ? 'Editar procedimento' : 'Catalogo de procedimentos'}</h3>
+        <div className="admin-image-preview compact">
+          {service.image_url ? <img src={service.image_url} alt={service.name || 'Previa do servico'} /> : <ImageUp size={34} />}
+        </div>
         <input placeholder="Nome" value={service.name} onChange={(event) => setService({ ...service, name: event.target.value })} />
-        <input placeholder="Preço" value={service.price} onChange={(event) => setService({ ...service, price: event.target.value })} />
+        <input placeholder="Preco" value={service.price} onChange={(event) => setService({ ...service, price: event.target.value })} />
         <input placeholder="Tempo medio" value={service.duration} onChange={(event) => setService({ ...service, duration: event.target.value })} />
         <label className="file-field">
           <ImageUp size={16} />
-          {uploading ? 'Enviando imagem...' : 'Enviar imagem do serviço'}
+          {uploading ? 'Enviando imagem...' : 'Enviar imagem do servico'}
           <input type="file" accept="image/*" onChange={(event) => void handleUpload(event.target.files?.[0])} />
         </label>
-        <input placeholder="Imagem" value={service.image_url} onChange={(event) => setService({ ...service, image_url: event.target.value })} />
-        <textarea placeholder="Descrição" value={service.description} onChange={(event) => setService({ ...service, description: event.target.value })} />
-        <button><Plus size={16} /> Adicionar serviço</button>
+        <input placeholder="URL da imagem" value={service.image_url} onChange={(event) => setService({ ...service, image_url: event.target.value })} />
+        <textarea placeholder="Descricao" value={service.description} onChange={(event) => setService({ ...service, description: event.target.value })} />
+        <label className="admin-check">
+          <input type="checkbox" checked={service.active} onChange={(event) => setService({ ...service, active: event.target.checked })} />
+          Exibir servico na vitrine
+        </label>
+        <button><Plus size={16} /> {editingId ? 'Salvar alteracoes' : 'Adicionar servico'}</button>
+        {editingId && <button type="button" className="ghost-action" onClick={cancelEdit}>Cancelar edicao</button>}
       </form>
       <div className="service-admin-list">
         {services.map((item) => (
           <article key={item.id}>
-            <Sparkles size={18} />
+            {item.image_url ? <img src={item.image_url} alt={item.name} /> : <Sparkles size={18} />}
             <div>
               <h3>{item.name}</h3>
-              <p>{money(item.price)} - {item.duration}</p>
+              <p>{money(item.price)} - {item.duration || 'tempo sob consulta'}{item.active ? '' : ' / oculto'}</p>
             </div>
-            <button><Pencil size={16} /></button>
+            <button onClick={() => edit(item)}><Pencil size={16} /></button>
             <button onClick={() => void remove(item.id)}><Trash2 size={16} /></button>
           </article>
         ))}
@@ -1442,7 +1522,6 @@ function ServicesModule({ services, reload }: { services: Service[]; reload: () 
     </section>
   );
 }
-
 function TestimonialsModule({ testimonials, reload }: { testimonials: Testimonial[]; reload: () => Promise<void> }) {
   const [testimonial, setTestimonial] = useState({ client_name: '', text: '', image_url: '', active: true });
   const [uploading, setUploading] = useState(false);
@@ -1602,3 +1681,4 @@ function SettingsModule({ settings, setSettings, reload }: { settings: BusinessS
 }
 
 export default App;
+

@@ -1015,21 +1015,61 @@ textarea {
   margin-bottom: 4rem;
 }
 
-.preview-service-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1.5rem;
+.preview-service-carousel {
   max-width: 72rem;
   margin: 0 auto;
+  overflow: hidden;
+}
+
+.service-carousel-top {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.65rem;
+  margin: -1rem 0 1.25rem;
+}
+
+.service-carousel-top button {
+  display: grid;
+  place-items: center;
+  width: 2.8rem;
+  height: 2.8rem;
+  border: 1px solid rgba(212, 175, 55, 0.18);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.025);
+  color: var(--gold-soft);
+  cursor: pointer;
+  transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease, opacity 0.25s ease;
+}
+
+.service-carousel-top button:hover:not(:disabled) {
+  border-color: rgba(212, 175, 55, 0.45);
+  background: rgba(212, 175, 55, 0.1);
+  color: #ffffff;
+}
+
+.service-carousel-top button:disabled {
+  cursor: default;
+  opacity: 0.34;
+}
+
+.preview-service-viewport {
+  overflow: hidden;
+}
+
+.preview-service-track {
+  display: flex;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .preview-service-card {
   position: relative;
+  flex: 0 0 33.333%;
+  min-width: 0;
   border: 1px solid rgba(212, 175, 55, 0.14);
   background:
     linear-gradient(145deg, rgba(246, 215, 122, 0.035), transparent 45%),
     var(--black-secondary);
-  padding: 2rem;
+  overflow: hidden;
   transition: transform 0.5s, border-color 0.5s, box-shadow 0.5s;
 }
 
@@ -1039,20 +1079,54 @@ textarea {
   transform: translateY(-0.35rem);
 }
 
-.preview-service-card svg {
-  color: var(--gold-primary);
-  transition: transform 0.5s;
+.preview-service-image {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: #050505;
 }
 
-.preview-service-card:hover svg {
-  transform: scale(1.1);
+.preview-service-image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, transparent 52%, rgba(0, 0, 0, 0.64)),
+    radial-gradient(circle at 50% 20%, rgba(247, 231, 180, 0.12), transparent 44%);
+  pointer-events: none;
+}
+
+.preview-service-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.9;
+  transform: scale(1.02);
+  transition: transform 0.6s ease, opacity 0.6s ease;
+}
+
+.preview-service-image svg {
+  color: var(--gold-primary);
+}
+
+.preview-service-card:hover .preview-service-image img {
+  opacity: 1;
+  transform: scale(1.07);
+}
+
+.preview-service-content {
+  padding: 1.45rem;
 }
 
 .preview-service-card h3 {
-  margin-top: 1.5rem;
+  margin-top: 0.65rem;
   color: #ffffff;
   font-family: "Playfair Display", Georgia, serif;
-  font-size: 1.45rem;
+  font-size: clamp(1.5rem, 2vw, 2rem);
+  font-weight: 500;
+  line-height: 1.02;
 }
 
 .preview-service-card p {
@@ -1065,11 +1139,23 @@ textarea {
 
 .preview-service-card small {
   display: block;
-  margin-top: 1.35rem;
   color: var(--gold-soft);
   font-size: 0.68rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
+}
+
+.preview-service-card strong {
+  display: block;
+  margin-top: 1rem;
+  color: #ffffff;
+  font-size: 1.1rem;
+}
+
+.preview-service-card strong span {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.82rem;
+  font-weight: 500;
 }
 
 .service-whatsapp {
@@ -1107,6 +1193,28 @@ textarea {
 
 .preview-service-card:hover i {
   width: 100%;
+}
+
+.service-carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1.35rem;
+}
+
+.service-carousel-dots button {
+  width: 0.55rem;
+  height: 0.55rem;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transition: width 0.28s ease, background 0.28s ease;
+}
+
+.service-carousel-dots button.active {
+  width: 1.65rem;
+  background: var(--gold-primary);
 }
 
 .preview-bikini-correction {
@@ -3355,6 +3463,22 @@ em {
   padding: 0.8rem 0;
 }
 
+.service-admin-list article {
+  grid-template-columns: 4.5rem minmax(0, 1fr) auto auto;
+  padding: 0.8rem;
+}
+
+.service-admin-list article > img {
+  width: 4.5rem;
+  height: 4.5rem;
+  object-fit: cover;
+  border: 1px solid rgba(212, 175, 55, 0.14);
+}
+
+.service-admin-list article > svg {
+  color: var(--gold-primary);
+}
+
 .os-table-head {
   color: rgba(255, 255, 255, 0.42);
   font-size: 0.68rem;
@@ -3561,6 +3685,26 @@ em {
   font-weight: 900;
   letter-spacing: 0.12em;
   text-transform: uppercase;
+}
+
+.admin-check {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.9rem;
+}
+
+.admin-check input {
+  width: 1rem;
+  height: 1rem;
+  accent-color: #d4af37;
+}
+
+.ghost-action {
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  background: transparent !important;
+  color: rgba(255, 255, 255, 0.78) !important;
 }
 
 .settings-preview-grid {
@@ -3933,6 +4077,12 @@ em {
   filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.28));
 }
 
+@media (max-width: 1179px) and (min-width: 981px) {
+  .preview-service-card {
+    flex-basis: 50%;
+  }
+}
+
 @media (max-width: 980px) {
   .preview-header {
     padding: 1rem 1.25rem;
@@ -3954,6 +4104,10 @@ em {
 
   .preview-service-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .preview-service-card {
+    flex-basis: 50%;
   }
 
   .preview-product-card {
@@ -4127,11 +4281,19 @@ em {
     margin: -0.5rem 0 1rem;
   }
 
+  .service-carousel-top,
+  .product-carousel-top {
+    justify-content: center;
+    margin: -0.5rem 0 1rem;
+  }
+
+  .service-carousel-top button,
   .product-carousel-top button {
     width: 2.55rem;
     height: 2.55rem;
   }
 
+  .preview-service-viewport,
   .preview-product-viewport {
     margin-inline: -1.1rem;
     overflow-x: auto;
@@ -4139,8 +4301,18 @@ em {
     scrollbar-width: none;
   }
 
+  .preview-service-viewport::-webkit-scrollbar,
   .preview-product-viewport::-webkit-scrollbar {
     display: none;
+  }
+
+  .preview-service-track {
+    transform: none !important;
+  }
+
+  .preview-service-card {
+    flex: 0 0 100%;
+    scroll-snap-align: center;
   }
 
   .preview-product-track {
