@@ -713,6 +713,82 @@ textarea {
     #050505;
 }
 
+.instagram-feature {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(12rem, 0.45fr) auto;
+  gap: 1rem;
+  align-items: center;
+  max-width: 82rem;
+  margin: 0 auto 2rem;
+  border: 1px solid rgba(212, 175, 55, 0.12);
+  background:
+    radial-gradient(circle at 8% 0%, rgba(212, 175, 55, 0.16), transparent 22rem),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.014)),
+    #080808;
+  padding: clamp(1.1rem, 2.5vw, 1.6rem);
+}
+
+.instagram-feature > div:first-child {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.instagram-feature svg {
+  color: var(--gold-soft);
+}
+
+.instagram-feature span,
+.instagram-feature small {
+  color: var(--gold-soft);
+  font-size: 0.64rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.instagram-feature h3 {
+  color: #ffffff;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(2rem, 4vw, 3.8rem);
+  font-weight: 500;
+  line-height: 0.95;
+}
+
+.instagram-feature p {
+  max-width: 38rem;
+  color: rgba(255, 255, 255, 0.64);
+  line-height: 1.65;
+}
+
+.instagram-feature-stats {
+  display: grid;
+  justify-items: start;
+  gap: 0.35rem;
+  border-left: 1px solid rgba(212, 175, 55, 0.14);
+  padding-left: 1.2rem;
+}
+
+.instagram-feature-stats strong {
+  color: #f7e7b4;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-weight: 500;
+  line-height: 0.95;
+}
+
+.instagram-feature-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  justify-content: flex-end;
+}
+
+.instagram-feature-actions .preview-primary,
+.instagram-feature-actions .preview-secondary {
+  min-height: 3rem;
+  padding: 0.85rem 1rem;
+}
+
 .preview-social-grid {
   display: flex;
   gap: 1rem;
@@ -4162,6 +4238,26 @@ em {
     margin-top: 2rem;
     margin-inline: -1.1rem;
     padding-inline: 1.1rem;
+  }
+
+  .instagram-feature {
+    grid-template-columns: 1fr;
+    margin-bottom: 1.35rem;
+  }
+
+  .instagram-feature-stats {
+    border-left: 0;
+    border-top: 1px solid rgba(212, 175, 55, 0.14);
+    padding: 1rem 0 0;
+  }
+
+  .instagram-feature-actions {
+    display: grid;
+    justify-content: stretch;
+  }
+
+  .instagram-feature-actions a {
+    width: 100%;
   }
 
   .preview-social-grid article,

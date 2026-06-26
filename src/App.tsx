@@ -624,6 +624,22 @@ function LandingPage() {
             <h2>Bastidores, cabine e experiências <em>em movimento.</em></h2>
             <p>Uma rolagem leve com vídeos locais para mostrar o espaço, os procedimentos e a energia da marca.</p>
           </div>
+          <div className="instagram-feature">
+            <div>
+              <Camera size={24} />
+              <span>Instagram oficial</span>
+              <h3>@josyleaosolare</h3>
+              <p>Acompanhe resultados reais, bastidores do espaço, marquinhas, bronzeamento em Belém e novidades da agenda.</p>
+            </div>
+            <div className="instagram-feature-stats">
+              <strong>12,8 mil</strong>
+              <small>seguidores acompanhando a Solare</small>
+            </div>
+            <div className="instagram-feature-actions">
+              <a className="preview-primary" href={settings.instagram} target="_blank" rel="noreferrer">Ver Instagram</a>
+              <a className="preview-secondary" href={buildWhatsAppUrl(settings.whatsapp, ctaMessages.bronze)} target="_blank" rel="noreferrer">Agendar pelo WhatsApp</a>
+            </div>
+          </div>
           <div className="preview-social-grid">
             {socialMediaContent.map((item) => (
               <article className={item.featured ? 'featured' : ''} key={item.id}>
