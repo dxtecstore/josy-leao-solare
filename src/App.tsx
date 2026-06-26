@@ -179,6 +179,7 @@ function LandingPage() {
   };
   const quickMessage = buildWhatsAppUrl(settings.whatsapp, ctaMessages.bronze);
   const visibleProducts = (products.length >= 17 ? products : fallbackProducts).filter((product) => product.active).slice(0, 17);
+  const productImageFallback = (index: number) => fallbackProducts[index]?.image_url || fallbackProducts[0]?.image_url || '';
   const maxProductPage = Math.max(0, visibleProducts.length - productsPerView);
   const productPageCount = Math.max(1, Math.ceil(visibleProducts.length / productsPerView));
   const activeProductDot = Math.min(productPageCount - 1, Math.floor(productPage / productsPerView));
@@ -592,7 +593,19 @@ function LandingPage() {
                 {visibleProducts.map((product, index) => (
                   <article className="preview-product-card" key={product.id}>
                     <div className="preview-product-image">
-                      {product.image_url ? <img src={product.image_url} alt={product.name} loading="lazy" /> : <span>Imagem</span>}
+                      {(product.image_url || productImageFallback(index)) ? (
+                        <img
+                          src={product.image_url || productImageFallback(index)}
+                          alt={product.name}
+                          loading="lazy"
+                          onError={(event) => {
+                            const fallback = productImageFallback(index);
+                            if (fallback && event.currentTarget.src !== new URL(fallback, window.location.origin).href) {
+                              event.currentTarget.src = fallback;
+                            }
+                          }}
+                        />
+                      ) : <span>Imagem</span>}
                     </div>
                     <div>
                       <small>{String(index + 1).padStart(2, '0')} / {product.category || 'Produto'} / 18+</small>
