@@ -439,7 +439,7 @@ function LandingPage() {
             </div>
           </div>
           <div className="opening-film-media">
-            <video controls playsInline preload="metadata" poster={mediaUrl('/brand/josy-logo-from-pdf.webp')}>
+            <video controls playsInline preload="metadata">
               <source src={mediaUrl('/videos/inauguracao.mp4')} type="video/mp4" />
             </video>
           </div>
@@ -530,7 +530,7 @@ function LandingPage() {
           </div>
           <div className="preview-bronze-showcase">
             <article className="bronze-video-card">
-              <video controls playsInline muted preload="metadata" poster={mediaUrl('/brand/solare-bronze-02.jpg')}>
+              <video controls playsInline muted preload="metadata">
                 <source src={mediaUrl('/brand/video-bronze-01.mp4')} type="video/mp4" />
               </video>
               <div>
@@ -659,7 +659,7 @@ function LandingPage() {
               <article className={item.featured ? 'featured' : ''} key={item.id}>
                 <div className="preview-social-media">
                   {item.type === 'video' ? (
-                    <video controls playsInline preload="metadata" poster={item.thumbnail || item.src}>
+                    <video controls playsInline preload="metadata">
                       <source src={item.src} type="video/mp4" />
                     </video>
                   ) : (
