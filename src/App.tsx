@@ -714,6 +714,9 @@ function LandingPage() {
         <small>Copyright {new Date().getFullYear()} Josy Leão Solare. Todos os direitos reservados.</small>
       </footer>
 
+      <a className="float-instagram" href={settings.instagram} target="_blank" rel="noreferrer" aria-label="Instagram">
+        <Camera size={24} />
+      </a>
       <a className="float-whatsapp" href={quickMessage} target="_blank" rel="noreferrer" aria-label="WhatsApp">
         <MessageCircle size={26} />
       </a>
