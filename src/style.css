@@ -3428,6 +3428,145 @@ em {
   gap: 0.8rem;
 }
 
+.admin-editor-layout {
+  grid-template-columns: minmax(20rem, 0.78fr) minmax(0, 1.22fr);
+  align-items: start;
+}
+
+.admin-editor-form {
+  position: sticky;
+  top: 1rem;
+}
+
+.admin-help-text {
+  margin: -0.25rem 0 0.35rem;
+  color: rgba(255, 255, 255, 0.56);
+  font-size: 0.86rem;
+  line-height: 1.55;
+}
+
+.admin-image-preview {
+  position: relative;
+  display: grid;
+  min-height: 18rem;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid rgba(212, 175, 55, 0.16);
+  background:
+    radial-gradient(circle at 50% 20%, rgba(212, 175, 55, 0.12), transparent 42%),
+    #080808;
+  color: #d4af37;
+}
+
+.admin-image-preview.compact {
+  min-height: 14rem;
+}
+
+.admin-image-preview.small {
+  min-height: 10rem;
+}
+
+.admin-image-preview img {
+  width: 100%;
+  height: 100%;
+  max-height: 22rem;
+  object-fit: contain;
+  padding: 0.75rem;
+}
+
+.admin-image-preview span {
+  position: absolute;
+  left: 0.8rem;
+  bottom: 0.8rem;
+  background: rgba(0, 0, 0, 0.64);
+  color: #f7e7b4;
+  padding: 0.35rem 0.55rem;
+  font-size: 0.62rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.settings-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.admin-form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+}
+
+.admin-muted-button {
+  border-color: rgba(255, 255, 255, 0.14) !important;
+  background: rgba(255, 255, 255, 0.035) !important;
+  color: rgba(255, 255, 255, 0.72) !important;
+}
+
+.admin-list-head {
+  border: 1px solid rgba(247, 231, 180, 0.08);
+  background:
+    linear-gradient(145deg, rgba(212, 175, 55, 0.055), transparent 45%),
+    rgba(255, 255, 255, 0.03);
+  padding: 1rem;
+}
+
+.admin-list-head span {
+  color: #d4af37;
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.admin-list-head h3 {
+  margin-top: 0.35rem;
+  color: #ffffff;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.admin-list-head p {
+  margin-top: 0.45rem;
+  color: rgba(255, 255, 255, 0.52);
+}
+
+.admin-row-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.45rem;
+}
+
+.admin-row-actions button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border: 1px solid rgba(212, 175, 55, 0.16);
+  background: rgba(212, 175, 55, 0.055);
+  color: #f7e7b4;
+  padding: 0.58rem 0.7rem;
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.admin-row-actions button.danger {
+  border-color: rgba(255, 119, 119, 0.2);
+  color: #ff9b9b;
+}
+
+.product-admin-list article.editing {
+  border-color: rgba(212, 175, 55, 0.45);
+  background:
+    radial-gradient(circle at 0% 0%, rgba(212, 175, 55, 0.16), transparent 28%),
+    rgba(255, 255, 255, 0.04);
+}
+
 .os-form h3,
 .campaign-box h3 {
   font-family: "Cormorant Garamond", Georgia, serif;
@@ -3506,7 +3645,7 @@ em {
 
 .product-admin-list article {
   display: grid;
-  grid-template-columns: 5.5rem 1fr auto auto auto;
+  grid-template-columns: 6.5rem minmax(0, 1fr) minmax(12rem, auto);
   gap: 0.8rem;
   align-items: center;
   border: 1px solid rgba(247, 231, 180, 0.08);
@@ -3515,9 +3654,9 @@ em {
 }
 
 .product-admin-list img,
-.product-admin-list article > div {
-  width: 5.5rem;
-  height: 5.5rem;
+.product-admin-list article > div:not(.admin-row-actions) {
+  width: 6.5rem;
+  height: 6.5rem;
   object-fit: contain;
   background: #080808;
   padding: 0.4rem;
@@ -4233,6 +4372,7 @@ em {
 
   .os-grid,
   .module-grid,
+  .admin-editor-layout,
   .agenda-layout,
   .metric-grid,
   .dashboard-columns,
@@ -4245,6 +4385,28 @@ em {
 
   .dashboard-hero a,
   .studio-header a {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .admin-editor-form {
+    position: static;
+  }
+
+  .settings-preview-grid,
+  .admin-form-actions,
+  .admin-row-actions {
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
+
+  .admin-form-actions,
+  .admin-row-actions {
+    display: grid;
+  }
+
+  .admin-form-actions button,
+  .admin-row-actions button {
     justify-content: center;
     width: 100%;
   }

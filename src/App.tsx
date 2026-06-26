@@ -44,6 +44,8 @@ const productCategories = ['Lingerie', 'Cosméticos', 'Acessórios', 'Presentes'
 const statusList: Appointment['status'][] = ['novo', 'confirmado', 'realizado', 'cancelado'];
 const periods = ['Manha', 'Tarde', 'Noite'];
 const demoProductsKey = 'solare_demo_products';
+const demoGalleryKey = 'solare_demo_gallery';
+const demoSettingsKey = 'solare_demo_settings';
 const mediaVersion = '20260622b';
 
 function mediaUrl(path: string) {
@@ -69,6 +71,32 @@ function readDemoProducts() {
 
 function saveDemoProducts(products: Product[]) {
   window.localStorage.setItem(demoProductsKey, JSON.stringify(products));
+}
+
+function readDemoGallery() {
+  try {
+    const raw = window.localStorage.getItem(demoGalleryKey);
+    return raw ? (JSON.parse(raw) as GalleryItem[]) : fallbackGallery;
+  } catch {
+    return fallbackGallery;
+  }
+}
+
+function saveDemoGallery(gallery: GalleryItem[]) {
+  window.localStorage.setItem(demoGalleryKey, JSON.stringify(gallery));
+}
+
+function readDemoSettings() {
+  try {
+    const raw = window.localStorage.getItem(demoSettingsKey);
+    return raw ? (JSON.parse(raw) as BusinessSettings) : fallbackSettings;
+  } catch {
+    return fallbackSettings;
+  }
+}
+
+function saveDemoSettings(settings: BusinessSettings) {
+  window.localStorage.setItem(demoSettingsKey, JSON.stringify(settings));
 }
 
 function fileToDataUrl(file: File) {
@@ -122,6 +150,7 @@ function LandingPage() {
   useEffect(() => {
     async function loadPublicData() {
       if (!supabase) {
+        setSettings(readDemoSettings());
         setProducts(readDemoProducts().filter((product) => product.active));
         return;
       }
@@ -737,6 +766,8 @@ function AdminDashboard() {
       if (!supabase) {
         if (window.sessionStorage.getItem('solare_demo_admin') === 'true') {
           setProducts(readDemoProducts());
+          setGallery(readDemoGallery());
+          setSettings(readDemoSettings());
           setSessionReady(true);
           return;
         }
@@ -898,12 +929,12 @@ function AdminDashboard() {
         {activeModule === 'agenda' && <AgendaModule appointments={appointments} blocks={blocks} reload={loadAdminData} />}
         {activeModule === 'crm' && <CrmModule clients={clients} reload={loadAdminData} />}
         {activeModule === 'products' && <ProductsModule products={products} setProducts={setProducts} reload={loadAdminData} />}
-        {activeModule === 'gallery' && <GalleryModule gallery={gallery} reload={loadAdminData} />}
+        {activeModule === 'gallery' && <GalleryModule gallery={gallery} setGallery={setGallery} reload={loadAdminData} />}
         {activeModule === 'services' && <ServicesModule services={services} reload={loadAdminData} />}
         {activeModule === 'testimonials' && <TestimonialsModule testimonials={testimonials} reload={loadAdminData} />}
         {activeModule === 'loyalty' && <LoyaltyModule clients={clients} reload={loadAdminData} />}
         {activeModule === 'campaigns' && <CampaignsModule clients={clients} services={services} />}
-        {activeModule === 'settings' && <SettingsModule settings={settings} reload={loadAdminData} />}
+        {activeModule === 'settings' && <SettingsModule settings={settings} setSettings={setSettings} reload={loadAdminData} />}
       </main>
     </div>
   );
@@ -1140,7 +1171,7 @@ function ProductsModule({
     }
     setProduct(emptyProduct);
     setEditingId('');
-    await reload();
+      await reload();
   }
 
   function edit(item: Product) {
@@ -1153,6 +1184,7 @@ function ProductsModule({
       category: item.category ?? productCategories[0],
       active: item.active,
     });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   async function remove(id: string) {
@@ -1187,9 +1219,13 @@ function ProductsModule({
   }
 
   return (
-    <section className="module-grid">
-      <form className="os-form" onSubmit={save}>
+    <section className="module-grid admin-editor-layout">
+      <form className="os-form admin-editor-form" onSubmit={save}>
             <h3>{editingId ? 'Editar produto' : 'Novo produto do catálogo'}</h3>
+        <p className="admin-help-text">Escolha uma foto, confira a prévia e salve. Para trocar imagem de um produto existente, clique em Editar na lista.</p>
+        <div className="admin-image-preview compact">
+          {product.image_url ? <img src={product.image_url} alt={product.name || 'Prévia do produto'} /> : <ImageUp size={34} />}
+        </div>
         <input required placeholder="Nome do produto" value={product.name} onChange={(event) => setProduct({ ...product, name: event.target.value })} />
         <input placeholder="Preço" value={product.price} onChange={(event) => setProduct({ ...product, price: event.target.value })} />
         <select value={product.category} onChange={(event) => setProduct({ ...product, category: event.target.value })}>
@@ -1197,16 +1233,21 @@ function ProductsModule({
         </select>
         <label className="file-field">
           <ImageUp size={16} />
-          {uploading ? 'Enviando imagem...' : 'Enviar imagem do produto'}
+          {uploading ? 'Enviando imagem...' : product.image_url ? 'Trocar foto do produto' : 'Escolher foto do produto'}
           <input type="file" accept="image/*" onChange={(event) => void handleUpload(event.target.files?.[0])} />
         </label>
         <input placeholder="URL da imagem" value={product.image_url} onChange={(event) => setProduct({ ...product, image_url: event.target.value })} />
         <textarea placeholder="Descrição e informações do produto" value={product.description} onChange={(event) => setProduct({ ...product, description: event.target.value })} />
-        <button><Plus size={16} /> {editingId ? 'Salvar alterações' : 'Adicionar produto'}</button>
+        <button><CheckCircle2 size={16} /> {editingId ? 'Salvar produto' : 'Adicionar produto'}</button>
       </form>
       <div className="product-admin-list">
+        <div className="admin-list-head">
+          <span>{products.length} produtos</span>
+          <h3>Produtos cadastrados</h3>
+          <p>Clique em editar para trocar foto, texto, preço ou status.</p>
+        </div>
         {products.map((item) => (
-          <article key={item.id}>
+          <article className={editingId === item.id ? 'editing' : ''} key={item.id}>
             {item.image_url ? <img src={item.image_url} alt={item.name} /> : <div />}
             <section>
               <span>{item.category}</span>
@@ -1214,9 +1255,11 @@ function ProductsModule({
               <p>{item.description}</p>
               <strong>{money(item.price)}</strong>
             </section>
-            <button onClick={() => edit(item)}><Pencil size={16} /></button>
-            <button onClick={() => void toggle(item)}>{item.active ? 'Ativo' : 'Oculto'}</button>
-            <button onClick={() => void remove(item.id)}><Trash2 size={16} /></button>
+            <div className="admin-row-actions">
+              <button onClick={() => edit(item)}><Pencil size={16} /> Editar</button>
+              <button onClick={() => void toggle(item)}>{item.active ? 'Visível' : 'Oculto'}</button>
+              <button className="danger" onClick={() => void remove(item.id)}><Trash2 size={16} /> Excluir</button>
+            </div>
           </article>
         ))}
       </div>
@@ -1224,20 +1267,39 @@ function ProductsModule({
   );
 }
 
-function GalleryModule({ gallery, reload }: { gallery: GalleryItem[]; reload: () => Promise<void> }) {
+function GalleryModule({ gallery, setGallery, reload }: { gallery: GalleryItem[]; setGallery: (gallery: GalleryItem[]) => void; reload: () => Promise<void> }) {
   const [item, setItem] = useState({ title: '', image_url: '', category: categories[0], active: true });
   const [uploading, setUploading] = useState(false);
 
   async function save(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!supabase) return;
+    if (!supabase) {
+      const nextItem: GalleryItem = {
+        id: `gallery-${Date.now()}`,
+        title: item.title || 'Foto Solare',
+        image_url: item.image_url,
+        category: item.category,
+        active: item.active,
+        created_at: new Date().toISOString(),
+      };
+      const nextGallery = [nextItem, ...gallery];
+      setGallery(nextGallery);
+      saveDemoGallery(nextGallery);
+      setItem({ title: '', image_url: '', category: categories[0], active: true });
+      return;
+    }
     await supabase.from('gallery').insert(item);
     setItem({ title: '', image_url: '', category: categories[0], active: true });
     await reload();
   }
 
   async function toggle(id: string, active: boolean) {
-    if (!supabase) return;
+    if (!supabase) {
+      const nextGallery = gallery.map((photo) => (photo.id === id ? { ...photo, active: !active } : photo));
+      setGallery(nextGallery);
+      saveDemoGallery(nextGallery);
+      return;
+    }
     await supabase.from('gallery').update({ active: !active }).eq('id', id);
     await reload();
   }
@@ -1246,7 +1308,7 @@ function GalleryModule({ gallery, reload }: { gallery: GalleryItem[]; reload: ()
     if (!file) return;
     setUploading(true);
     try {
-      const imageUrl = await uploadMedia(file, 'gallery');
+      const imageUrl = supabase ? await uploadMedia(file, 'gallery') : await fileToDataUrl(file);
       setItem((current) => ({ ...current, image_url: imageUrl }));
     } finally {
       setUploading(false);
@@ -1257,6 +1319,10 @@ function GalleryModule({ gallery, reload }: { gallery: GalleryItem[]; reload: ()
     <section className="module-grid">
       <form className="os-form" onSubmit={save}>
         <h3>Upload por categoria</h3>
+        <p className="admin-help-text">Escolha a foto, veja a prévia e publique na galeria. No modo demo, fica salvo neste navegador.</p>
+        <div className="admin-image-preview compact">
+          {item.image_url ? <img src={item.image_url} alt={item.title || 'Prévia da galeria'} /> : <ImageUp size={34} />}
+        </div>
         <input placeholder="Titulo" value={item.title} onChange={(event) => setItem({ ...item, title: event.target.value })} />
         <label className="file-field">
           <ImageUp size={16} />
@@ -1439,7 +1505,7 @@ function CampaignsModule({ clients, services }: { clients: ClientProfile[]; serv
   );
 }
 
-function SettingsModule({ settings, reload }: { settings: BusinessSettings; reload: () => Promise<void> }) {
+function SettingsModule({ settings, setSettings, reload }: { settings: BusinessSettings; setSettings: (settings: BusinessSettings) => void; reload: () => Promise<void> }) {
   const [draft, setDraft] = useState(settings);
   const [uploading, setUploading] = useState('');
 
@@ -1447,7 +1513,11 @@ function SettingsModule({ settings, reload }: { settings: BusinessSettings; relo
 
   async function save(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!supabase) return;
+    if (!supabase) {
+      setSettings(draft);
+      saveDemoSettings(draft);
+      return;
+    }
     await supabase.from('settings').upsert(draft);
     await reload();
   }
@@ -1456,7 +1526,7 @@ function SettingsModule({ settings, reload }: { settings: BusinessSettings; relo
     if (!file) return;
     setUploading(field);
     try {
-      const imageUrl = await uploadMedia(file, 'settings');
+      const imageUrl = supabase ? await uploadMedia(file, 'settings') : await fileToDataUrl(file);
       setDraft((current) => ({ ...current, [field]: imageUrl }));
     } finally {
       setUploading('');
@@ -1466,6 +1536,17 @@ function SettingsModule({ settings, reload }: { settings: BusinessSettings; relo
   return (
     <form className="os-form settings-form" onSubmit={save}>
       <h3>Configurações do site</h3>
+      <p className="admin-help-text">Troque logo, WhatsApp, Instagram e endereço. No modo demo, as mudanças ficam salvas neste navegador.</p>
+      <div className="settings-preview-grid">
+        <div className="admin-image-preview small">
+          {draft.logo_url ? <img src={draft.logo_url} alt="Prévia da logo" /> : <ImageUp size={28} />}
+          <span>Logo atual</span>
+        </div>
+        <div className="admin-image-preview small">
+          {draft.hero_image_url ? <img src={draft.hero_image_url} alt="Prévia da imagem principal" /> : <ImageUp size={28} />}
+          <span>Imagem principal</span>
+        </div>
+      </div>
       <input value={draft.business_name} onChange={(event) => setDraft({ ...draft, business_name: event.target.value })} placeholder="Nome da empresa" />
       <input value={draft.whatsapp} onChange={(event) => setDraft({ ...draft, whatsapp: event.target.value })} placeholder="WhatsApp" />
       <input value={draft.instagram} onChange={(event) => setDraft({ ...draft, instagram: event.target.value })} placeholder="Instagram" />
