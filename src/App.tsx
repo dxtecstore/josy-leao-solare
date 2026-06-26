@@ -47,6 +47,7 @@ const demoProductsKey = 'solare_demo_products';
 const demoGalleryKey = 'solare_demo_gallery';
 const demoSettingsKey = 'solare_demo_settings';
 const mediaVersion = '20260622b';
+const officialInstagramUrl = 'https://www.instagram.com/josyleaooficial/';
 
 function mediaUrl(path: string) {
   return `${path}?v=${mediaVersion}`;
@@ -547,7 +548,7 @@ function LandingPage() {
             </div>
           </div>
           <div className="preview-section-actions">
-            <a className="preview-secondary" href={settings.instagram} target="_blank" rel="noreferrer">Ver resultados no Instagram</a>
+            <a className="preview-secondary" href={officialInstagramUrl} target="_blank" rel="noreferrer">Ver resultados no Instagram</a>
             <a className="preview-primary" href={buildWhatsAppUrl(settings.whatsapp, ctaMessages.bronze)} target="_blank" rel="noreferrer">Agendar pelo WhatsApp</a>
           </div>
         </section>
@@ -628,7 +629,7 @@ function LandingPage() {
             <div>
               <Camera size={24} />
               <span>Instagram oficial</span>
-              <h3>@josyleaosolare</h3>
+              <h3>@josyleaooficial</h3>
               <p>Acompanhe resultados reais, bastidores do espaço, marquinhas, bronzeamento em Belém e novidades da agenda.</p>
             </div>
             <div className="instagram-feature-stats">
@@ -636,7 +637,7 @@ function LandingPage() {
               <small>seguidores acompanhando a Solare</small>
             </div>
             <div className="instagram-feature-actions">
-              <a className="preview-primary" href={settings.instagram} target="_blank" rel="noreferrer">Ver Instagram</a>
+              <a className="preview-primary" href={officialInstagramUrl} target="_blank" rel="noreferrer">Ver Instagram</a>
               <a className="preview-secondary" href={buildWhatsAppUrl(settings.whatsapp, ctaMessages.bronze)} target="_blank" rel="noreferrer">Agendar pelo WhatsApp</a>
             </div>
           </div>
@@ -706,7 +707,7 @@ function LandingPage() {
           <h3>Josy Leão <em>Solare</em></h3>
         </div>
         <nav>
-          <a href={settings.instagram} target="_blank" rel="noreferrer" aria-label="Instagram"><Camera size={20} /></a>
+          <a href={officialInstagramUrl} target="_blank" rel="noreferrer" aria-label="Instagram"><Camera size={20} /></a>
           <a href={quickMessage} target="_blank" rel="noreferrer" aria-label="WhatsApp"><MessageCircle size={20} /></a>
         </nav>
         <p>{settings.address}</p>
@@ -714,7 +715,7 @@ function LandingPage() {
         <small>Copyright {new Date().getFullYear()} Josy Leão Solare. Todos os direitos reservados.</small>
       </footer>
 
-      <a className="float-instagram" href={settings.instagram} target="_blank" rel="noreferrer" aria-label="Instagram">
+      <a className="float-instagram" href={officialInstagramUrl} target="_blank" rel="noreferrer" aria-label="Instagram">
         <Camera size={24} />
       </a>
       <a className="float-whatsapp" href={quickMessage} target="_blank" rel="noreferrer" aria-label="WhatsApp">

@@ -4,7 +4,7 @@ export const fallbackSettings: Settings = {
   id: 'default',
   business_name: 'Josy Leão Solare',
   whatsapp: '5591986302070',
-  instagram: 'https://www.instagram.com/josyleaosolare/',
+  instagram: 'https://www.instagram.com/josyleaooficial/',
   address: 'Av. Alcindo Cacela, 1474 - Nazaré - Belém/PA',
   logo_url: '/brand/josy-logo-from-pdf.webp',
   hero_image_url: '/brand/solare-bronze-02.jpg?v=20260620d',
